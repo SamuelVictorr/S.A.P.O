@@ -55,6 +55,10 @@ public class DataBase {
 
     //Para teste
     public static void main(String[] args) {
-
+        try {
+            addClient("Leonardo","175.108.456.34","(81) 98167-8790","Eu sou branco e herdeiro");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

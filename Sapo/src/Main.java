@@ -1,8 +1,11 @@
+import api.Client;
 import ui.Clientes;
 import api.DataBase;
 import javax.swing.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
 
@@ -20,7 +23,13 @@ public class Main {
 
         mainFrame.setVisible(true);
         try {
-            System.out.println(DataBase.getClients());
+            var clientsDB = DataBase.getClients();
+            ArrayList<String> clientsDbString = new ArrayList<>();
+            for (Client client : clientsDB) {
+                clientsDbString.add(client.getName());
+            }
+
+            clienteForm.setList(clientsDbString);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

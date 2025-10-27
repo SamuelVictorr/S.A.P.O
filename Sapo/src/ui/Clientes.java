@@ -3,11 +3,17 @@ package ui;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Clientes {
     public JPanel clientesPanel;
     public JTextField seacrhField;
-    public JTable clientesTable;
+    private JList clientList;
+
+
+    public void setList(ArrayList<String> list) {
+        clientList.setListData(list.toArray());
+    }
 
     public Clientes() {
         seacrhField.addKeyListener(new KeyAdapter() {
