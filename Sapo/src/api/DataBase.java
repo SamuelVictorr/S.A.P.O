@@ -61,12 +61,20 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
-
+    public static void updateClient(String cpf, String telefone) throws SQLException{
+        Connection connection = connect();
+        String sql = "UPDATE clientes SET telefone = ? WHERE cpf = ? ";
+        var stmt = connection.prepareStatement(sql);
+        stmt.setString(1, telefone);
+        stmt.setString(2, cpf);
+        stmt.executeUpdate();
+    }
     //Para teste
     public static void main(String[] args) {
         try {
 //            addClient("Gabriel","050.149.073.69","(81) 98369-7190","Sla" );
-            removeClient("050.149.073.69");
+//            removeClient("050.149.073.69");
+            updateClient("050.149.073.69", "(81) 98369-7190");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
