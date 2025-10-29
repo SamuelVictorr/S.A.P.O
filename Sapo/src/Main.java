@@ -1,11 +1,10 @@
 import api.Client;
-import ui.Clientes;
+import ui.Cadastre;
 import api.DataBase;
 import javax.swing.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
 
@@ -15,11 +14,14 @@ public class Main {
         mainFrame.setTitle("S.A.P.O");
         mainFrame.setSize(800, 600);
         mainFrame.setExtendedState(MAXIMIZED_BOTH);
-
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //Inicializa o painel de clientes dentro do frame
-        Clientes clienteForm = new Clientes();
+        Cadastre clienteForm = new Cadastre();
         mainFrame.setContentPane(clienteForm.clientesPanel);
+
+        JButton botao = new JButton();
+        botao.setBounds(200,100,100,50);
 
         mainFrame.setVisible(true);
         try {
