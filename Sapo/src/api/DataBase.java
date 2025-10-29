@@ -53,10 +53,20 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
+    public static void removeClient(String cpf) throws SQLException{
+        Connection connection = connect();
+        String sql = "DELETE FROM clientes WHERE cpf = ? ";
+        var stmt = connection.prepareStatement(sql);
+        stmt.setString(1, cpf);
+        stmt.executeUpdate();
+    }
+
+
     //Para teste
     public static void main(String[] args) {
         try {
-            addClient("Leonardo","175.108.456.34","(81) 98167-8790","Eu sou branco e herdeiro");
+//            addClient("Gabriel","050.149.073.69","(81) 98369-7190","Sla" );
+            removeClient("050.149.073.69");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
