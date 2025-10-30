@@ -15,7 +15,7 @@ public class Cadastre {
     private JTextField TextoFieldRemark;
     private JLabel CPFClient;
     private JLabel TelephoneClient;
-    private JLabel cadastre;
+    private JButton ButtonCadastre;
     private JList clientList;
 
 
