@@ -22,16 +22,5 @@ public class Main {
         mainFrame.setContentPane(clienteForm.clientesPanel);
 
         mainFrame.setVisible(true);
-        try {
-            var clientsDB = DataBase.getClients();
-            ArrayList<String> clientsDbString = new ArrayList<>();
-            for (Client client : clientsDB) {
-                clientsDbString.add(client.getName());
-            }
-
-            clienteForm.setList(clientsDbString);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
