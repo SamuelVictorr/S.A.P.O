@@ -26,6 +26,7 @@ public class DataBase {
         String sql = "SELECT * FROM clientes";
         List<Client> clients = new ArrayList<>();
 
+        assert connection != null;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -46,6 +47,7 @@ public class DataBase {
     public static void addClient(String name, String cpf, String telefone, String observacao) throws SQLException {
         Connection connection = connect();
         String sql = "INSERT INTO clientes (name,cpf,telefone,observacao) VALUES (?,?,?,?)";
+        assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1,name);
         stmt.setString(2,cpf);
@@ -57,6 +59,7 @@ public class DataBase {
     public static void removeClient(String cpf) throws SQLException{
         Connection connection = connect();
         String sql = "DELETE FROM clientes WHERE cpf = ? ";
+        assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, cpf);
         stmt.executeUpdate();
@@ -65,13 +68,14 @@ public class DataBase {
     public static void updateClient(String cpf, String telefone) throws SQLException{
         Connection connection = connect();
         String sql = "UPDATE clientes SET telefone = ? WHERE cpf = ? ";
+        assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, telefone);
         stmt.setString(2, cpf);
         stmt.executeUpdate();
     }
     //Teste p/ ver se dá para verificar dentro do próprio DB
-    static boolean verifyCPF( String cpf) throws SQLException{
+    static boolean verifyCPF( String cpf) {
         boolean resultado;
         int[] lista = new int[11];
         int digitoVerificador1;
@@ -106,29 +110,12 @@ public class DataBase {
             digitoVerificador2 = (11 - divisaoVerificador2);
         }
 
-        if (digitoVerificador1 == lista [9] && digitoVerificador2 == lista[10]){
-            resultado = true;
-        } else {
-            resultado = false;
-        }
-
+        resultado = digitoVerificador1 == lista[9] && digitoVerificador2 == lista[10];
         return resultado;
 
     }
     //Para teste
     public static void main(String[] args) {
-        try {
-//            addClient("Gabriel","050.149.073.69","(81) 98369-7190","Sla" );
-//            removeClient("050.149.073.69");
-//            updateClient("050.149.073.69", "(81) 98369-7190");
-            if (verifyCPF("050.149.073.69")){
-//                removeClient("050.149.073.69");
-                System.out.println("It works!!");
-            } else {
-                System.out.println("CPF não encontrado");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 }

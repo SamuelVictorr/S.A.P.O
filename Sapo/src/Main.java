@@ -16,7 +16,6 @@ public class Main {
         mainFrame.setSize(800, 600);
         mainFrame.setExtendedState(MAXIMIZED_BOTH);
 
-
         //Inicializa o painel de clientes dentro do frame
         Clientes clienteForm = new Clientes();
         mainFrame.setContentPane(clienteForm.clientesPanel);
