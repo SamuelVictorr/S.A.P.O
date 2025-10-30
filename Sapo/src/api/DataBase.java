@@ -2,6 +2,7 @@ package api;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DataBase {
@@ -69,12 +70,57 @@ public class DataBase {
         stmt.setString(2, cpf);
         stmt.executeUpdate();
     }
+    //Teste p/ ver se dá para verificar dentro do próprio DB
+    static boolean verifyCPF( String cpf) throws SQLException{
+        boolean resultado;
+        int[] lista = new int[11];
+        int digitoVerificador1;
+        int digitoVerificador2;
+
+        for(int i = 0; i < cpf.length(); i ++) {
+            String parteExtraida = cpf.substring(i, (1 + i));
+            int numCpf = Integer.parseInt(parteExtraida);
+            lista[i] = numCpf;
+        }
+        int calculo = (lista[0] * 10) + (lista[1] * 9) + (lista[2] * 8) + (lista[3] * 7) + ( 6 * lista[4]) + (5 * lista[5]) + ( 4 * lista[6]) + ( lista[7] * 3)+ (lista[8] * 2);
+        System.out.println(calculo);
+        int divisaoVerificador1 = (calculo % 11);
+        if(divisaoVerificador1 > -1 && divisaoVerificador1 < 2){
+            digitoVerificador1 = 0;
+        } else {
+            digitoVerificador1 = (11 - divisaoVerificador1);
+        }
+        int calculo2 = (lista[0] * 11) + (lista[1] * 10) + (lista[2] * 9) + (lista[3] * 8) + ( 7 * lista[4]) + (6 * lista[5]) + ( 5 * lista[6]) + ( lista[7] * 4)+ (lista[8] * 3) + (digitoVerificador1 * 2);
+        System.out.println(calculo2);
+        int divisaoVerificador2 = (calculo2 % 11);
+
+        if(divisaoVerificador2 > -1 && divisaoVerificador2 < 2){
+            digitoVerificador2 = 0;
+        } else {
+            digitoVerificador2 = (11 - divisaoVerificador2);
+        }
+
+        if (digitoVerificador1 == lista [9] && digitoVerificador2 == lista[10]){
+            resultado = true;
+        } else {
+            resultado = false;
+        }
+
+        return resultado;
+
+    }
     //Para teste
     public static void main(String[] args) {
         try {
 //            addClient("Gabriel","050.149.073.69","(81) 98369-7190","Sla" );
 //            removeClient("050.149.073.69");
-            updateClient("050.149.073.69", "(81) 98369-7190");
+//            updateClient("050.149.073.69", "(81) 98369-7190");
+            if (verifyCPF("05014907369")){
+//                removeClient("050.149.073.69");
+                System.out.println("It works!!");
+            } else {
+                System.out.println("CPF não encontrado");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
