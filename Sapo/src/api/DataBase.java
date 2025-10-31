@@ -74,6 +74,7 @@ public class DataBase {
         stmt.setString(2, cpf);
         stmt.executeUpdate();
     }
+
     //Teste p/ ver se dá para verificar dentro do próprio DB
     static boolean verifyCPF( String cpf) {
         boolean resultado;
@@ -112,10 +113,18 @@ public class DataBase {
 
         resultado = digitoVerificador1 == lista[9] && digitoVerificador2 == lista[10];
         return resultado;
-
     }
+
     //Para teste
     public static void main(String[] args) {
-
+        try {
+            removeClient("123456789101");
+            removeClient("123456789101");
+            removeClient("123456789101");
+            removeClient("12342313213");
+            removeClient("12342313213");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

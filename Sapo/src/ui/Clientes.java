@@ -12,7 +12,7 @@ public class Clientes {
     public JPanel clientesPanel;
     public JTextField searchField;
     private JList<String> clientList;
-    private DefaultListModel<String> listModel;
+    private final DefaultListModel<String> listModel;
     private List<Client> clientsDB;
 
     public Clientes() {
