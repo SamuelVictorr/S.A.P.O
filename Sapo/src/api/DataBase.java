@@ -62,71 +62,157 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
-    public static void updateClient(String cpf, String telefone) throws SQLException{
+/*Árvore de possibilidades
+* Criar uma variável de possibilidade onde "sql" muda toda vez (sql[n] (teria coisa pra k7), seria um algorítmo O(n²)) tier: B+ (é possível, mas inescalável)
+* Fazer com que as funções se agrupem  (fazer um if dentro do outro e assim criar o input completo) tier: improvável
+*  */
+
+    public static void updateClient(String namePatient, String cpfPatient, String phoneNumberPatient, int numIdPatient) throws SQLException{
         Connection connection = connect();
-        String sql = "UPDATE clientes SET telefone = ? WHERE cpf = ? ";
+        String sql = "";
+        int situation = 0;
+
+        if (!namePatient.isEmpty() && !cpfPatient.isBlank() && !phoneNumberPatient.isEmpty()){
+            sql = "UPDATE clientes SET name = ?, telefone = ?, cpf = ? WHERE id = ?";
+            situation = 1;
+            System.out.println("All patient " + numIdPatient + " data got updated Successfully");
+        } else if (!namePatient.isEmpty() && !cpfPatient.isBlank()){
+            sql = "UPDATE clientes SET name = ?, telefone = (telefone), cpf = ? WHERE id = ? ";
+            System.out.println("Name and CPF of the patient got changed");
+            situation = 2;
+        } else if (!namePatient.isEmpty() && !phoneNumberPatient.isEmpty()) {
+            sql = "UPDATE clientes SET name = ? , telefone = ?, cpf = (cpf) WHERE id = ? ";
+            System.out.println("Patient name and phoneNumber Updated Successfully");
+            situation = 3;
+        } else if (!cpfPatient.isBlank() && !phoneNumberPatient.isEmpty()) {
+            sql = "UPDATE clientes SET name = (name) , telefone = ?, cpf = ? WHERE id = ?";
+            situation = 4;
+            System.out.println("Patient phoneNumber and CPF updated Successfully");
+        } else if (!phoneNumberPatient.isEmpty()) {
+            sql = "UPDATE clientes SET name = (name), telefone = ?, cpf = (cpf) WHERE id = ?";
+            situation = 5;
+            System.out.println("Patient's phoneNumber changed");
+        }else if (!namePatient.isEmpty()) {
+            sql = "UPDATE clientes SET name = ?, telefone = (telefone), cpf = (cpf) WHERE id = ?";
+            situation = 6;
+            System.out.println("Patient name updated Successfully");
+        } else if (!cpfPatient.isBlank()) {
+            sql = "UPDATE clientes SET name = (name), telefone = (telefone), cpf = ? WHERE id = ?";
+            situation = 7;
+            System.out.println("Patient CPF updated Successfully");
+        } else {
+            System.out.println("Nada mudou");
+        }
+        System.out.println(situation);
         var stmt = connection.prepareStatement(sql);
-        stmt.setString(1, telefone);
-        stmt.setString(2, cpf);
+        System.out.println(sql);
+        switch (situation) {
+            case 1:
+                stmt.setString(1, namePatient);
+                stmt.setString(2, phoneNumberPatient);
+                stmt.setString(3, cpfPatient);
+                stmt.setInt(4, numIdPatient);
+                break;
+            case 2:
+                stmt.setString(1, namePatient);
+                stmt.setString(2, cpfPatient);
+                stmt.setInt(3, numIdPatient);
+                break;
+            case 3:
+                stmt.setString(1, namePatient);
+                stmt.setString(2, phoneNumberPatient);
+                stmt.setInt(3, numIdPatient);
+                break;
+            case 4:
+                stmt.setString(1, phoneNumberPatient);
+                stmt.setString(2, cpfPatient);
+                stmt.setInt(3, numIdPatient);
+                break;
+            case 5:
+                stmt.setString(1, phoneNumberPatient);
+                stmt.setInt(2, numIdPatient);
+                break;
+            case 6:
+                stmt.setString(1, namePatient);
+                stmt.setInt(2, numIdPatient);
+                break;
+            case 7:
+                stmt.setString(1, cpfPatient);
+                stmt.setInt(2, numIdPatient);
+                break;
+            default:
+                System.out.println("De alguma forma isso deu errado :D");
+        }
+
         stmt.executeUpdate();
+
     }
-    //Teste p/ ver se dá para verificar dentro do próprio DB
-    static boolean verifyCPF( String cpf) throws SQLException{
-        boolean resultado;
-        int[] lista = new int[11];
-        int digitoVerificador1;
-        int digitoVerificador2;
+
+    static boolean verifyCPF( String cpf) throws  SQLException{
+        boolean cpfIsReal;
+        int[] cpfNumberslist = new int[11];
+        int penultimateDigitVerify;
+        int lastDigitVerify;
 
         //Convert the cpf string with the "." in a version without that
-        String stringModificada = cpf.replace(".", "");
+        String cpfConversor1 = cpf.replace(".", "").replace("-", "");
 
         //Get all the element in the cpf and put them on an array
-        for(int i = 0; i < stringModificada.length(); i ++) {
-            String parteExtraida = stringModificada.substring(i, (1 + i));
-            int numCpf = Integer.parseInt(parteExtraida);
-            lista[i] = numCpf;
+        for(int i = 0; i < cpfConversor1.length(); i ++) {
+            String cpfElement = cpfConversor1.substring(i, (1 + i));
+            int numCpf = Integer.parseInt(cpfElement);
+            cpfNumberslist[i] = numCpf;
         }
-        System.out.println(Arrays.toString(lista));
+        System.out.println(Arrays.toString(cpfNumberslist));
 
         //Calculation to verify the 10th element of the CPF
-        int calculo = (lista[0] * 10) + (lista[1] * 9) + (lista[2] * 8) + (lista[3] * 7) + ( 6 * lista[4]) + (5 * lista[5]) + ( 4 * lista[6]) + ( lista[7] * 3)+ (lista[8] * 2);
-        int divisaoVerificador1 = (calculo % 11);
-        if(divisaoVerificador1 > -1 && divisaoVerificador1 < 2){
-            digitoVerificador1 = 0;
+        int calculo = 0;
+        for (int i = 0; i < 9; i ++ ){
+            calculo += (cpfNumberslist[i] * (10 - i));
+        }
+        int divisionPenultimateDigit = (calculo % 11);
+        if(divisionPenultimateDigit > -1 && divisionPenultimateDigit < 2){
+            penultimateDigitVerify = 0;
         } else {
-            digitoVerificador1 = (11 - divisaoVerificador1);
+            penultimateDigitVerify = (11 - divisionPenultimateDigit);
         }
 
         //Calculation to verify the 11th element of the CPF
-        int calculo2 = (lista[0] * 11) + (lista[1] * 10) + (lista[2] * 9) + (lista[3] * 8) + ( 7 * lista[4]) + (6 * lista[5]) + ( 5 * lista[6]) + ( lista[7] * 4)+ (lista[8] * 3) + (digitoVerificador1 * 2);
-        int divisaoVerificador2 = (calculo2 % 11);
-        if(divisaoVerificador2 > -1 && divisaoVerificador2 < 2){
-            digitoVerificador2 = 0;
-        } else {
-            digitoVerificador2 = (11 - divisaoVerificador2);
+        int calculo2 = penultimateDigitVerify * 2;
+        for (int i = 0; i < 9; i ++ ){
+            calculo2 += (cpfNumberslist[i] * (11 - i));
         }
-
-        if (digitoVerificador1 == lista [9] && digitoVerificador2 == lista[10]){
-            resultado = true;
+        int divisionForLastDidig = (calculo2 % 11);
+        if(divisionForLastDidig > -1 && divisionForLastDidig < 2){
+            lastDigitVerify = 0;
         } else {
-            resultado = false;
+            lastDigitVerify = (11 - divisionForLastDidig);
         }
+        System.out.println(calculo);
+        System.out.println(calculo2);
+        System.out.println(penultimateDigitVerify);
+        System.out.println(lastDigitVerify);
+        System.out.println(cpfConversor1);
 
-        return resultado;
+
+        cpfIsReal = penultimateDigitVerify == cpfNumberslist[9] && lastDigitVerify == cpfNumberslist[10];
+
+        return cpfIsReal;
 
     }
     //Para teste
     public static void main(String[] args) {
         try {
 //            addClient("Gabriel","050.149.073.69","(81) 98369-7190","Sla" );
+//            System.out.println(verifyCPF("175.108.554-62"));
 //            removeClient("050.149.073.69");
-//            updateClient("050.149.073.69", "(81) 98369-7190");
-            if (verifyCPF("050.149.073.69")){
+            updateClient( "","", "(81)98369-711190", 15);
+//            if (verifyCPF("050.149.073.69")){
 //                removeClient("050.149.073.69");
-                System.out.println("It works!!");
-            } else {
-                System.out.println("CPF não encontrado");
-            }
+//                System.out.println("It works!!");
+//            } else {
+//                System.out.println("CPF não encontrado");
+//            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
