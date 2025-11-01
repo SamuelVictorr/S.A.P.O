@@ -2,11 +2,12 @@ package api;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataBase {
-    public static Connection connect() {
+    public static Connection connect()  {
         // connection string
         var url = "jdbc:sqlite:Sapo/src/api/mydb.db";
 
@@ -62,6 +63,12 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
+    public static boolean verifyNamePatient(String namePatient) {
+        Pattern nameVerifierPattern = Pattern.compile("\\W");
+        Matcher patternMatcher = nameVerifierPattern.matcher(namePatient);
+
+        return patternMatcher.find();
+    }
 /*Árvore de possibilidades
 * Criar uma variável de possibilidade onde "sql" muda toda vez (sql[n] (teria coisa pra k7), seria um algorítmo O(n²)) tier: B+ (é possível, mas inescalável)
 * Fazer com que as funções se agrupem  (fazer um if dentro do outro e assim criar o input completo) tier: improvável
@@ -163,7 +170,7 @@ public class DataBase {
             int numCpf = Integer.parseInt(cpfElement);
             cpfNumberslist[i] = numCpf;
         }
-        System.out.println(Arrays.toString(cpfNumberslist));
+
 
         //Calculation to verify the 10th element of the CPF
         int calculo = 0;
@@ -202,19 +209,20 @@ public class DataBase {
     }
     //Para teste
     public static void main(String[] args) {
-        try {
+            System.out.println(verifyNamePatient("G4abriel"));
+//        try {
 //            addClient("Gabriel","050.149.073.69","(81) 98369-7190","Sla" );
 //            System.out.println(verifyCPF("175.108.554-62"));
 //            removeClient("050.149.073.69");
-            updateClient( "","", "(81)98369-711190", 15);
+//            updateClient( "","", "(81)98369-711190", 15);
 //            if (verifyCPF("050.149.073.69")){
 //                removeClient("050.149.073.69");
 //                System.out.println("It works!!");
 //            } else {
 //                System.out.println("CPF não encontrado");
 //            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
