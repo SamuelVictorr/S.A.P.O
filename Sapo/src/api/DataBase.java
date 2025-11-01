@@ -77,82 +77,14 @@ public class DataBase {
     public static void updateClient(String namePatient, String cpfPatient, String phoneNumberPatient, int numIdPatient) throws SQLException{
         Connection connection = connect();
         String sql = "";
-        int situation = 0;
-
-        if (!namePatient.isEmpty() && !cpfPatient.isBlank() && !phoneNumberPatient.isEmpty()){
-            sql = "UPDATE clientes SET name = ?, telefone = ?, cpf = ? WHERE id = ?";
-            situation = 1;
-            System.out.println("All patient " + numIdPatient + " data got updated Successfully");
-        } else if (!namePatient.isEmpty() && !cpfPatient.isBlank()){
-            sql = "UPDATE clientes SET name = ?, telefone = (telefone), cpf = ? WHERE id = ? ";
-            System.out.println("Name and CPF of the patient got changed");
-            situation = 2;
-        } else if (!namePatient.isEmpty() && !phoneNumberPatient.isEmpty()) {
-            sql = "UPDATE clientes SET name = ? , telefone = ?, cpf = (cpf) WHERE id = ? ";
-            System.out.println("Patient name and phoneNumber Updated Successfully");
-            situation = 3;
-        } else if (!cpfPatient.isBlank() && !phoneNumberPatient.isEmpty()) {
-            sql = "UPDATE clientes SET name = (name) , telefone = ?, cpf = ? WHERE id = ?";
-            situation = 4;
-            System.out.println("Patient phoneNumber and CPF updated Successfully");
-        } else if (!phoneNumberPatient.isEmpty()) {
-            sql = "UPDATE clientes SET name = (name), telefone = ?, cpf = (cpf) WHERE id = ?";
-            situation = 5;
-            System.out.println("Patient's phoneNumber changed");
-        }else if (!namePatient.isEmpty()) {
-            sql = "UPDATE clientes SET name = ?, telefone = (telefone), cpf = (cpf) WHERE id = ?";
-            situation = 6;
-            System.out.println("Patient name updated Successfully");
-        } else if (!cpfPatient.isBlank()) {
-            sql = "UPDATE clientes SET name = (name), telefone = (telefone), cpf = ? WHERE id = ?";
-            situation = 7;
-            System.out.println("Patient CPF updated Successfully");
-        } else {
-            System.out.println("Nada mudou");
-        }
-        System.out.println(situation);
+        sql = "UPDATE clientes SET name = ?, telefone = ?, cpf = ? WHERE id = ?";
         var stmt = connection.prepareStatement(sql);
-        System.out.println(sql);
-        switch (situation) {
-            case 1:
-                stmt.setString(1, namePatient);
-                stmt.setString(2, phoneNumberPatient);
-                stmt.setString(3, cpfPatient);
-                stmt.setInt(4, numIdPatient);
-                break;
-            case 2:
-                stmt.setString(1, namePatient);
-                stmt.setString(2, cpfPatient);
-                stmt.setInt(3, numIdPatient);
-                break;
-            case 3:
-                stmt.setString(1, namePatient);
-                stmt.setString(2, phoneNumberPatient);
-                stmt.setInt(3, numIdPatient);
-                break;
-            case 4:
-                stmt.setString(1, phoneNumberPatient);
-                stmt.setString(2, cpfPatient);
-                stmt.setInt(3, numIdPatient);
-                break;
-            case 5:
-                stmt.setString(1, phoneNumberPatient);
-                stmt.setInt(2, numIdPatient);
-                break;
-            case 6:
-                stmt.setString(1, namePatient);
-                stmt.setInt(2, numIdPatient);
-                break;
-            case 7:
-                stmt.setString(1, cpfPatient);
-                stmt.setInt(2, numIdPatient);
-                break;
-            default:
-                System.out.println("De alguma forma isso deu errado :D");
-        }
-
+        stmt.setString(1, namePatient);
+        stmt.setString(2, phoneNumberPatient);
+        stmt.setString(3, cpfPatient);
+        stmt.setInt(4, numIdPatient);
         stmt.executeUpdate();
-
+        System.out.println("All patient " + numIdPatient + " data got updated Successfully");
     }
 
     static boolean verifyCPF( String cpf) throws  SQLException{
