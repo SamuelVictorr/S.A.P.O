@@ -76,7 +76,7 @@ public class DataBase {
     }
 
     //Teste p/ ver se dá para verificar dentro do próprio DB
-    static boolean verifyCPF( String cpf) {
+    public static boolean verifyCPF(String cpf) {
         boolean resultado;
         int[] lista = new int[11];
         int digitoVerificador1;
