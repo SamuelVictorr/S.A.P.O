@@ -27,6 +27,7 @@ public class DataBase {
         String sql = "SELECT * FROM clientes";
         List<Client> clients = new ArrayList<>();
 
+        assert connection != null;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -47,6 +48,7 @@ public class DataBase {
     public static void addClient(String name, String cpf, String telefone, String observacao) throws SQLException {
         Connection connection = connect();
         String sql = "INSERT INTO clientes (name,cpf,telefone,observacao) VALUES (?,?,?,?)";
+        assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1,name);
         stmt.setString(2,cpf);
@@ -58,6 +60,7 @@ public class DataBase {
     public static void removeClient(String cpf) throws SQLException{
         Connection connection = connect();
         String sql = "DELETE FROM clientes WHERE cpf = ? ";
+        assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, cpf);
         stmt.executeUpdate();
@@ -139,22 +142,9 @@ public class DataBase {
         return cpfIsReal;
 
     }
+
     //Para teste
     public static void main(String[] args) {
             System.out.println(verifyNamePatient("G4abriel"));
-//        try {
-//            addClient("Gabriel","050.149.073.69","(81) 98369-7190","Sla" );
-//            System.out.println(verifyCPF("175.108.554-62"));
-//            removeClient("050.149.073.69");
-//            updateClient( "","", "(81)98369-711190", 15);
-//            if (verifyCPF("050.149.073.69")){
-//                removeClient("050.149.073.69");
-//                System.out.println("It works!!");
-//            } else {
-//                System.out.println("CPF não encontrado");
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }

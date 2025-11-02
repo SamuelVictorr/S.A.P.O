@@ -16,22 +16,10 @@ public class Main {
         mainFrame.setSize(800, 600);
         mainFrame.setExtendedState(MAXIMIZED_BOTH);
 
-
         //Inicializa o painel de clientes dentro do frame
         Clientes clienteForm = new Clientes();
         mainFrame.setContentPane(clienteForm.clientesPanel);
 
         mainFrame.setVisible(true);
-        try {
-            var clientsDB = DataBase.getClients();
-            ArrayList<String> clientsDbString = new ArrayList<>();
-            for (Client client : clientsDB) {
-                clientsDbString.add(client.getName());
-            }
-
-            clienteForm.setList(clientsDbString);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
