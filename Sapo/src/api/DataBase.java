@@ -52,11 +52,17 @@ public class DataBase {
         stmt.setString(4,observacao);
         stmt.executeUpdate();
     }
-
+    public static void remove(int patientId) throws SQLException{
+        Connection connection = connect();
+        String sql = "DELETE FROM clientes WHERE id = ?";
+        var stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, patientId);
+        stmt.executeUpdate();
+    }
     //Para teste
     public static void main(String[] args) {
         try {
-            addClient("Joana","175.108.456.34","(81) 98167-8790","Eu sou branco e herdeiro");
+            remove(11);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
