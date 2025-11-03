@@ -1,10 +1,11 @@
 import api.Client;
-import ui.Cadastre;
+import ui.*;
 import api.DataBase;
 import javax.swing.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
 
@@ -20,20 +21,20 @@ public class Main {
         Cadastre clienteForm = new Cadastre();
         mainFrame.setContentPane(clienteForm.clientesPanel);
 
-        JButton botao = new JButton();
-        botao.setBounds(200,100,100,50);
-
+//        JButton botao = new JButton();
+//        botao.setBounds(200,100,100,50);
+//
         mainFrame.setVisible(true);
-        try {
-            var clientsDB = DataBase.getClients();
-            ArrayList<String> clientsDbString = new ArrayList<>();
-            for (Client client : clientsDB) {
-                clientsDbString.add(client.getName());
-            }
-
-            clienteForm.setList(clientsDbString);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            var clientsDB = DataBase.getClients();
+//            ArrayList<String> clientsDbString = new ArrayList<>();
+//            for (Client client : clientsDB) {
+//                clientsDbString.add(client.getName());
+//            }
+//
+//            clienteForm.setList(clientsDbString);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
