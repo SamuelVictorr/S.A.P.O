@@ -44,22 +44,25 @@ public class DataBase {
         return clients;
     }
 
-    public static void addClient(String name, String cpf, String telefone, String observacao) throws SQLException {
+    public static void addClient(String name, String cpf, String telefone, String observacao, String activeState, String dateBirthday, String clinicId) throws SQLException {
         Connection connection = connect();
-        String sql = "INSERT INTO clientes (name,cpf,telefone,observacao) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO clientes (name,cpf,telefone,observacao, active_state, data_nascimento, id_clinica) VALUES (?,?,?,?,?,?,?)";
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, name);
         stmt.setString(2, cpf);
         stmt.setString(3, telefone);
         stmt.setString(4, observacao);
+        stmt.setString(5, activeState);
+        stmt.setString(6, dateBirthday);
+        stmt.setString(7, clinicId);
+
         stmt.executeUpdate();
     }
 
-    public static void removeClient(String cpf) throws SQLException {
+    public static void removeClient() throws SQLException {
         Connection connection = connect();
-        String sql = "DELETE FROM clientes WHERE cpf = ? ";
+        String sql = "DELETE FROM clientes WHERE cpf = ?";
         var stmt = connection.prepareStatement(sql);
-        stmt.setString(1, cpf);
         stmt.executeUpdate();
     }
 
@@ -147,13 +150,15 @@ public class DataBase {
         return cpfIsReal;
 
     }
+//    Para teste
+    public static void main(String[] args) {
+        try {
+//            removeClient();
+            addClient("Gabriel", "050", "81 9090", "Ala ", "ativo", "24/04/2007", "1");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
-    //Para teste
-//    public static void main(String[] args) {
-//        try {
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//}
+
+
