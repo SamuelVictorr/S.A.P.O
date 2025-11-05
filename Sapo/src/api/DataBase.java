@@ -59,10 +59,13 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
-    public static void removeClient() throws SQLException {
+    public static void removeClient(int idPatient) throws SQLException {
         Connection connection = connect();
-        String sql = "DELETE FROM clientes WHERE cpf = ?";
+        String novoEstado = "desativado";
+        String sql = "UPDATE clientes SET active_state = ? WHERE id = ?";
         var stmt = connection.prepareStatement(sql);
+        stmt.setString(1, novoEstado);
+        stmt.setInt(2, idPatient);
         stmt.executeUpdate();
     }
 
@@ -153,8 +156,9 @@ public class DataBase {
 //    Para teste
     public static void main(String[] args) {
         try {
-//            removeClient();
-            addClient("Gabriel", "050", "81 9090", "Ala ", "ativo", "24/04/2007", "1");
+            removeClient(1);
+//            addClient("Gabriel", "050", "81 9090", "Ala ", "ativo", "24/04/2007", "1");
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
