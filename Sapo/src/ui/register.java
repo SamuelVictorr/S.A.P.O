@@ -2,6 +2,7 @@ package ui;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.net.http.WebSocket;
 
 import static api.DataBase.verifyCPF;
 
@@ -63,13 +64,39 @@ public class register extends JDialog {
 
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
         CPFfield.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+                String cpf = CPFfield.getText();
+                if (cpf.length() == 3) {
+                    cpf += ".";
+                }
+                if (cpf.length() == 7) {
+                    cpf += ".";
+                }
+                if (cpf.length() == 11) {
+                    cpf += "-";
+                }
+                if (cpf.length() >= 13){
+                    cpf = cpf.substring(0,13);
+                }
+                if(KeyEvent.VK_DELETE == e.getKeyCode()){
+                    cpf += "";
+                }
+                CPFfield.setText(cpf);
+
             }
         });
     }
+
+    /*public void limitText(JTextField textBox,int limite,char teclas){
+        String textBoxl = textBox.getText();
+        int tamanho = textBoxl.length();
+        if(tamanho > limite){
+        }
+    }*/
 
     public String validTelephone(String telephone){
 
