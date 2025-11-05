@@ -45,6 +45,7 @@ public class DataBase {
     }
 
     public static void addClient(String name, String cpf, String telefone, String observacao) throws SQLException {
+
         Connection connection = connect();
         String sql = "INSERT INTO clientes (name,cpf,telefone,observacao) VALUES (?,?,?,?)";
         assert connection != null;
@@ -58,7 +59,7 @@ public class DataBase {
 
     public static void removeClient(String cpf) throws SQLException{
         Connection connection = connect();
-        String sql = "DELETE FROM clientes WHERE cpf = ? ";
+        String sql = "DELETE FROM clientes WHERE cpf = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, cpf);
@@ -118,11 +119,7 @@ public class DataBase {
     //Para teste
     public static void main(String[] args) {
         try {
-            removeClient("123456789101");
-            removeClient("123456789101");
-            removeClient("123456789101");
-            removeClient("12342313213");
-            removeClient("12342313213");
+            removeClient("175.108.554.62");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

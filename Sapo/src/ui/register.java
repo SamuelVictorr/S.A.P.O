@@ -1,12 +1,7 @@
 package ui;
 
-import api.Client;
-import api.DataBase;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
-import java.sql.SQLOutput;
 
 import static api.DataBase.verifyCPF;
 
@@ -23,6 +18,8 @@ public class register extends JDialog {
     private JLabel telephonelabel;
     private JLabel CPFlabel;
     private JLabel birthlabel;
+    private JTextField Fieldobser;
+    private JLabel JLabelobser;
 
     public register() {
         setContentPane(contentPane);
@@ -66,6 +63,12 @@ public class register extends JDialog {
 
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        CPFfield.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+            }
+        });
     }
 
     public String validTelephone(String telephone){
