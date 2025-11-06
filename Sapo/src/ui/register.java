@@ -1,25 +1,27 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.event.*;
 import java.net.http.WebSocket;
+import java.sql.SQLException;
+import java.text.ParseException;
 
+import static api.DataBase.addClient;
 import static api.DataBase.verifyCPF;
 
 public class register extends JDialog {
     private JPanel contentPane;
     private JButton register;
-    //private JButton buttonCancel;
     private JTextField namefield;
     private JTextField telephonefield;
     private JTextField CPFfield;
     private JTextField birthfield;
-    private JTextField addressfield;
+    private JTextField Fieldobser;
     private JLabel namelabel;
     private JLabel telephonelabel;
     private JLabel CPFlabel;
     private JLabel birthlabel;
-    private JTextField Fieldobser;
     private JLabel JLabelobser;
 
     public register() {
@@ -34,13 +36,25 @@ public class register extends JDialog {
                 String name = namefield.getText();
                 String CPF = CPFfield.getText();
                 String telephone = telephonefield.getText();
+                String obser = Fieldobser.getText();
+                String birth = birthfield.getText();
 
-                System.out.println(verifyCPF(CPF));
-                System.out.println(validTelephone(telephone));
+                if(!verifyCPF(CPF)){
+                    System.out.println("CPF Invalido!");
+                    JOptionPane.showMessageDialog(null, "CPF Inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-                System.out.printf("%s\n%s\n%s",name,CPF,telephone);
-
-
+                try {
+                    addClient(name,CPF,telephone,obser);
+                    namefield.setText("");
+                    CPFfield.setText("");
+                    telephonefield.setText("");
+                    Fieldobser.setText("");
+                    birthfield.setText("");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -69,36 +83,54 @@ public class register extends JDialog {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                String cpf = CPFfield.getText();
-                if (cpf.length() == 3) {
-                    cpf += ".";
-                }
-                if (cpf.length() == 7) {
-                    cpf += ".";
-                }
-                if (cpf.length() == 11) {
-                    cpf += "-";
-                }
-                if (cpf.length() >= 13){
-                    cpf = cpf.substring(0,13);
-                }
-                if(KeyEvent.VK_DELETE == e.getKeyCode()){
-                    cpf += "";
-                }
-                CPFfield.setText(cpf);
+                    String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
 
+                    if (cpf.length() > 11) {
+                        cpf = cpf.substring(0, 10);
+                    }
+
+                    StringBuilder formatCPF = new StringBuilder();
+                    for (int i = 0; i < cpf.length(); i++) {
+                        if (i == 3 || i == 6) {
+                            formatCPF.append('.');
+                        }
+                        if (i == 9) {
+                            formatCPF.append('.');
+                        }
+                        formatCPF.append(cpf.charAt(i));
+                    }
+                    CPFfield.setText(formatCPF.toString());
+            }
+        });
+        telephonefield.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+
+                String telephone = telephonefield.getText().replaceAll("[^0-9]", "");
+                if (telephone.length() > 11) {
+                    telephone = telephone.substring(0, 10);
+                }
+
+                StringBuilder formatTele = new StringBuilder();
+                for (int i = 0; i < telephone.length(); i++) {
+                    if (i == 0) {
+                        formatTele.append('(');
+                    }
+                    if (i == 2){
+                        formatTele.append(')');
+                    }
+                    if (i == 3 || i == 7) {
+                        formatTele.append(' ');
+                    }
+                    formatTele.append(telephone.charAt(i));
+                }
+                telephonefield.setText(formatTele.toString());
             }
         });
     }
 
-    /*public void limitText(JTextField textBox,int limite,char teclas){
-        String textBoxl = textBox.getText();
-        int tamanho = textBoxl.length();
-        if(tamanho > limite){
-        }
-    }*/
-
-    public String validTelephone(String telephone){
+    /*public String validTelephone(String telephone){
 
         String telephone1 = telephone.replace("(","");
         String telephone2 = telephone1.replace(")","");
@@ -109,7 +141,7 @@ public class register extends JDialog {
         } else {
             return "Telefone invalido!";
         }
-    }
+    }*/
 
     private void onOK() {
         // add your code here
