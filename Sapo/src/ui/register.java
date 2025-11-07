@@ -43,12 +43,16 @@ public class register extends JDialog {
 
                 //method call verify CPF top DataBase,to verify if the CFP is valid.
                 if(!verifyCPF(CPF)){
-                    System.out.println("CPF Invalido!");
+                    JOptionPane.showMessageDialog(null, "CPF Inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if(CPF.isEmpty()){
                     JOptionPane.showMessageDialog(null, "CPF Inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 try {
+                    System.out.println(birth);
                     addClient(name,CPF,telephone,obser);
 
                     //Clear the TextFields after adding a client.
@@ -62,12 +66,6 @@ public class register extends JDialog {
                 }
             }
         });
-
-        /*buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });*/
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
