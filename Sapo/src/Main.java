@@ -1,24 +1,16 @@
-import api.Client;
-import ui.Clientes;
-import api.DataBase;
+import ui.MainScreen;
 import javax.swing.*;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.awt.Frame.MAXIMIZED_BOTH;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame mainFrame = new JFrame();
-        mainFrame.setTitle("S.A.P.O");
-        mainFrame.setSize(800, 600);
-        mainFrame.setExtendedState(MAXIMIZED_BOTH);
 
-        //Inicializa o painel de clientes dentro do frame
-        Clientes clienteForm = new Clientes();
-        mainFrame.setContentPane(clienteForm.clientesPanel);
+        JFrame mainFrame = new JFrame();
+        mainFrame.setTitle("S.A.P.O - Sistema de Agendamento e Prevenção Odontológica");
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        MainScreen mainScreen = new MainScreen();
+        mainFrame.setContentPane(mainScreen.mainPanel);
 
         mainFrame.setVisible(true);
     }
