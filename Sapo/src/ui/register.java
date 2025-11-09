@@ -21,8 +21,10 @@ public class register{
     private JLabel birthlabel;
     private JTextField Fieldobser;
     private JLabel JLabelobser;
+    private MainScreen mainScreen;
 
-    public register() {
+    public register(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
         setupListeners();
         setupMasks();
     }
@@ -64,6 +66,7 @@ public class register{
 
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             clearClientsField();
+            mainScreen.refreshClientList();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

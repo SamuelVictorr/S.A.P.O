@@ -49,7 +49,7 @@ public class MainScreen {
         cardLayout = (CardLayout) cardsPanel.getLayout();
 
         clientesPanelInstance = new Clientes();
-        contentPaneInstance = new register();
+        contentPaneInstance = new register(this);
         clientesCard.removeAll();
         cadastroCard.removeAll();
 
@@ -74,5 +74,8 @@ public class MainScreen {
     public void showCadastro() {
         contentPaneInstance.clearClientsField();
         cardLayout.show(cardsPanel, "cadastroCard");
+    }
+    public void refreshClientList() {
+        clientesPanelInstance.loadAllClients();
     }
 }
