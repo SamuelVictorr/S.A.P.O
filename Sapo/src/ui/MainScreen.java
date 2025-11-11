@@ -16,26 +16,7 @@ public class MainScreen {
     private JPanel clientesCard;
 
     public Clientes clientesPanelInstance;
-    private JPanel clientesPanel;
-    public JTextField searchField;
-    private JList<String> clientList;
-    private DefaultListModel<String> listModel;
-    private List<Client> clientsDB;
-
     public register contentPaneInstance;
-    private JPanel contentPane;
-    private JButton register;
-    private JTextField namefield;
-    private JLabel namelabel;
-    private JTextField telephonefield;
-    private JLabel telephonelabel;
-    private JTextField CPFfield;
-    private JLabel CPFlabel;
-    private JTextField birthfield;
-    private JLabel birthlabel;
-    private JTextField Fieldobser;
-    private JLabel JLabelobser;
-
     private CardLayout cardLayout;
 
     public MainScreen() {
@@ -48,14 +29,15 @@ public class MainScreen {
     private void initializePanels() {
         cardLayout = (CardLayout) cardsPanel.getLayout();
 
-        clientesPanelInstance = new Clientes();
+        clientesPanelInstance = new Clientes(this);
         contentPaneInstance = new register(this);
+
         clientesCard.removeAll();
         cadastroCard.removeAll();
-
-        clientesCard.add(clientesPanelInstance.clientesPanel);
-        cadastroCard.add(contentPaneInstance.contentPane);
-
+        clientesCard.setLayout(new BorderLayout());
+        cadastroCard.setLayout(new BorderLayout());
+        clientesCard.add(clientesPanelInstance.clientesPanel, BorderLayout.CENTER);
+        cadastroCard.add(contentPaneInstance.contentPane, BorderLayout.CENTER);
         clientesCard.revalidate();
         clientesCard.repaint();
         cadastroCard.revalidate();

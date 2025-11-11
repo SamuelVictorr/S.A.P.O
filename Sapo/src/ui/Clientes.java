@@ -2,6 +2,7 @@ package ui;
 
 import api.Client;
 import api.DataBase;
+import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -15,8 +16,10 @@ public class Clientes {
     private JList<String> clientList;
     private DefaultListModel<String> listModel;
     private List<Client> clientsDB;
+    private MainScreen mainScreen;
 
-    public Clientes() {
+    public Clientes(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
         listModel = new DefaultListModel<>();
         initializeComponents();
         setupListeners();
