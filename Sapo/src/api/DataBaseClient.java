@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DataBase {
+public class DataBaseClient {
     public static Connection connect() {
         // connection string
         var url = "jdbc:sqlite:Sapo/src/api/mydb.db";
@@ -47,6 +47,7 @@ public class DataBase {
     public static void addClient(String name, String cpf, String telefone, String observacao, String activeState, String dateBirthday, String clinicId) throws SQLException {
         Connection connection = connect();
         String sql = "INSERT INTO clientes (name,cpf,telefone,observacao, active_state, data_nascimento, id_clinica) VALUES (?,?,?,?,?,?,?)";
+        assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, name);
         stmt.setString(2, cpf);
@@ -156,8 +157,8 @@ public class DataBase {
 //    Para teste
     public static void main(String[] args) {
         try {
-            removeClient(1);
-//            addClient("Gabriel", "050", "81 9090", "Ala ", "ativo", "24/04/2007", "1");
+//            removeClient(1);
+            addClient("Gabriel", "050", "81 9090", "Ala ", "ativo", "24/04/2007", ":1");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,11 +1,6 @@
-import api.Client;
 import ui.*;
-import api.DataBase;
-import javax.swing.*;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.*;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
 
