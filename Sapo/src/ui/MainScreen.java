@@ -15,6 +15,8 @@ public class MainScreen {
     private JPanel cadastroCard;
     private JPanel clientesCard;
     private JPanel navegationPanel;
+    private JLabel textSAPO;
+    private JLabel textUser;
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
@@ -52,11 +54,15 @@ public class MainScreen {
 
     public void showClientes() {
         cardLayout.show(cardsPanel, "clientesCard");
+        btnClientes.setBackground(new Color(122, 241,168));
+        btnCadastro.setBackground(new Color(219, 252,231));
     }
 
     public void showCadastro() {
         contentPaneInstance.clearClientsField();
         cardLayout.show(cardsPanel, "cadastroCard");
+        btnClientes.setBackground(new Color(219, 252,231));
+        btnCadastro.setBackground(new Color(122, 241,168));
     }
     public void refreshClientList() {
         clientesPanelInstance.loadAllClients();

@@ -78,7 +78,7 @@ public class register{
             @Override
             public void keyReleased(KeyEvent e) {
                 String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
-                if (cpf.length() > 11) {
+                if (cpf.length() >= 11) {
                     cpf = cpf.substring(0, 10);
                 }
 
@@ -100,8 +100,8 @@ public class register{
             @Override
             public void keyReleased(KeyEvent e) {
                 String telephone = telephonefield.getText().replaceAll("[^0-9]", "");
-                if (telephone.length() > 11) {
-                    telephone = telephone.substring(0, 10);
+                if (telephone.length() >= 11) {
+                    telephone = telephone.substring(0, 11);
                 }
 
                 StringBuilder formatTele = new StringBuilder();
@@ -126,7 +126,7 @@ public class register{
                 super.keyPressed(e);
 
                 String birth = birthfield.getText().replaceAll("[^0-9]", "");
-                if (birth.length() > 8) {
+                if (birth.length() >= 8) {
                     birth = birth.substring(0, 7);
                 }
 

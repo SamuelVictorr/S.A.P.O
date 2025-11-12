@@ -32,35 +32,70 @@
       </grid>
       <grid id="ec394" binding="navegationPanel" layout-manager="GridBagLayout">
         <constraints border-constraint="West"/>
-        <properties/>
+        <properties>
+          <background color="-2360088"/>
+          <foreground color="-2360089"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="47c26" class="javax.swing.JButton" binding="btnCadastro">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="1.0"/>
             </constraints>
             <properties>
+              <background color="-2360088"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <foreground color="-16777216"/>
+              <maximumSize width="84" height="34"/>
+              <minimumSize width="84" height="34"/>
+              <preferredSize width="94" height="34"/>
               <text value="Cadastrar"/>
               <verticalAlignment value="0"/>
             </properties>
           </component>
           <component id="4d4b5" class="javax.swing.JButton" binding="btnClientes">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="1.0" weighty="1.0"/>
             </constraints>
             <properties>
+              <background color="-2360088"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <foreground color="-16777216"/>
               <horizontalAlignment value="0"/>
+              <preferredSize width="94" height="34"/>
               <text value="Clientes"/>
             </properties>
           </component>
-          <vspacer id="d4a8c">
+          <component id="44fee" class="javax.swing.JLabel" binding="textSAPO">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="5.0"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="50" bottom="0" right="0" weightx="0.0" weighty="10.0"/>
             </constraints>
-          </vspacer>
+            <properties>
+              <alignmentX value="1.0"/>
+              <foreground color="-16777216"/>
+              <maximumSize width="34" height="17"/>
+              <minimumSize width="34" height="17"/>
+              <preferredSize width="34" height="17"/>
+              <text value="SAPO"/>
+              <verticalAlignment value="3"/>
+              <verticalTextPosition value="0"/>
+            </properties>
+          </component>
+          <component id="3f950" class="javax.swing.JLabel" binding="textUser">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <foreground color="-16777216"/>
+              <text value="Olá, usuário!"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

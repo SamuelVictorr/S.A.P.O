@@ -33,6 +33,9 @@ public class Clientes {
     private void initializeComponents() {
         clientList.setModel(listModel);
         searchField.setText("Digite o nome do cliente:");
+        btnNovoCadastro.addActionListener(e -> {
+            mainScreen.showCadastro();
+        });
     }
 
     private void setupListeners() {
