@@ -2,7 +2,6 @@ package ui;
 
 import api.Client;
 import api.DataBase;
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -14,6 +13,8 @@ public class Clientes {
     public JPanel clientesPanel;
     public JTextField searchField;
     private JList<String> clientList;
+    private JButton btnNovoCadastro;
+    private JPanel searchPanel;
     private DefaultListModel<String> listModel;
     private List<Client> clientsDB;
     private MainScreen mainScreen;

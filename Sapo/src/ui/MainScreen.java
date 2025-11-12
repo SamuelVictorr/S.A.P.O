@@ -14,6 +14,7 @@ public class MainScreen {
     private JButton btnCadastro;
     private JPanel cadastroCard;
     private JPanel clientesCard;
+    private JPanel navegationPanel;
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
