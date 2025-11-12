@@ -11,51 +11,106 @@ import static api.DataBase.addClient;
 public class register{
     public JPanel contentPane;
     private JButton register;
-    private JTextField namefield;
-    private JLabel namelabel;
-    private JTextField telephonefield;
-    private JLabel telephonelabel;
+    private JTextField nameField;
+    private JLabel nameLabel;
+    private JTextField telephoneField;
+    private JLabel telephoneLabel;
     private JTextField CPFfield;
     private JLabel CPFlabel;
-    private JTextField birthfield;
-    private JLabel birthlabel;
-    private JTextField Fieldobser;
-    private JLabel JLabelobser;
+    private JTextField birthField;
+    private JLabel birthLabel;
+    private JTextField FieldObser;
+    private JLabel JLabelObser;
     private MainScreen mainScreen;
 
     public register(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         setupListeners();
         setupMasks();
+        initializeComponents();
     }
 
-    public JPanel getPanel() {
-        return contentPane;
+    public void initializeComponents(){
+        nameField.setText("Nome do cliente");
+        telephoneField.setText("(xx)x xxxx-xxxx");
+        CPFfield.setText("xxx.xxx.xxx-xx");
+        birthField.setText("xx/xx/xxxx");
+        FieldObser.setText("Observações sobre o cliente");
+
     }
 
     private void setupListeners() {
         register.addActionListener(e -> saveClients());
+        nameField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (nameField.getText().equals("Nome do cliente")){
+                    nameField.setText("");
+                }
+            }
+        });
+        telephoneField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (telephoneField.getText().equals("(xx)x xxxx-xxxx")){
+                    telephoneField.setText("");
+                }
+            }
+        });
+        CPFfield.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (CPFfield.getText().equals("xxx.xxx.xxx-xx")){
+                    CPFfield.setText("");
+                }
+            }
+        });
+        birthField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (birthField.getText().equals("xx/xx/xxxx")){
+                    birthField.setText("");
+                }
+            }
+        });
+        FieldObser.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (FieldObser.getText().equals("Observações sobre o cliente")){
+                    FieldObser.setText("");
+                }
+            }
+        });
     }
 
     public void clearClientsField() {
-        namefield.setText("");
-        telephonefield.setText("");
+        nameField.setText("");
+        telephoneField.setText("");
         CPFfield.setText("");
-        birthfield.setText("");
-        Fieldobser.setText("");
+        birthField.setText("");
+        FieldObser.setText("");
     }
 
     private void saveClients() {
-        String name = namefield.getText();
+        String name = nameField.getText();
         String CPF = CPFfield.getText();
-        String telephone = telephonefield.getText();
-        String observation = Fieldobser.getText();
+        String telephone = telephoneField.getText();
+        String observation = FieldObser.getText();
+        String birth = birthField.getText();
 
         if (name.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (name.isEmpty() || telephone.isEmpty() || CPF.isEmpty() || observation.isEmpty() || birth.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        if (name.equals("Nome do cliente") || telephone.equals("(xx)x xxxx-xxxx") || CPF.equals("xxx.xxx.xxx-xx") || observation.equals("Observações sobre o cliente") || birth.equals("xx/xx/xxxx")){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (!verifyCPF(CPF)) {
             JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
@@ -79,7 +134,7 @@ public class register{
             public void keyReleased(KeyEvent e) {
                 String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
                 if (cpf.length() >= 11) {
-                    cpf = cpf.substring(0, 10);
+                    cpf = cpf.substring(0, 11);
                 }
 
                 StringBuilder formatCPF = new StringBuilder();
@@ -96,10 +151,10 @@ public class register{
             }
         });
 
-        telephonefield.addKeyListener(new KeyAdapter() {
+        telephoneField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                String telephone = telephonefield.getText().replaceAll("[^0-9]", "");
+                String telephone = telephoneField.getText().replaceAll("[^0-9]", "");
                 if (telephone.length() >= 11) {
                     telephone = telephone.substring(0, 11);
                 }
@@ -117,15 +172,15 @@ public class register{
                     }
                     formatTele.append(telephone.charAt(i));
                 }
-                telephonefield.setText(formatTele.toString());
+                telephoneField.setText(formatTele.toString());
             }
         });
-        birthfield.addKeyListener(new KeyAdapter() {
+        birthField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
 
-                String birth = birthfield.getText().replaceAll("[^0-9]", "");
+                String birth = birthField.getText().replaceAll("[^0-9]", "");
                 if (birth.length() >= 8) {
                     birth = birth.substring(0, 7);
                 }
@@ -140,7 +195,7 @@ public class register{
                     }
                     formatBirth.append(birth.charAt(i));
                 }
-                birthfield.setText(formatBirth.toString());
+                birthField.setText(formatBirth.toString());
 
             }
         });

@@ -26,13 +26,12 @@ public class Clientes {
         setupListeners();
     }
 
-    public JPanel getPanel() {
-        return clientesPanel;
-    }
-
     private void initializeComponents() {
         clientList.setModel(listModel);
-        searchField.setText("Digite o nome do cliente:");
+        searchField.setText("🔍 Digite o nome do cliente:");
+        setupButtons();
+    }
+    private void setupButtons(){
         btnNovoCadastro.addActionListener(e -> {
             mainScreen.showCadastro();
         });
@@ -56,7 +55,7 @@ public class Clientes {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (searchField.getText().equals("Digite o nome do cliente:")) {
+                if (searchField.getText().equals("🔍 Digite o nome do cliente:")) {
                     searchField.setText("");
                 }
             }

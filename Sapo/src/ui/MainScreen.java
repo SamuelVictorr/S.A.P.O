@@ -1,11 +1,7 @@
 package ui;
 
-import api.Client;
-
-import ui.Clientes;
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class MainScreen {
     public JPanel mainPanel;
@@ -17,6 +13,7 @@ public class MainScreen {
     private JPanel navegationPanel;
     private JLabel textSAPO;
     private JLabel textUser;
+    private JButton btnSair;
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
@@ -50,6 +47,12 @@ public class MainScreen {
     private void setupNavigation() {
         btnClientes.addActionListener(e -> showClientes());
         btnCadastro.addActionListener(e -> showCadastro());
+        btnSair.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(mainPanel, "Tem certeza que deseja sair?", "Confirmar Saída", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
     }
 
     public void showClientes() {
@@ -60,6 +63,7 @@ public class MainScreen {
 
     public void showCadastro() {
         contentPaneInstance.clearClientsField();
+        contentPaneInstance.initializeComponents();
         cardLayout.show(cardsPanel, "cadastroCard");
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(122, 241,168));
