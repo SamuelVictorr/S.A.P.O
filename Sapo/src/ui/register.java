@@ -41,6 +41,7 @@ public class register{
 
     private void setupListeners() {
         register.addActionListener(e -> saveClients());
+
         nameField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
