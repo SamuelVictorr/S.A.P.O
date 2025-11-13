@@ -2,22 +2,19 @@ package api;
 
 public class Schedule {
     private int idSchedule;
-    private String diaHora;
+    private String diahora;
     private String typeTreatment;
     private String nameDentist;
-    private String idClinic;
-    private String idClient;
+    private String nameClient;
     private String statusTreatment;
     private String details;
 
-    public Schedule(int idSchedule, String diaHora, String typeTreatment, String nameDentist, String idClinic, String idClient, String statusTreatment, String details) {
+    public Schedule(int idSchedule, String diaHora, String typeTreatment, String nameDentist, String idClient, String statusTreatment, String details) {
         this.idSchedule = idSchedule;
-        this.diaHora = diaHora;
+        this.diahora = diaHora;
         this.typeTreatment= typeTreatment;
         this.nameDentist = nameDentist;
-        this.idClinic = idClinic;
-        this.nameDentist = idClinic;
-        this.idClient = idClient;
+        this.nameClient = idClient;
         this.statusTreatment = statusTreatment;
         this.details = details;
 
@@ -25,16 +22,15 @@ public class Schedule {
 
     // Getters
     public int getIdSchedule() { return idSchedule; }
-    public String getDiaHora() { return diaHora; }
+    public String getDiaHora() { return diahora; }
     public String getTypeTreatment() { return typeTreatment; }
     public String getNameDentist() { return nameDentist; }
-    public String getIdClinic() { return idClinic; }
-    public String getIdClient() { return idClient; }
+    public String getIdClient() { return nameClient; }
     public String getStatusTreatment() { return statusTreatment; }
     public String getDetails() { return details; }
 
     @Override
     public String toString() {
-        return idSchedule + " | " + diaHora + " | " + typeTreatment + " | " + nameDentist + " | " + idClinic + " | " + idClient + " | " + statusTreatment + " | " + details;
+        return diahora + " | " + typeTreatment + " | " + nameDentist + " | " + nameClient + " | " + statusTreatment + " | " + details;
     }
 }
