@@ -28,6 +28,14 @@
             <border type="none"/>
             <children/>
           </grid>
+          <grid id="d1752" binding="agendamentoCard" layout-manager="CardLayout" hgap="0" vgap="0">
+            <constraints>
+              <card name="Card1"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
         </children>
       </grid>
       <grid id="ec394" binding="navegationPanel" layout-manager="GridBagLayout">
@@ -58,7 +66,7 @@
           </component>
           <component id="44fee" class="javax.swing.JLabel" binding="textSAPO">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="10.0"/>
             </constraints>
             <properties>
@@ -121,6 +129,17 @@
               <horizontalAlignment value="0"/>
               <preferredSize width="94" height="34"/>
               <text value="Clientes"/>
+            </properties>
+          </component>
+          <component id="4e700" class="javax.swing.JButton" binding="btnAgendamento">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <focusPainted value="false"/>
+              <foreground color="-16777216"/>
+              <text value="Agendamento"/>
             </properties>
           </component>
         </children>

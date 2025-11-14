@@ -1,3 +1,5 @@
+package ui;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -5,13 +7,11 @@ public class registerAppointment extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JTextField typeField;
-    private JTextField nameField;
     private JTextField dentistField;
     private JTextField detailField;
     private JTextField dateField;
     private JButton agendarButton;
     private JTextField timeField;
-    private JLabel nameLabel;
     private JLabel typeLabel;
     private JLabel dentistLabel;
     private JLabel detailLabel;
@@ -30,15 +30,12 @@ public class registerAppointment extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String name = nameField.getText();
                 String type = typeField.getText();
                 String dentist = dentistField.getText();
                 String detail = detailField.getText();
                 String date = dateField.getText();
                 String time = timeField.getText();
 
-
-                verifyname(name);
                 verifytype(type);
                 verifydentist(dentist);
                 verifydate(date);
@@ -50,7 +47,6 @@ public class registerAppointment extends JDialog {
     }
 
     public void clearText(){
-        nameField.setText("");
         typeField.setText("");
         dentistField.setText("");
         detailField.setText("");
@@ -60,14 +56,6 @@ public class registerAppointment extends JDialog {
 
     public void mask(){
 
-        nameField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (nameField.getText().equals("Nome do cliente")){
-                    nameField.setText("");
-                }
-            }
-        });
         typeField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -111,12 +99,6 @@ public class registerAppointment extends JDialog {
 
     }
 
-    public void verifyname(String name){
-        if (name.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-    }
     public void verifytype(String type){
         if (type.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);

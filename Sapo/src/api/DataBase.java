@@ -119,7 +119,7 @@ public class DataBase {
     //Para teste
     public static void main(String[] args) {
         try {
-            removeClient("175.108.554.62");
+            removeClient("195.122.952.61");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

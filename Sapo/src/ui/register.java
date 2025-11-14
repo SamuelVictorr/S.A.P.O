@@ -32,9 +32,9 @@ public class register{
 
     public void initializeComponents(){
         nameField.setText("Nome do cliente");
-        telephoneField.setText("(xx)x xxxx-xxxx");
-        CPFfield.setText("xxx.xxx.xxx-xx");
-        birthField.setText("xx/xx/xxxx");
+        telephoneField.setText("(XX)X XXXX-XXXX");
+        CPFfield.setText("XXX.XXX.XXX-XX");
+        birthField.setText("XX/XX/XXXX");
         FieldObser.setText("Observações sobre o cliente");
 
     }
@@ -53,7 +53,7 @@ public class register{
         telephoneField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (telephoneField.getText().equals("(xx)x xxxx-xxxx")){
+                if (telephoneField.getText().equals("(XX)X XXXX-XXXX")){
                     telephoneField.setText("");
                 }
             }
@@ -61,7 +61,7 @@ public class register{
         CPFfield.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (CPFfield.getText().equals("xxx.xxx.xxx-xx")){
+                if (CPFfield.getText().equals("XXX.XXX.XXX-XX")){
                     CPFfield.setText("");
                 }
             }
@@ -69,7 +69,7 @@ public class register{
         birthField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (birthField.getText().equals("xx/xx/xxxx")){
+                if (birthField.getText().equals("XX/XX/XXXX")){
                     birthField.setText("");
                 }
             }
@@ -103,7 +103,7 @@ public class register{
             JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (name.isEmpty() || telephone.isEmpty() || CPF.isEmpty() || observation.isEmpty() || birth.isEmpty()){
+        if (name.isEmpty() || telephone.isEmpty() || CPF.isEmpty() || birth.isEmpty()){
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -133,6 +133,7 @@ public class register{
         CPFfield.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
                 String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
                 if (cpf.length() >= 11) {
                     cpf = cpf.substring(0, 11);
@@ -155,6 +156,7 @@ public class register{
         telephoneField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
                 String telephone = telephoneField.getText().replaceAll("[^0-9]", "");
                 if (telephone.length() >= 11) {
                     telephone = telephone.substring(0, 11);
@@ -169,7 +171,7 @@ public class register{
                         formatTele.append(")");
                     }
                     if (i == 7) {
-                        formatTele.append('.');
+                        formatTele.append('-');
                     }
                     formatTele.append(telephone.charAt(i));
                 }
@@ -180,7 +182,6 @@ public class register{
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-
                 String birth = birthField.getText().replaceAll("[^0-9]", "");
                 if (birth.length() >= 8) {
                     birth = birth.substring(0, 7);

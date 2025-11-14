@@ -14,9 +14,12 @@ public class MainScreen {
     private JLabel textSAPO;
     private JLabel textUser;
     private JButton btnSair;
+    private JPanel agendamentoCard;
+    private JButton btnAgendamento;
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
+    public scheduling SchedulingPanelInstance;
     private CardLayout cardLayout;
 
     public MainScreen() {
@@ -31,6 +34,7 @@ public class MainScreen {
 
         clientesPanelInstance = new Clientes(this);
         contentPaneInstance = new register(this);
+        SchedulingPanelInstance = new scheduling(this);
 
         clientesCard.removeAll();
         cadastroCard.removeAll();
