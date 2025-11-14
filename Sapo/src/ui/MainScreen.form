@@ -30,7 +30,7 @@
           </grid>
           <grid id="d1752" binding="agendamentoCard" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
-              <card name="Card1"/>
+              <card name="agendamentoCard"/>
             </constraints>
             <properties/>
             <border type="none"/>

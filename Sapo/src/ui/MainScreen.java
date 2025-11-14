@@ -19,7 +19,7 @@ public class MainScreen {
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
-    public scheduling SchedulingPanelInstance;
+    public scheduling schedulingPanelInstance;
     private CardLayout cardLayout;
 
     public MainScreen() {
@@ -34,23 +34,29 @@ public class MainScreen {
 
         clientesPanelInstance = new Clientes(this);
         contentPaneInstance = new register(this);
-        SchedulingPanelInstance = new scheduling(this);
+        schedulingPanelInstance = new scheduling(this);
 
         clientesCard.removeAll();
         cadastroCard.removeAll();
+        agendamentoCard.removeAll();
         clientesCard.setLayout(new BorderLayout());
         cadastroCard.setLayout(new BorderLayout());
+        agendamentoCard.setLayout(new BorderLayout());
         clientesCard.add(clientesPanelInstance.clientesPanel, BorderLayout.CENTER);
         cadastroCard.add(contentPaneInstance.contentPane, BorderLayout.CENTER);
+        agendamentoCard.add(schedulingPanelInstance.schedulingPane, BorderLayout.CENTER);
         clientesCard.revalidate();
         clientesCard.repaint();
         cadastroCard.revalidate();
         cadastroCard.repaint();
+        agendamentoCard.revalidate();
+        agendamentoCard.repaint();
     }
 
     private void setupNavigation() {
         btnClientes.addActionListener(e -> showClientes());
         btnCadastro.addActionListener(e -> showCadastro());
+        btnAgendamento.addActionListener( e -> showAgendamento());
         btnSair.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(mainPanel, "Tem certeza que deseja sair?", "Confirmar Saída", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
@@ -71,6 +77,10 @@ public class MainScreen {
         cardLayout.show(cardsPanel, "cadastroCard");
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(122, 241,168));
+    }
+
+    public void showAgendamento(){
+        cardLayout.show(cardsPanel, "agendamentoCard");
     }
     public void refreshClientList() {
         clientesPanelInstance.loadAllClients();
