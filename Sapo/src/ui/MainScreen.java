@@ -51,6 +51,7 @@ public class MainScreen {
         cadastroCard.repaint();
         agendamentoCard.revalidate();
         agendamentoCard.repaint();
+
     }
 
     private void setupNavigation() {
@@ -69,6 +70,7 @@ public class MainScreen {
         cardLayout.show(cardsPanel, "clientesCard");
         btnClientes.setBackground(new Color(122, 241,168));
         btnCadastro.setBackground(new Color(219, 252,231));
+        btnAgendamento.setBackground(new Color(219,252,232));
     }
 
     public void showCadastro() {
@@ -77,10 +79,14 @@ public class MainScreen {
         cardLayout.show(cardsPanel, "cadastroCard");
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(122, 241,168));
+        btnAgendamento.setBackground(new Color(219, 252, 232));
     }
 
     public void showAgendamento(){
         cardLayout.show(cardsPanel, "agendamentoCard");
+        btnClientes.setBackground(new Color(219, 252,231));
+        btnCadastro.setBackground(new Color(219, 252,232));
+        btnAgendamento.setBackground(new Color(122, 241, 168));
     }
     public void refreshClientList() {
         clientesPanelInstance.loadAllClients();
