@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class registerAppointment extends JDialog {
     private JPanel contentPane;
@@ -117,6 +119,7 @@ public class registerAppointment extends JDialog {
         return;
         }
     }
+
     public void verifytime(String time){
         if (time.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Time é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
