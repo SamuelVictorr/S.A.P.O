@@ -108,7 +108,7 @@ public class register{
             return;
         }
 
-        if (name.equals("Nome do cliente") || telephone.equals("(xx)x xxxx-xxxx") || CPF.equals("xxx.xxx.xxx-xx") || observation.equals("Observações sobre o cliente") || birth.equals("xx/xx/xxxx")){
+        if (name.equals("Nome do cliente") || telephone.equals("(xx)x xxxx-xxxx") || CPF.equals("xxx.xxx.xxx-xx") || birth.equals("xx/xx/xxxx")){
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -153,29 +153,61 @@ public class register{
             }
         });
 
+//        telephoneField.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                super.keyPressed(e);
+//                boolean noveTele = true;
+//                String telephone = telephoneField.getText().replaceAll("[^0-9]", "");
+//                if (telephone.length() >= 11) {
+//                    telephone = telephone.substring(0, 11);
+//                }
+//
+//                StringBuilder formatTele = new StringBuilder();
+//                for (int i = 0; i < telephone.length(); i++) {
+//                    if (i == 0) {
+//                        formatTele.append('(');
+//                    }
+//                    if (i == 2) {
+//                        if(noveTele){
+//                            noveTele = false;
+//                            formatTele.append(")9");
+//                        }
+//                    }
+//                    if (i == 7) {
+//                        formatTele.append('-');
+//                    }
+//                    formatTele.append(telephone.charAt(i));
+//                }
+//                telephoneField.setText(formatTele.toString());
+//            }
+//        });
         telephoneField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                super.keyPressed(e);
+                super.keyReleased(e);
                 String telephone = telephoneField.getText().replaceAll("[^0-9]", "");
-                if (telephone.length() >= 11) {
-                    telephone = telephone.substring(0, 11);
+                if (telephone.length() > 11) {
+                    telephone = telephone.substring(0,11);
                 }
-
-                StringBuilder formatTele = new StringBuilder();
+                if (telephone.length() > 2 && telephone.charAt(2) != '9') {
+                    telephone = telephone.substring(0, 2) + "9" + telephone.substring(2);
+                }
+                StringBuilder f = new StringBuilder();
                 for (int i = 0; i < telephone.length(); i++) {
                     if (i == 0) {
-                        formatTele.append('(');
+                        f.append("(");
                     }
                     if (i == 2) {
-                        formatTele.append(")");
+                        f.append(")");
                     }
                     if (i == 7) {
-                        formatTele.append('-');
+                        f.append("-");
                     }
-                    formatTele.append(telephone.charAt(i));
+                    f.append(telephone.charAt(i));
                 }
-                telephoneField.setText(formatTele.toString());
+
+                telephoneField.setText(f.toString());
             }
         });
         birthField.addKeyListener(new KeyAdapter() {
