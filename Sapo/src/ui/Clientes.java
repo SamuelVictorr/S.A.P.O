@@ -4,6 +4,7 @@ import api.Client;
 import api.DataBase;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
@@ -59,6 +60,22 @@ public class Clientes {
                 if (searchField.getText().equals("🔍 Digite o nome do cliente:")) {
                     searchField.setText("");
                 }
+            }
+        });
+        clientList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                JLabel boxClient = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (!isSelected) {
+                    boxClient.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
+                }
+                else {
+                    boxClient.setBorder(BorderFactory.createLineBorder(new Color(100, 150, 255), 2));
+                }
+
+                boxClient.setOpaque(false);
+                boxClient.setBackground(Color.WHITE);
+                return boxClient;
             }
         });
     }
