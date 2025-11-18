@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ui.MainScreen">
+  <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="0" y="3" width="703" height="530"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="41533" binding="cardsPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="565ea" binding="clientesCard" layout-manager="CardLayout" hgap="0" vgap="0">
+            <constraints>
+              <card name="clientesCard"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
+          <grid id="38a50" binding="cadastroCard" layout-manager="CardLayout" hgap="0" vgap="0">
+            <constraints>
+              <card name="cadastroCard"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
+      <grid id="ec394" binding="navegationPanel" layout-manager="GridBagLayout">
+        <constraints border-constraint="West"/>
+        <properties>
+          <background color="-2360088"/>
+          <foreground color="-2360089"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="47c26" class="javax.swing.JButton" binding="btnCadastro">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="1.0"/>
+            </constraints>
+            <properties>
+              <background color="-2360088"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <focusPainted value="false"/>
+              <foreground color="-16777216"/>
+              <maximumSize width="84" height="34"/>
+              <minimumSize width="84" height="34"/>
+              <preferredSize width="94" height="34"/>
+              <text value="Cadastrar"/>
+              <verticalAlignment value="0"/>
+            </properties>
+          </component>
+          <component id="44fee" class="javax.swing.JLabel" binding="textSAPO">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="10.0"/>
+            </constraints>
+            <properties>
+              <alignmentX value="1.0"/>
+              <font size="28"/>
+              <foreground color="-16777216"/>
+              <maximumSize width="34" height="17"/>
+              <minimumSize width="34" height="17"/>
+              <preferredSize width="34" height="17"/>
+              <text value="🐸 SAPO"/>
+              <verticalAlignment value="3"/>
+              <verticalTextPosition value="0"/>
+            </properties>
+          </component>
+          <grid id="4a086" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-2360088"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="3f950" class="javax.swing.JLabel" binding="textUser">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <alignmentX value="0.0"/>
+                  <foreground color="-16777216"/>
+                  <text value="Olá, usuário!"/>
+                </properties>
+              </component>
+              <component id="c4375" class="javax.swing.JButton" binding="btnSair">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-2949107"/>
+                  <borderPainted value="false"/>
+                  <focusPainted value="false"/>
+                  <text value="Sair"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <component id="4d4b5" class="javax.swing.JButton" binding="btnClientes">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="1.0" weighty="1.0"/>
+            </constraints>
+            <properties>
+              <background color="-2360088"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="true"/>
+              <focusPainted value="false"/>
+              <foreground color="-16777216"/>
+              <horizontalAlignment value="0"/>
+              <preferredSize width="94" height="34"/>
+              <text value="Clientes"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
