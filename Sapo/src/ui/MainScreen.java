@@ -16,6 +16,7 @@ public class MainScreen {
     private JButton btnSair;
     private JPanel agendamentoCard;
     private JButton btnAgendamento;
+    private JPanel imagemCard;
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
@@ -26,7 +27,8 @@ public class MainScreen {
         initializePanels();
         setupNavigation();
         clientesPanelInstance.loadAllClients();
-        showClientes();
+        showMenuPrincipal();
+        setupImageCard();
     }
 
     private void initializePanels() {
@@ -39,9 +41,11 @@ public class MainScreen {
         clientesCard.removeAll();
         cadastroCard.removeAll();
         agendamentoCard.removeAll();
+        imagemCard.removeAll();
         clientesCard.setLayout(new BorderLayout());
         cadastroCard.setLayout(new BorderLayout());
         agendamentoCard.setLayout(new BorderLayout());
+        imagemCard.setLayout(new BorderLayout());
         clientesCard.add(clientesPanelInstance.clientesPanel, BorderLayout.CENTER);
         cadastroCard.add(contentPaneInstance.contentPane, BorderLayout.CENTER);
         agendamentoCard.add(schedulingPanelInstance.schedulingPane, BorderLayout.CENTER);
@@ -51,7 +55,31 @@ public class MainScreen {
         cadastroCard.repaint();
         agendamentoCard.revalidate();
         agendamentoCard.repaint();
+        imagemCard.revalidate();
+        imagemCard.repaint();
 
+    }
+    private void setupImageCard() {
+        try {
+            ImageIcon menuImage = new ImageIcon("Sapo/src/api/imagem/menuImagem.png");
+            JLabel imageLabel = new JLabel() {
+                @Override
+                public void paintComponent(Graphics g) {
+                    g.drawImage(menuImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                }
+            };
+
+            imageLabel.setHorizontalAlignment(JLabel.CENTER);
+            imageLabel.setVerticalAlignment(JLabel.CENTER);
+            imageLabel.setPreferredSize(new Dimension(800, 600));
+
+            imagemCard.setLayout(new BorderLayout());
+            imagemCard.add(imageLabel, BorderLayout.CENTER);
+
+        } catch (Exception e) {
+            System.out.println("Não carregou a imagem.");
+            JOptionPane.showMessageDialog(cardsPanel, "Erro ao carregar a imagem do menu " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void setupNavigation() {
@@ -87,6 +115,10 @@ public class MainScreen {
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(219, 252,232));
         btnAgendamento.setBackground(new Color(122, 241, 168));
+    }
+
+    public void showMenuPrincipal(){
+        cardLayout.show(cardsPanel, "imagemCard");
     }
     public void refreshClientList() {
         clientesPanelInstance.loadAllClients();
