@@ -90,12 +90,55 @@ public class registerAppointment extends JDialog {
                 }
             }
         });
+        dateField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                String date = dateField.getText().replaceAll("[^0-9]", "");
+                if (date.length() >= 8) {
+                    date = date.substring(0,7);
+                }
+
+                StringBuilder formatDate = new StringBuilder();
+                for (int i = 0; i < date.length(); i++) {
+                    if (i == 2) {
+                        formatDate.append('/');
+                    }
+                    if (i == 4){
+                        formatDate.append('/');
+                    }
+                    formatDate.append(date.charAt(i));
+                }
+                dateField.setText(formatDate.toString());
+
+            }
+        });
         timeField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (timeField.getText().equals("XX:XX")){
                     timeField.setText("");
                 }
+            }
+        });
+        timeField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                String time = timeField.getText().replaceAll("[^0-9]", "");
+                if (time.length() >= 4) {
+                    time = time.substring(0, 3);
+                }
+
+                StringBuilder formatTime = new StringBuilder();
+                for (int i = 0; i < time.length(); i++) {
+                    if (i == 2) {
+                        formatTime.append(':');
+                    }
+                    formatTime.append(time.charAt(i));
+                }
+                timeField.setText(formatTime.toString());
+
             }
         });
 
