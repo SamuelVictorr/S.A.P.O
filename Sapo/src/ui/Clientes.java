@@ -27,9 +27,12 @@ public class Clientes {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = searchField.getText().toLowerCase().trim();
-                //se o campo estiver vázio, mostra todos os clientes
-                if (searchText.isEmpty() || searchText.equals("digite o nome do cliente:")) {
-                    loadAllClients();
+                //se o campo estiver vazio, mostra todos os clientes
+                if (searchText.isEmpty()) {
+                    listModel.clear();
+                    for (Client client : clientsDB) {
+                        listModel.addElement(client.toString());
+                    }
                 } else {
                     searchClient(searchText);
                 }
