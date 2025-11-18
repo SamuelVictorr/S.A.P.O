@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class register{
 
     public void initializeComponents(){
         nameField.setText("Nome do cliente");
-        telephoneField.setText("(XX)X XXXX-XXXX");
+        telephoneField.setText("(XX)XXXXX-XXXX");
         CPFfield.setText("XXX.XXX.XXX-XX");
         birthField.setText("XX/XX/XXXX");
         FieldObser.setText("Observações sobre o cliente");
@@ -98,22 +99,11 @@ public class register{
         String telephone = telephoneField.getText();
         String observation = FieldObser.getText();
         String birth = birthField.getText();
+        boolean valid;
 
-        if (name.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (name.isEmpty() || telephone.isEmpty() || CPF.isEmpty() || birth.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (name.equals("Nome do cliente") || telephone.equals("(xx)x xxxx-xxxx") || CPF.equals("xxx.xxx.xxx-xx") || birth.equals("xx/xx/xxxx")){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (!verifyCPF(CPF)) {
-            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        //Validação dos dados
+        valid = validInformation(name,telephone,CPF,birth);
+        if (!valid) {
             return;
         }
 
@@ -129,7 +119,54 @@ public class register{
         }
     }
 
-    private void setupMasks() {
+    public boolean validInformation(String name, String telephone, String CPF, String birth){
+        //validação do Nome
+        if(name.isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(name.equals("Nome do cliente")){
+            JOptionPane.showMessageDialog(null, "O campo Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //validação do Telefone
+        if(telephone.isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }  else if(telephone.equals("(XX)XXXXX-XXXX")) {
+            JOptionPane.showMessageDialog(null, "O campo Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (telephone.length() < 11){
+            JOptionPane.showMessageDialog(null, "Telefone é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //validação de CPF
+        if(CPF.isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(CPF.equals("XXX.XXX.XXX-XX")){
+            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(!verifyCPF(CPF)){
+            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //validação da data de nascimento
+        if(birth.isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(birth.equals("XX/XX/XXXX")) {
+            JOptionPane.showMessageDialog(null, "O campo Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(birth.length() == 8){
+            return true;
+        }
+        return true;
+    }
+
+    public void setupMasks() {
         CPFfield.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -153,35 +190,6 @@ public class register{
             }
         });
 
-//        telephoneField.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                super.keyPressed(e);
-//                boolean noveTele = true;
-//                String telephone = telephoneField.getText().replaceAll("[^0-9]", "");
-//                if (telephone.length() >= 11) {
-//                    telephone = telephone.substring(0, 11);
-//                }
-//
-//                StringBuilder formatTele = new StringBuilder();
-//                for (int i = 0; i < telephone.length(); i++) {
-//                    if (i == 0) {
-//                        formatTele.append('(');
-//                    }
-//                    if (i == 2) {
-//                        if(noveTele){
-//                            noveTele = false;
-//                            formatTele.append(")9");
-//                        }
-//                    }
-//                    if (i == 7) {
-//                        formatTele.append('-');
-//                    }
-//                    formatTele.append(telephone.charAt(i));
-//                }
-//                telephoneField.setText(formatTele.toString());
-//            }
-//        });
         telephoneField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -193,21 +201,20 @@ public class register{
                 if (telephone.length() > 2 && telephone.charAt(2) != '9') {
                     telephone = telephone.substring(0, 2) + "9" + telephone.substring(2);
                 }
-                StringBuilder f = new StringBuilder();
+                StringBuilder formatTele = new StringBuilder();
                 for (int i = 0; i < telephone.length(); i++) {
                     if (i == 0) {
-                        f.append("(");
+                        formatTele.append("(");
                     }
                     if (i == 2) {
-                        f.append(")");
+                        formatTele.append(")");
                     }
                     if (i == 7) {
-                        f.append("-");
+                        formatTele.append("-");
                     }
-                    f.append(telephone.charAt(i));
+                    formatTele.append(telephone.charAt(i));
                 }
-
-                telephoneField.setText(f.toString());
+                telephoneField.setText(formatTele.toString());
             }
         });
         birthField.addKeyListener(new KeyAdapter() {
@@ -216,7 +223,7 @@ public class register{
                 super.keyPressed(e);
                 String birth = birthField.getText().replaceAll("[^0-9]", "");
                 if (birth.length() >= 8) {
-                    birth = birth.substring(0, 7);
+                    birth = birth.substring(0,7);
                 }
 
                 StringBuilder formatBirth = new StringBuilder();
