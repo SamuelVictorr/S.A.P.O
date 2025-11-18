@@ -1,87 +1,72 @@
 package ui;
 
-import api.Client;
-import api.DataBase;
-
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 import java.util.List;
+import api.DataBase;
+import api.Client;
+import java.sql.SQLException;
 
 public class Clientes {
     public JPanel clientesPanel;
     public JTextField searchField;
     private JList<String> clientList;
-    private JButton btnNovoCadastro;
-    private JPanel searchPanel;
-    private DefaultListModel<String> listModel;
+    private final DefaultListModel<String> listModel;
     private List<Client> clientsDB;
-    private MainScreen mainScreen;
 
-    public Clientes(MainScreen mainScreen) {
-        this.mainScreen = mainScreen;
+    public Clientes() {
         listModel = new DefaultListModel<>();
-        initializeComponents();
-        setupListeners();
-    }
-
-    private void initializeComponents() {
         clientList.setModel(listModel);
-        searchField.setText("🔍 Digite o nome do cliente:");
-        setupButtons();
-    }
-    private void setupButtons(){
-        btnNovoCadastro.addActionListener(e -> {
-            mainScreen.showCadastro();
-        });
-    }
 
-    private void setupListeners() {
+        searchField.setText("Digite o nome do cliente:");
+
+        loadAllClients();
+
         searchField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = searchField.getText().toLowerCase().trim();
-
+                //se o campo estiver vazio, mostra todos os clientes
                 if (searchText.isEmpty()) {
                     listModel.clear();
                     for (Client client : clientsDB) {
                         listModel.addElement(client.toString());
                     }
                 } else {
-                    searchClients(searchText);
+                    searchClient(searchText);
                 }
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (searchField.getText().equals("🔍 Digite o nome do cliente:")) {
+                //se o campo começar a ser escrito, ele fica vázio
+                if (searchField.getText().equals("Digite o nome do cliente:")) {
                     searchField.setText("");
                 }
             }
         });
     }
 
-    public void loadAllClients() {
+    private void loadAllClients() {
         try {
             clientsDB = DataBase.getClients();
             listModel.clear();
             for (Client client : clientsDB) {
                 listModel.addElement(client.toString());
             }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(clientesPanel, "Erro ao carregar clientes: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void searchClients(String searchText) {
+    private void searchClient(String searchText) {
         listModel.clear();
-        if (clientsDB != null) {
-            for (Client client : clientsDB) {
-                boolean search = client.getName().toLowerCase().contains(searchText) || client.getCpf().toLowerCase().contains(searchText);
-                if (search) {
-                    listModel.addElement(client.toString());
-                }
+        for (Client client : clientsDB) {
+            boolean search = client.getName().toLowerCase().contains(searchText) || client.getCpf().toLowerCase().contains(searchText);
+            if(search){
+                listModel.addElement(client.toString());
             }
         }
     }
