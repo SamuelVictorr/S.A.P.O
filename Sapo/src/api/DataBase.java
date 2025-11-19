@@ -70,7 +70,7 @@ public class DataBase {
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, newState);
-        stmt.setString(1, clientId);
+        stmt.setString(2, clientId);
         stmt.executeUpdate();
     }
 
@@ -98,7 +98,8 @@ public class DataBase {
         int digitoVerificador2;
 
         //Convert the cpf string with the "." in a version without that
-        String stringModificada = cpf.replace(".", "");
+        String stringModificada = cpf.replace(".", "").replace("-","");
+
 
         //Get all the element in the cpf and put them on an array
         for(int i = 0; i < stringModificada.length(); i ++) {
@@ -133,7 +134,7 @@ public class DataBase {
     //Para teste
     public static void main(String[] args) {
         try {
-            removeClient("027.136.870.55");
+            removeClient("2");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

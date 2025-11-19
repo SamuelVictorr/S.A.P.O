@@ -1,10 +1,10 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import static api.DataBase.verifyCPF;
 import static api.DataBase.addClient;
@@ -22,6 +22,7 @@ public class register{
     private JLabel birthLabel;
     private JTextField FieldObser;
     private JLabel JLabelObser;
+    private JComboBox statusBox;
     private MainScreen mainScreen;
 
     public register(MainScreen mainScreen) {
@@ -99,16 +100,19 @@ public class register{
         String telephone = telephoneField.getText();
         String observation = FieldObser.getText();
         String birth = birthField.getText();
+        String status = statusBox.getSelectedItem().toString();
+        String idClinic = "1";
         boolean valid;
 
         //Validação dos dados
+        System.out.println(status);
         valid = validInformation(name,telephone,CPF,birth);
         if (!valid) {
             return;
         }
 
         try {
-            addClient(name, CPF, telephone, observation);
+            addClient(name, CPF, telephone, observation, status, birth, idClinic);
 
             JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             clearClientsField();
@@ -182,7 +186,7 @@ public class register{
                         formatCPF.append('.');
                     }
                     if (i == 9) {
-                        formatCPF.append('.');
+                        formatCPF.append('-');
                     }
                     formatCPF.append(cpf.charAt(i));
                 }
