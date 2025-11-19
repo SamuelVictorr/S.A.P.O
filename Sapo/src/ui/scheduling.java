@@ -15,6 +15,18 @@ public class scheduling {
     private JList<String> futuroList;
     private JButton btnNovoAgendamento;
     public JPanel schedulingPane;
+    private JLabel clientCurrent;
+    private JLabel procedureCurrent;
+    private JLabel detailCurrent;
+    private JLabel timeCurrent;
+    private JLabel dentistCurrent;
+    private JLabel statuCurrent;
+    private JLabel clientFuture;
+    private JLabel procedureFuture;
+    private JLabel detailFuture;
+    private JLabel timeFuture;
+    private JLabel dentistFuture;
+    private JLabel statuFuture;
     private MainScreen mainScreen;
     private DefaultListModel<String> listAgendamento;;
 

@@ -47,13 +47,19 @@ public class DataBase {
     public static void addClient(String name, String cpf, String telefone, String observacao) throws SQLException {
 
         Connection connection = connect();
-        String sql = "INSERT INTO clientes (name,cpf,telefone,observacao) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO clientes (name,cpf,telefone,observacao,active_state,data_nascimento,id_clinica) VALUES (?,?,?,?,?,?,?)";
+        String status = "ativo";
+        String dataNascimento = "nascido";
+        String idClinica = "clinicado";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1,name);
         stmt.setString(2,cpf);
         stmt.setString(3,telefone);
         stmt.setString(4,observacao);
+        stmt.setString(5,status);
+        stmt.setString(6, dataNascimento);
+        stmt.setString(7,idClinica);
         stmt.executeUpdate();
     }
 

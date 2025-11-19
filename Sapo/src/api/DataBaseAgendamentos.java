@@ -44,17 +44,17 @@ public class DataBaseAgendamentos {
         return schedule;
     }
 
-    public static void addSchedule(String diaHora, String typeTreatment, String idClient, String nameDentist, String statusTreatment, String details) throws SQLException {
+    public static void addSchedule(String diaHora, String details, String statusTreatment, String nameDentist, String idClient, String clinicId) throws SQLException {
         Connection connection = connect();
-        String sql = "INSERT INTO agendamentos (diahora, tipo_tratamento, id_cliente, id_dentista, status, detalhes) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO agendamentos (diahora,detalhes, status, id_clinica, id_cliente, id_dentista) VALUES (?,?,?,?,?,?)";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, diaHora);
-        stmt.setString(2, typeTreatment);
-        stmt.setString(3, idClient);
-        stmt.setString(4, nameDentist);
-        stmt.setString(5, statusTreatment);
-        stmt.setString(6, details);
+        stmt.setString(2, details);
+        stmt.setString(3, statusTreatment);
+        stmt.setString(4, clinicId);
+        stmt.setString(5, idClient);
+        stmt.setString(6, nameDentist);
 
         stmt.executeUpdate();
     }
@@ -83,7 +83,7 @@ public class DataBaseAgendamentos {
     }
     public static void updateSchedule(String diahora, String typeTreatment, String clientId, String dentistId, String status, String details, int idSchedule) throws SQLException {
         Connection connection = connect();
-        String sql = "UPDATE agendamentos SET diahora = ?, tipo_tratamento = ?, id_cliente = ? , id_dentista = ?, status = ?, detalhes = ? WHERE id_agendamento = ?";
+        String sql = "UPDATE agendamentos SET diahora = ?, detalhes = ?, id_cliente = ? , id_dentista = ?, status = ?, detalhes = ? WHERE id_agendamento = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, diahora);
@@ -98,7 +98,7 @@ public class DataBaseAgendamentos {
 
     public static void main(String[] args) {
         try{
-            addSchedule("","","","","","");
+            addSchedule("50/30/1939 18:30","Limpeza renal","20","Gabriel","ativo","ok");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
