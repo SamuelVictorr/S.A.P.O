@@ -20,6 +20,10 @@ public class registerAppointment extends JDialog {
     private JLabel dateLabel;
     private JLabel timeLabel;
     private JButton buttonCancel;
+    boolean valid;
+    int[] days = new int[2];
+    int[] month = new int[2];
+    int[] year = new int[4];
 
     public registerAppointment() {
         setContentPane(contentPane);
@@ -38,11 +42,13 @@ public class registerAppointment extends JDialog {
                 String date = dateField.getText();
                 String time = timeField.getText();
 
-                verifytype(type);
-                verifydentist(dentist);
-                verifydate(date);
-                verifytime(time);
+                //Validação dos dados
+                valid = verificationInformation(type,dentist,date,time);
+                if (!valid){
+                    return;
+                }
 
+                JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 clearText();
             }
         });
@@ -90,6 +96,7 @@ public class registerAppointment extends JDialog {
                 }
             }
         });
+
         dateField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -138,38 +145,47 @@ public class registerAppointment extends JDialog {
                     formatTime.append(time.charAt(i));
                 }
                 timeField.setText(formatTime.toString());
-
             }
         });
 
     }
 
-    public void verifytype(String type){
-        if (type.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+    public boolean verificationInformation(String type, String dentist, String date, String time){
+        //validação do Tipo
+        if(type.isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(type.equals("Tipo de Consulta")){
+            JOptionPane.showMessageDialog(null, "O campo Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
-    }
-    public void verifydentist(String dentist){
-        if (dentist.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Dentista é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+
+        //validação do dentista
+        if(dentist.isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(dentist.equals("Nome do Dentista")){
+            JOptionPane.showMessageDialog(null, "O campo Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
-    }
-    public void verifydate(String date){
+
+        //validação da data
         if (date.trim().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Data é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-        return;
+            JOptionPane.showMessageDialog(null, "O campo Data é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }else if(dentist.equals("XX/XX/XXXX")){
+            JOptionPane.showMessageDialog(null, "O campo Data é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
-    }
 
-    public void verifytime(String time){
-        if (time.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Time é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
+        //validação da horario
+        if (date.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo Horario é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }else if(dentist.equals("XX:XX")){
+            JOptionPane.showMessageDialog(null, "O campo Horario é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
+        return true;
     }
-
     public static void main(String[] args) {
         registerAppointment dialog = new registerAppointment();
         dialog.pack();
