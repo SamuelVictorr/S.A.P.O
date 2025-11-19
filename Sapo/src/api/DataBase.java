@@ -36,7 +36,10 @@ public class DataBase {
                         rs.getString("name"),
                         rs.getString("cpf"),
                         rs.getString("telefone"),
-                        rs.getString("observacao")
+                        rs.getString("observacao"),
+                        rs.getString("active_state"),
+                        rs.getString("data_nascimento"),
+                        rs.getString("id_clinica")
                 );
                 clients.add(client);
             }
@@ -44,41 +47,46 @@ public class DataBase {
         return clients;
     }
 
-    public static void addClient(String name, String cpf, String telefone, String observacao) throws SQLException {
+    public static void addClient(String name, String cpf, String telefone, String observacao, String activeState, String birthDate, String clinicId) throws SQLException {
 
         Connection connection = connect();
-        String sql = "INSERT INTO clientes (name,cpf,telefone,observacao,active_state,data_nascimento,id_clinica) VALUES (?,?,?,?,?,?,?)";
-        String status = "ativo";
-        String dataNascimento = "nascido";
-        String idClinica = "clinicado";
+        String sql = "INSERT INTO clientes (name,cpf,telefone,observacao, active_state, data_nascimento, id_clinica) VALUES (?, ?, ?, ?, ?, ?, ?)";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1,name);
         stmt.setString(2,cpf);
         stmt.setString(3,telefone);
         stmt.setString(4,observacao);
-        stmt.setString(5,status);
-        stmt.setString(6, dataNascimento);
-        stmt.setString(7,idClinica);
+        stmt.setString(5,activeState);
+        stmt.setString(6,birthDate);
+        stmt.setString(7,clinicId);
         stmt.executeUpdate();
     }
 
-    public static void removeClient(String cpf) throws SQLException{
+    public static void removeClient(String clientId) throws SQLException{
         Connection connection = connect();
-        String sql = "DELETE FROM clientes WHERE cpf = ?";
+        String newState = "Desativado";
+        String sql = "UPDATE  clientes  SET active_state = ? WHERE id = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
-        stmt.setString(1, cpf);
+        stmt.setString(1, newState);
+        stmt.setString(1, clientId);
         stmt.executeUpdate();
     }
 
-    public static void updateClient(String cpf, String telefone) throws SQLException{
+    public static void updateClient(String name, String cpf, String telefone, String observacao, String activeState, String birthDate, String clinicId, String clientId) throws SQLException{
         Connection connection = connect();
-        String sql = "UPDATE clientes SET telefone = ? WHERE cpf = ? ";
+        String sql = "INSERT INTO clientes name = ? ,cpf = ?,telefone = ?,observacao = ?, active_state = ?, data_nascimento = ?, id_clinica = ? WHERE id = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
-        stmt.setString(1, telefone);
-        stmt.setString(2, cpf);
+        stmt.setString(1,name);
+        stmt.setString(2,cpf);
+        stmt.setString(3,telefone);
+        stmt.setString(4,observacao);
+        stmt.setString(5,activeState);
+        stmt.setString(6,birthDate);
+        stmt.setString(7,clinicId);
+        stmt.setString(8, clientId);
         stmt.executeUpdate();
     }
 
