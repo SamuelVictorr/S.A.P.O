@@ -5,9 +5,7 @@ import api.DataBase;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,12 +18,13 @@ public class Clientes {
     private DefaultListModel<String> listModel;
     private List<Client> clientsDB;
     private MainScreen mainScreen;
+    private Client client;
 
     public Clientes(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         listModel = new DefaultListModel<>();
         initializeComponents();
-        setupListeners();
+        setupListeners(client);
     }
 
     private void initializeComponents() {
@@ -39,7 +38,8 @@ public class Clientes {
         });
     }
 
-    private void setupListeners() {
+    private void setupListeners(Client client) {
+        this.client = client;
         searchField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -76,6 +76,13 @@ public class Clientes {
                 boxClient.setOpaque(false);
                 boxClient.setBackground(Color.WHITE);
                 return boxClient;
+            }
+        });
+        clientList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("qiwjweudai");
+                mainScreen.showCustomerInformation();
             }
         });
     }

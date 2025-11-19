@@ -17,10 +17,12 @@ public class MainScreen {
     private JPanel agendamentoCard;
     private JButton btnAgendamento;
     private JPanel imagemCard;
+    private JPanel customerInformationCard;
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
     public scheduling schedulingPanelInstance;
+    public customerInformation customerInformationInstance;
     private CardLayout cardLayout;
 
     public MainScreen() {
@@ -37,18 +39,22 @@ public class MainScreen {
         clientesPanelInstance = new Clientes(this);
         contentPaneInstance = new register(this);
         schedulingPanelInstance = new scheduling(this);
+        customerInformationInstance = new customerInformation(this);
 
         clientesCard.removeAll();
         cadastroCard.removeAll();
         agendamentoCard.removeAll();
         imagemCard.removeAll();
+        customerInformationCard.removeAll();
         clientesCard.setLayout(new BorderLayout());
         cadastroCard.setLayout(new BorderLayout());
         agendamentoCard.setLayout(new BorderLayout());
         imagemCard.setLayout(new BorderLayout());
+        customerInformationCard.setLayout(new BorderLayout());
         clientesCard.add(clientesPanelInstance.clientesPanel, BorderLayout.CENTER);
         cadastroCard.add(contentPaneInstance.contentPane, BorderLayout.CENTER);
         agendamentoCard.add(schedulingPanelInstance.schedulingPane, BorderLayout.CENTER);
+        customerInformationCard.add(customerInformationInstance.infoClientsPanel, BorderLayout.CENTER);
         clientesCard.revalidate();
         clientesCard.repaint();
         cadastroCard.revalidate();
@@ -57,6 +63,8 @@ public class MainScreen {
         agendamentoCard.repaint();
         imagemCard.revalidate();
         imagemCard.repaint();
+        customerInformationCard.revalidate();
+        customerInformationCard.repaint();
 
     }
     private void setupImageCard() {
@@ -116,7 +124,9 @@ public class MainScreen {
         btnCadastro.setBackground(new Color(219, 252,232));
         btnAgendamento.setBackground(new Color(122, 241, 168));
     }
-
+    public void showCustomerInformation(){
+        cardLayout.show(cardsPanel, "customerInformationCard");
+    }
     public void showMenuPrincipal(){
         cardLayout.show(cardsPanel, "imagemCard");
     }

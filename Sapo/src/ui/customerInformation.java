@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class customerInformation {
     private JLabel customerInformationLabel;
@@ -26,4 +27,15 @@ public class customerInformation {
     private JPanel customerInformationPane;
     private JPanel nextAppointmentPane;
     private JPanel consultationHistoryPane;
+    public JPanel infoClientsPanel;
+    private MainScreen mainScreen;
+
+    public customerInformation(MainScreen mainScreen){
+        this.mainScreen = mainScreen;
+        setupButtons(mainScreen);
+    }
+    public void setupButtons(MainScreen mainScreen){
+        this.mainScreen = mainScreen;
+        returnButton.addActionListener(event -> mainScreen.showClientes());
+    }
 }
