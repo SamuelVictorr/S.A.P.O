@@ -1,8 +1,11 @@
 package ui;
 
 import api.Client;
+import api.DataBase;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import static api.DataBase.updateClient;
 
 public class customerInformation {
     private JLabel customerInformationLabel;
@@ -31,6 +34,7 @@ public class customerInformation {
     public JPanel infoClientsPanel;
     private MainScreen mainScreen;
 
+
     public customerInformation(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         setupButtons(mainScreen);
@@ -38,6 +42,7 @@ public class customerInformation {
     public void setupButtons(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
+        editButton.addActionListener(event -> mainScreen.showEditClient());
     }
     public void loadCustomersInformations(Client client) {
         if (client != null) {
@@ -56,5 +61,10 @@ public class customerInformation {
         return String.valueOf(age);
 
     }
-
+//    public void updateCostumersInformations(MainScreen mainScreen){
+//        String name =
+//        this.mainScreen = mainScreen;
+//        updateClient(name);
+//
+//    }
 }
