@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import static api.DataBase.verifyCPF;
 import static api.DataBase.addClient;
@@ -24,9 +27,6 @@ public class register{
     private JLabel JLabelObser;
     private JComboBox statusBox;
     private MainScreen mainScreen;
-    String days = "";
-    String month = "";
-    String year = "";
 
     public register(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
@@ -107,19 +107,7 @@ public class register{
         String idClinic = "1";
         boolean valid;
 
-        for(int i = 0; i < birth.length(); i++) {
-            if (i == 0 || i == 1) {
-                days += birth.charAt(i);
-            }
-            if (i == 3 || i == 4) {
-                month += birth.charAt(i);
-            }
-            if (i > 5) {
-                year += birth.charAt(i);
-            }
-        }
-        System.out.println(days + "\n" + month + "\n" + year);
-
+        System.out.println(birth);
         //Validação dos dados
         valid = validInformation(name,telephone,CPF,birth);
         if (!valid) {
@@ -156,7 +144,7 @@ public class register{
             JOptionPane.showMessageDialog(null, "O campo Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (telephone.length() < 11){
-            JOptionPane.showMessageDialog(null, "Telefone é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O campo Telefone é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -168,7 +156,7 @@ public class register{
             JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if(!verifyCPF(CPF)){
-            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O campo CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -179,9 +167,16 @@ public class register{
         } else if(birth.equals("XX/XX/XXXX")) {
             JOptionPane.showMessageDialog(null, "O campo Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else if(birth.length() == 8){
-            return true;
+        } else if(birth.length() == 10){
+            DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+            try {
+                LocalDate.parse(birth, date);
+                return true;
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(null, "O campo Data de Nascimento está inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return false;
             }
+        }
         return true;
     }
 
@@ -192,7 +187,7 @@ public class register{
                 super.keyPressed(e);
                 String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
                 if (cpf.length() >= 11) {
-                    cpf = cpf.substring(0, 11);
+                    cpf = cpf.substring(0,11);
                 }
 
                 StringBuilder formatCPF = new StringBuilder();
@@ -240,11 +235,11 @@ public class register{
         });
         birthField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyReleased(KeyEvent e) {
                 super.keyPressed(e);
                 String birth = birthField.getText().replaceAll("[^0-9]", "");
                 if (birth.length() >= 8) {
-                    birth = birth.substring(0,7);
+                    birth = birth.substring(0,8);
                 }
 
                 StringBuilder formatBirth = new StringBuilder();
