@@ -1,5 +1,7 @@
 package ui;
 
+import api.Client;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -124,7 +126,8 @@ public class MainScreen {
         btnCadastro.setBackground(new Color(219, 252,232));
         btnAgendamento.setBackground(new Color(122, 241, 168));
     }
-    public void showCustomerInformation(){
+    public void showCustomerInformation(Client clientSelected){
+        customerInformationInstance.loadCustomersInformations(clientSelected);
         cardLayout.show(cardsPanel, "customerInformationCard");
     }
     public void showMenuPrincipal(){
