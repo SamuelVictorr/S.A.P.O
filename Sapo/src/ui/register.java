@@ -129,48 +129,48 @@ public class register{
     public boolean validInformation(String name, String telephone, String CPF, String birth){
         //validação do Nome
         if(name.isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(name.equals("Nome do cliente")){
-            JOptionPane.showMessageDialog(null, "O campo Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         //validação do Telefone
         if(telephone.isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }  else if(telephone.equals("(XX)XXXXX-XXXX")) {
-            JOptionPane.showMessageDialog(null, "O campo Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if (telephone.length() < 11){
-            JOptionPane.showMessageDialog(null, "O campo Telefone é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Telefone é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         //validação de CPF
         if(CPF.isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if(CPF.equals("XXX.XXX.XXX-XX")){
-            JOptionPane.showMessageDialog(null, "O campo CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if(!verifyCPF(CPF)){
-            JOptionPane.showMessageDialog(null, "O campo CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         //validação da data de nascimento
         if(birth.isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if(birth.equals("XX/XX/XXXX")) {
-            JOptionPane.showMessageDialog(null, "O campo Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         } else if(birth.length() == 10){
-            DateTimeFormatter date = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
             try {
-                LocalDate.parse(birth, date);
+                LocalDate.parse(birth, dateFormat);
                 return true;
             } catch (DateTimeParseException e) {
                 JOptionPane.showMessageDialog(null, "O campo Data de Nascimento está inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
