@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataBase {
     public static Connection connect() {
@@ -99,6 +101,14 @@ public class DataBase {
 
         //Convert the cpf string with the "." in a version without that
         String stringModificada = cpf.replace(".", "").replace("-","");
+
+        // Do a regex to not accept non digit in DB
+        Pattern pattern = Pattern.compile("\\D");
+        Matcher matcher = pattern.matcher(stringModificada);
+
+        if (matcher.find()) {
+            return false;
+        }
 
 
         //Get all the element in the cpf and put them on an array
