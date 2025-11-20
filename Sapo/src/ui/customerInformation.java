@@ -1,7 +1,8 @@
 package ui;
 
+import api.Client;
+
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class customerInformation {
     private JLabel customerInformationLabel;
@@ -18,7 +19,7 @@ public class customerInformation {
     private JLabel procedureLabel;
     private JLabel detailLabel;
     private JLabel dentistLabel;
-    private JLabel statuLabel;
+    private JLabel statusLabel;
     private JList nextAppointmentList;
     private JLabel consultationHistoryLabel;
     private JButton returnButton;
@@ -38,4 +39,22 @@ public class customerInformation {
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
     }
+    public void loadCustomersInformations(Client client) {
+        if (client != null) {
+            nameLabel.setText(client.getName());
+            telephoneLabel.setText(client.getTelefone());
+            ageLabel.setText(birthValueConversion(client));
+
+        }
+    }
+
+    public String birthValueConversion(Client client){
+        String birthYear = client.getBirthDate().substring(6,10);
+        int birthYearConversion = Integer.parseInt(birthYear);
+        int actualYear = java.time.Year.now().getValue();
+        int age = actualYear - birthYearConversion;
+        return String.valueOf(age);
+
+    }
+
 }

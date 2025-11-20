@@ -18,13 +18,12 @@ public class Clientes {
     private DefaultListModel<String> listModel;
     private List<Client> clientsDB;
     private MainScreen mainScreen;
-    private Client client;
 
     public Clientes(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         listModel = new DefaultListModel<>();
         initializeComponents();
-        setupListeners(client);
+        setupListeners();
     }
 
     private void initializeComponents() {
@@ -38,8 +37,7 @@ public class Clientes {
         });
     }
 
-    private void setupListeners(Client client) {
-        this.client = client;
+    private void setupListeners() {
         searchField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -78,13 +76,34 @@ public class Clientes {
                 return boxClient;
             }
         });
+
         clientList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                int clientIndex = clientList.getSelectedIndex();
+                if (clientIndex >= 0) {
+                    String clientString = listModel.getElementAt(clientIndex);
+                    Client clientSelected = searchClientString(clientString);
+
+                    if(clientSelected != null){
+                        mainScreen.showCustomerInformation(clientSelected);
+                    }
+                }
                 System.out.println("qiwjweudai");
-                mainScreen.showCustomerInformation();
+                System.out.println(clientIndex);
             }
         });
+    }
+
+    private Client searchClientString(String clientString) {
+        if (clientsDB != null) {
+            for (Client client : clientsDB) {
+                if (client.toString().equals(clientString)) {
+                    return client;
+                }
+            }
+        }
+        return null;
     }
 
     public void loadAllClients() {
