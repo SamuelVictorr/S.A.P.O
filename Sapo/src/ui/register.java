@@ -24,6 +24,9 @@ public class register{
     private JLabel JLabelObser;
     private JComboBox statusBox;
     private MainScreen mainScreen;
+    String days = "";
+    String month = "";
+    String year = "";
 
     public register(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
@@ -104,8 +107,20 @@ public class register{
         String idClinic = "1";
         boolean valid;
 
+        for(int i = 0; i < birth.length(); i++) {
+            if (i == 0 || i == 1) {
+                days += birth.charAt(i);
+            }
+            if (i == 3 || i == 4) {
+                month += birth.charAt(i);
+            }
+            if (i > 5) {
+                year += birth.charAt(i);
+            }
+        }
+        System.out.println(days + "\n" + month + "\n" + year);
+
         //Validação dos dados
-        System.out.println(status);
         valid = validInformation(name,telephone,CPF,birth);
         if (!valid) {
             return;
@@ -166,7 +181,7 @@ public class register{
             return false;
         } else if(birth.length() == 8){
             return true;
-        }
+            }
         return true;
     }
 
@@ -202,7 +217,9 @@ public class register{
                 if (telephone.length() > 11) {
                     telephone = telephone.substring(0,11);
                 }
-                if (telephone.length() > 2 && telephone.charAt(2) != '9') {
+                if (telephone.length() == 10 && telephone.charAt(2) != '9') {
+                    telephone = telephone.substring(0, 2) + "9" + telephone.substring(2);
+                } else if (telephone.length() == 10 && telephone.charAt(3) != '9'){
                     telephone = telephone.substring(0, 2) + "9" + telephone.substring(2);
                 }
                 StringBuilder formatTele = new StringBuilder();

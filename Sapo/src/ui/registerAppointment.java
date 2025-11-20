@@ -21,9 +21,9 @@ public class registerAppointment extends JDialog {
     private JLabel timeLabel;
     private JButton buttonCancel;
     boolean valid;
-    int[] days = new int[2];
-    int[] month = new int[2];
-    int[] year = new int[4];
+    int days;
+    int month;
+    int year;
 
     public registerAppointment() {
         setContentPane(contentPane);
