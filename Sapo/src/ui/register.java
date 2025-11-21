@@ -126,7 +126,7 @@ public class register{
         }
     }
 
-    public boolean validInformation(String name, String telephone, String CPF, String birth){
+    public static boolean validInformation(String name, String telephone, String CPF, String birth){
         //validação do Nome
         if(name.isEmpty()){
             JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);

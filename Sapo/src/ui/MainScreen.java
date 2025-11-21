@@ -19,14 +19,13 @@ public class MainScreen {
     private JButton btnAgendamento;
     private JPanel imagemCard;
     private JPanel customerInformationCard;
-    private JPanel editClientCard;
 
     public Clientes clientesPanelInstance;
     public register contentPaneInstance;
     public scheduling schedulingPanelInstance;
     public customerInformation customerInformationInstance;
-    public editClient editClientInstance;
     private CardLayout cardLayout;
+    private Client storeClient;
 
     public MainScreen() {
         initializePanels();
@@ -43,14 +42,11 @@ public class MainScreen {
         contentPaneInstance = new register(this);
         schedulingPanelInstance = new scheduling(this);
         customerInformationInstance = new customerInformation(this);
-        editClientInstance = new editClient(this);
-
 
         clientesCard.removeAll();
         cadastroCard.removeAll();
         agendamentoCard.removeAll();
         imagemCard.removeAll();
-        editClientCard.removeAll();
         customerInformationCard.removeAll();
 
         clientesCard.setLayout(new BorderLayout());
@@ -58,13 +54,11 @@ public class MainScreen {
         agendamentoCard.setLayout(new BorderLayout());
         imagemCard.setLayout(new BorderLayout());
         customerInformationCard.setLayout(new BorderLayout());
-        editClientCard.setLayout(new BorderLayout());
 
         clientesCard.add(clientesPanelInstance.clientesPanel, BorderLayout.CENTER);
         cadastroCard.add(contentPaneInstance.contentPane, BorderLayout.CENTER);
         agendamentoCard.add(schedulingPanelInstance.schedulingPane, BorderLayout.CENTER);
         customerInformationCard.add(customerInformationInstance.infoClientsPanel, BorderLayout.CENTER);
-        editClientCard.add(editClientInstance.contentPane, BorderLayout.CENTER);
 
         clientesCard.revalidate();
         clientesCard.repaint();
@@ -80,9 +74,6 @@ public class MainScreen {
 
         customerInformationCard.revalidate();
         customerInformationCard.repaint();
-
-        editClientCard.revalidate();
-        editClientCard.repaint();
 
     }
     private void setupImageCard() {
@@ -144,21 +135,17 @@ public class MainScreen {
     }
 
     public void showCustomerInformation(Client clientSelected){
+        this.storeClient = clientSelected;
         customerInformationInstance.loadCustomersInformations(clientSelected);
         cardLayout.show(cardsPanel, "customerInformationCard");
-    }
-
-    public void showToUpdateCLientData(Client clientToUpdateSelected){
-        editClientInstance.toUpdateClientData(clientToUpdateSelected);
-        cardLayout.show(cardsPanel, "updateClientInfoCard");
     }
 
     public void showMenuPrincipal(){
         cardLayout.show(cardsPanel, "imagemCard");
     }
 
-    public void showEditClient(){
-        cardLayout.show(cardsPanel, "editClientCard");
+    public Client getStoreClient() {
+        return storeClient;
     }
 
     public void refreshClientList() {

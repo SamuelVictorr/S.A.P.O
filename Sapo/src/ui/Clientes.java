@@ -90,7 +90,6 @@ public class Clientes {
                     System.out.println(clientSelected);
                     if(clientSelected != null){
                         mainScreen.showCustomerInformation(clientSelected);
-                        mainScreen.showToUpdateCLientData(clientSelected);
                     }
                 }
                 System.out.println("teste de puxar o clientInformation");
@@ -135,4 +134,5 @@ public class Clientes {
             }
         }
     }
+
 }

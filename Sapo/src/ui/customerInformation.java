@@ -42,7 +42,15 @@ public class customerInformation {
     public void setupButtons(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
-        editButton.addActionListener(event -> mainScreen.showEditClient());
+        editButton.addActionListener(event -> {
+            Client client = mainScreen.getStoreClient();
+            if (client != null){
+            editClient dialog = new editClient(mainScreen, client);
+            dialog.setVisible(true);
+        } else {
+                System.out.println("debuug teste");;
+            }
+        });
     }
 
     public void loadCustomersInformations(Client client) {
@@ -61,10 +69,4 @@ public class customerInformation {
         return String.valueOf(age);
 
     }
-//    public void updateCostumersInformations(MainScreen mainScreen){
-//        String name =
-//        this.mainScreen = mainScreen;
-//        updateClient(name);
-//
-//    }
 }
