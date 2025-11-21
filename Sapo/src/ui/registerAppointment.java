@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.event.*;
 import java.lang.reflect.Array;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -27,10 +28,6 @@ public class registerAppointment extends JDialog {
     private JLabel timeLabel;
     private JButton buttonCancel;
     boolean valid;
-    String dateNow = LocalDate.now().toString();
-    int year;
-    int month;
-    int days;
 
     public registerAppointment() {
         setContentPane(contentPane);
@@ -57,8 +54,15 @@ public class registerAppointment extends JDialog {
                 }
                 String dataTime = date + " / " + time;
 
-                JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                clearText();
+                try {
+                    addSchedule(dataTime,detail,status,dentist,"10","15");
+                    JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    clearText();
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null,"Erro ao cadastrar Agendamento","ERRO",JOptionPane.INFORMATION_MESSAGE);
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

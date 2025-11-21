@@ -25,7 +25,6 @@ public class Clientes {
         initializeComponents();
         setupListeners();
     }
-
     private void initializeComponents() {
         clientList.setModel(listModel);
         searchField.setText("🔍 Digite o nome do cliente:");
@@ -36,7 +35,6 @@ public class Clientes {
             mainScreen.showCadastro();
         });
     }
-
     private void setupListeners() {
         searchField.addKeyListener(new KeyAdapter() {
             @Override
@@ -76,7 +74,6 @@ public class Clientes {
                 return boxClient;
             }
         });
-
         clientList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

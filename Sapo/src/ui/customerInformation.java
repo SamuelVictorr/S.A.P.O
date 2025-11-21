@@ -15,7 +15,6 @@ public class customerInformation {
     private JLabel telephoneLabel;
     private JLabel nextAppointmentLabel;
     private JLabel dateLabel;
-    private JLabel timeLabel;
     private JLabel procedureLabel;
     private JLabel detailLabel;
     private JLabel dentistLabel;

@@ -30,7 +30,7 @@ public class DataBaseAgendamentos {
 
             while (rs.next()) {
                 Schedule schedules = new Schedule(
-                        rs.getInt("id_agendamentos"),
+                        rs.getInt("id_agendamento"),
                         rs.getString("diahora"),
                         rs.getString("tipo_tratamento"),
                         rs.getString("id_cliente"),
@@ -98,7 +98,7 @@ public class DataBaseAgendamentos {
 
     public static void main(String[] args) {
         try{
-            addSchedule("50/30/1939 18:30","Limpeza renal","20","Gabriel","ativo","ok");
+            removeSchedule(false,10);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
