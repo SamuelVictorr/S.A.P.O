@@ -78,7 +78,7 @@ public class DataBase {
 
     public static void updateClient(String name, String cpf, String telefone, String observacao, String activeState, String birthDate, String clinicId, String clientId) throws SQLException{
         Connection connection = connect();
-        String sql = "INSERT INTO clientes name = ? ,cpf = ?,telefone = ?,observacao = ?, active_state = ?, data_nascimento = ?, id_clinica = ? WHERE id = ?";
+        String sql = "UPDATE clientes SET name = ? ,cpf = ?,telefone = ?,observacao = ?, active_state = ?, data_nascimento = ?, id_clinica = ? WHERE id = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1,name);

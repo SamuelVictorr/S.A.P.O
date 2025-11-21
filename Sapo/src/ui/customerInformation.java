@@ -34,22 +34,22 @@ public class customerInformation {
     public JPanel infoClientsPanel;
     private MainScreen mainScreen;
 
-
     public customerInformation(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         setupButtons(mainScreen);
     }
+
     public void setupButtons(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
         editButton.addActionListener(event -> mainScreen.showEditClient());
     }
+
     public void loadCustomersInformations(Client client) {
         if (client != null) {
             nameLabel.setText(client.getName());
             telephoneLabel.setText(client.getTelefone());
             ageLabel.setText(birthValueConversion(client));
-
         }
     }
 

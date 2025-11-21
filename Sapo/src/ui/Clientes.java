@@ -31,6 +31,7 @@ public class Clientes {
         searchField.setText("🔍 Digite o nome do cliente:");
         setupButtons();
     }
+
     private void setupButtons(){
         btnNovoCadastro.addActionListener(e -> {
             mainScreen.showCadastro();
@@ -60,6 +61,7 @@ public class Clientes {
                 }
             }
         });
+
         clientList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -84,12 +86,14 @@ public class Clientes {
                 if (clientIndex >= 0) {
                     String clientString = listModel.getElementAt(clientIndex);
                     Client clientSelected = searchClientString(clientString);
-
+                    System.out.println(clientString);
+                    System.out.println(clientSelected);
                     if(clientSelected != null){
                         mainScreen.showCustomerInformation(clientSelected);
+                        mainScreen.showToUpdateCLientData(clientSelected);
                     }
                 }
-                System.out.println("qiwjweudai");
+                System.out.println("teste de puxar o clientInformation");
                 System.out.println(clientIndex);
             }
         });
@@ -118,13 +122,15 @@ public class Clientes {
         }
     }
 
+    // Search function, sa prr procura tudo
     private void searchClients(String searchText) {
         listModel.clear();
         if (clientsDB != null) {
-            for (Client client : clientsDB) {
+            for (Client client : clientsDB) { // verificação 1:1 de info dos clientes no banco de dados
                 boolean search = client.getName().toLowerCase().contains(searchText) || client.getCpf().toLowerCase().contains(searchText);
                 if (search) {
                     listModel.addElement(client.toString());
+//                    searchText = client.getName();
                 }
             }
         }

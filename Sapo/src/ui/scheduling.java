@@ -35,7 +35,7 @@ public class scheduling {
         listAgendamento = new DefaultListModel<>();
         setupButton();
     }
-
+    
     public void setupButton(){
         btnNovoAgendamento.addActionListener(e -> mainScreen.showClientes());
 

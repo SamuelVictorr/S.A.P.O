@@ -1,7 +1,6 @@
 package ui;
 
 import api.Client;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -53,27 +52,35 @@ public class MainScreen {
         imagemCard.removeAll();
         editClientCard.removeAll();
         customerInformationCard.removeAll();
+
         clientesCard.setLayout(new BorderLayout());
         cadastroCard.setLayout(new BorderLayout());
         agendamentoCard.setLayout(new BorderLayout());
         imagemCard.setLayout(new BorderLayout());
         customerInformationCard.setLayout(new BorderLayout());
         editClientCard.setLayout(new BorderLayout());
+
         clientesCard.add(clientesPanelInstance.clientesPanel, BorderLayout.CENTER);
         cadastroCard.add(contentPaneInstance.contentPane, BorderLayout.CENTER);
         agendamentoCard.add(schedulingPanelInstance.schedulingPane, BorderLayout.CENTER);
         customerInformationCard.add(customerInformationInstance.infoClientsPanel, BorderLayout.CENTER);
         editClientCard.add(editClientInstance.contentPane, BorderLayout.CENTER);
+
         clientesCard.revalidate();
         clientesCard.repaint();
+
         cadastroCard.revalidate();
         cadastroCard.repaint();
+
         agendamentoCard.revalidate();
         agendamentoCard.repaint();
+
         imagemCard.revalidate();
         imagemCard.repaint();
+
         customerInformationCard.revalidate();
         customerInformationCard.repaint();
+
         editClientCard.revalidate();
         editClientCard.repaint();
 
@@ -135,16 +142,25 @@ public class MainScreen {
         btnCadastro.setBackground(new Color(219, 252,232));
         btnAgendamento.setBackground(new Color(122, 241, 168));
     }
+
     public void showCustomerInformation(Client clientSelected){
         customerInformationInstance.loadCustomersInformations(clientSelected);
         cardLayout.show(cardsPanel, "customerInformationCard");
     }
+
+    public void showToUpdateCLientData(Client clientToUpdateSelected){
+        editClientInstance.toUpdateClientData(clientToUpdateSelected);
+        cardLayout.show(cardsPanel, "updateClientInfoCard");
+    }
+
     public void showMenuPrincipal(){
         cardLayout.show(cardsPanel, "imagemCard");
     }
+
     public void showEditClient(){
         cardLayout.show(cardsPanel, "editClientCard");
     }
+
     public void refreshClientList() {
         clientesPanelInstance.loadAllClients();
     }
