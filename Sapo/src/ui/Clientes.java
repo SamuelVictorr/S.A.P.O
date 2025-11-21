@@ -114,7 +114,11 @@ public class Clientes {
             clientsDB = DataBase.getClients();
             listModel.clear();
             for (Client client : clientsDB) {
-                listModel.addElement(client.toString());
+                String statusClient = client.getActiveStatus();
+                if(statusClient.equals("Ativo")){
+                    listModel.addElement(client.toString());
+
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(clientesPanel, "Erro ao carregar clientes: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -126,10 +130,13 @@ public class Clientes {
         listModel.clear();
         if (clientsDB != null) {
             for (Client client : clientsDB) { // verificação 1:1 de info dos clientes no banco de dados
+                String statusClient = client.getActiveStatus();
                 boolean search = client.getName().toLowerCase().contains(searchText) || client.getCpf().toLowerCase().contains(searchText);
-                if (search) {
-                    listModel.addElement(client.toString());
-//                    searchText = client.getName();
+                if(search){
+                    if(statusClient.equals("Ativo")){
+                        listModel.addElement(client.toString());
+
+                    }
                 }
             }
         }

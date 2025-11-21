@@ -52,7 +52,6 @@ public class editClient extends JDialog {
 
     }
     public void removeClient() {
-        btnRemove.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover o cliente?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION
             );
 
@@ -67,7 +66,9 @@ public class editClient extends JDialog {
                     JOptionPane.showMessageDialog(this, "Erro ao remover cliente: " + ex.getMessage());
                 }
             }
-        });
+            else{
+                dispose();
+            }
     }
 
     public void saveInformations(){

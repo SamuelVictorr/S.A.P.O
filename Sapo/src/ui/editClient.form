@@ -34,6 +34,8 @@
                 </constraints>
                 <properties>
                   <background color="-2949107"/>
+                  <borderPainted value="false"/>
+                  <focusPainted value="false"/>
                   <text value="Remover Cliente"/>
                 </properties>
               </component>
@@ -43,6 +45,8 @@
                 </constraints>
                 <properties>
                   <background color="-8719960"/>
+                  <borderPainted value="false"/>
+                  <focusPainted value="false"/>
                   <text value="Salvar Alteração"/>
                 </properties>
               </component>
