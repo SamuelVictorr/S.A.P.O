@@ -33,6 +33,7 @@ public class customerInformation {
     private JPanel consultationHistoryPane;
     public JPanel infoClientsPanel;
     private MainScreen mainScreen;
+    private Client client;
 
     public customerInformation(MainScreen mainScreen){
         this.mainScreen = mainScreen;
@@ -43,9 +44,8 @@ public class customerInformation {
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
         editButton.addActionListener(event -> {
-            Client client = mainScreen.getStoreClient();
-            if (client != null){
-            editClient dialog = new editClient(mainScreen, client);
+            if (this.client != null){
+            editClient dialog = new editClient(mainScreen, this.client, this);
             dialog.setVisible(true);
         } else {
                 System.out.println("debuug teste");;
@@ -54,6 +54,7 @@ public class customerInformation {
     }
 
     public void loadCustomersInformations(Client client) {
+        this.client = client;
         if (client != null) {
             nameLabel.setText(client.getName());
             telephoneLabel.setText(client.getTelefone());

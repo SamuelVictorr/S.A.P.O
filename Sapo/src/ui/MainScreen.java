@@ -145,7 +145,11 @@ public class MainScreen {
     }
 
     public Client getStoreClient() {
-        return storeClient;
+        return this.storeClient;
+    }
+
+    public void setStoreClient(Client client){
+        this.storeClient = client;
     }
 
     public void refreshClientList() {

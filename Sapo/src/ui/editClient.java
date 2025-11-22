@@ -24,10 +24,12 @@ public class editClient extends JDialog {
     private JLabel birthLabel;
     private MainScreen mainScreen;
     private Client client;
+    private customerInformation customerInfo;
 
-    public editClient(MainScreen mainScreen, Client client) {
+    public editClient(MainScreen mainScreen, Client client, customerInformation customerInfo) {
         this.mainScreen = mainScreen;
         this.client = client;
+        this.customerInfo = customerInfo;
         setContentPane(contentPane);
         setModal(true);
         setTitle("Editar Paciente");
@@ -35,7 +37,7 @@ public class editClient extends JDialog {
         setLocationRelativeTo(mainScreen.mainPanel);
         setResizable(false);
 
-        loadCustomersInformations(client);
+        loadCustomersInformationsEdit(client);
         setupButtons();
         setupMasksEdit();
     }
@@ -44,7 +46,7 @@ public class editClient extends JDialog {
         btnSave.addActionListener(e -> saveInformations());
 
     }
-    public void loadCustomersInformations(Client client){
+    public void loadCustomersInformationsEdit(Client client){
         nameField.setText(client.getName());
         cpfField.setText(client.getCpf());
         telephoneField.setText(client.getTelefone());
@@ -92,6 +94,14 @@ public class editClient extends JDialog {
 
             JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!");
             mainScreen.refreshClientList();
+
+            Client updatedClient = new Client(client.getId(), name, CPF, telephone, client.getObservacao(), client.getActiveStatus(), birth, client.getClinicId());
+
+            mainScreen.setStoreClient(updatedClient);
+            if(customerInfo != null){
+                customerInfo.loadCustomersInformations(updatedClient);
+            }
+
             dispose();
 
         } catch (SQLException ex) {
