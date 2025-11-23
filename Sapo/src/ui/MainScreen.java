@@ -121,6 +121,8 @@ public class MainScreen {
     }
 
     public void showAgendamento(){
+        schedulingPanelInstance.setFieldsSchedule();
+        schedulingPanelInstance.loadSchedule();
         cardLayout.show(cardsPanel, "agendamentoCard");
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(219, 252,232));
