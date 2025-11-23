@@ -29,22 +29,4 @@ public class Schedule {
     public String getStatusTreatment() { return statusTreatment; }
     public String getDetails() { return details; }
 
-    public String toStringName() {
-        return nameClient;
-    }
-    public String toStringtype(){
-        return typeTreatment;
-    }
-    public String toStringDetails(){
-        return details;
-    }
-    public String toStringDiahora(){
-        return diahora;
-    }
-    public String toStringNameDentist(){
-        return nameDentist;
-    }
-    public String toStringStatusTreatment(){
-        return statusTreatment;
-    }
 }
