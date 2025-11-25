@@ -29,6 +29,7 @@ public class registerAppointment extends JDialog {
     private JButton buttonCancel;
     boolean valid;
 
+
     public registerAppointment() {
         setContentPane(contentPane);
         setModal(true);
@@ -54,8 +55,9 @@ public class registerAppointment extends JDialog {
                 }
                 String dataTime = date + " / " + time;
 
+
                 try {
-                    addSchedule(dataTime,detail,status,dentist,"10","15");
+                    addSchedule(dataTime,detail,status,dentist,"10","15",type);
                     JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     clearText();
 

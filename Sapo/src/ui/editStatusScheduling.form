@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="2a730" class="javax.swing.JCheckBox" binding="performedCheckBox">
+          <component id="a95f7" class="javax.swing.JRadioButton" binding="performedCheckBox">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -24,7 +24,7 @@
               <text value="Realizado"/>
             </properties>
           </component>
-          <component id="aa1af" class="javax.swing.JCheckBox" binding="confirmedCheckBox">
+          <component id="11e63" class="javax.swing.JRadioButton" binding="confirmedCheckBox">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -32,7 +32,7 @@
               <text value="Confirmado"/>
             </properties>
           </component>
-          <component id="c3ea5" class="javax.swing.JCheckBox" binding="canceledCheckBox">
+          <component id="8d075" class="javax.swing.JRadioButton" binding="canceledCheckBox">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -40,7 +40,7 @@
               <text value="Cancelado"/>
             </properties>
           </component>
-          <component id="d1722" class="javax.swing.JCheckBox" binding="rescheduledCheckBox">
+          <component id="fc6a5" class="javax.swing.JRadioButton" binding="rescheduledCheckBox">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -48,7 +48,7 @@
               <text value="Reagendado"/>
             </properties>
           </component>
-          <component id="24965" class="javax.swing.JCheckBox" binding="pendingCheckBox">
+          <component id="8b405" class="javax.swing.JRadioButton" binding="pendingCheckBox">
             <constraints>
               <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
