@@ -45,7 +45,7 @@ public class DataBaseAgendamentos {
         return schedule;
     }
 
-    public static void addSchedule(String diaHora, String details, String statusTreatment, String nameDentist, String idClient, String clinicId, String treatmentType, String idDetista) throws SQLException {
+    public static void addSchedule(String diaHora, String details, String statusTreatment, String nameDentist, String idClient, String clinicId, String treatmentType, String idDentista) throws SQLException {
         Connection connection = connect();
         String sql = "INSERT INTO agendamentos (diahora,detalhes, status_tratamento, id_clinica, id_cliente, nome_dentista, tipo_tratamento, id_dentista) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         assert connection != null;
@@ -57,14 +57,14 @@ public class DataBaseAgendamentos {
         stmt.setString(5, idClient);
         stmt.setString(6, nameDentist);
         stmt.setString(7, treatmentType);
-        stmt.setString(8, idDetista);
+        stmt.setString(8, idDentista);
 
         stmt.executeUpdate();
     }
 
     public static void removeSchedule(int idSchedule) throws SQLException {
         Connection connection = connect();
-        String novoEstado = "Finalizado";
+        String novoEstado = "Finalzado";
         String sql = "UPDATE agendamentos SET status_tratamento = ? WHERE id_agendamento = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
@@ -76,7 +76,7 @@ public class DataBaseAgendamentos {
 
     public static void updateSchedule(String diahora, String typeTreatment, String clientId, String dentistId, String status, String details, int idSchedule) throws SQLException {
         Connection connection = connect();
-        String sql = "UPDATE agendamentos SET diahora = ?, detalhes = ?, id_cliente = ? , id_dentista = ?, status_tratamento = ?, detalhes = ? WHERE id_agendamento = ?";
+        String sql = "UPDATE agendamentos SET diahora = ?, tipo_tratamento = ?, id_cliente = ?, id_dentista = ?, status_tratamento = ?, detalhes = ? WHERE id_agendamento = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, diahora);

@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
 import static api.DataBaseAgendamentos.addSchedule;
+import static api.DataBaseAgendamentos.selectNameClientById;
 
 public class registerAppointment extends JDialog {
     private JPanel contentPane;
@@ -73,9 +74,10 @@ public class registerAppointment extends JDialog {
                     idDetista = "4";
                 }
                 String dataTime = date + " / " + time;
+                String idClient = String.valueOf(clientScheduling.getId());
 
                 try {
-                    addSchedule(dataTime, detail, status, clinicID, String.valueOf(clientScheduling.getId()), dentist, type, idDetista);
+                    addSchedule(dataTime, detail, status, clinicID, idClient, dentist, type, idDetista);
                     JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     clearText();
                     dispose();

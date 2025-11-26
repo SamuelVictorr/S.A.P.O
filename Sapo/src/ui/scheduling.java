@@ -35,16 +35,16 @@ public class scheduling {
     public scheduling(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
 
-        tableNowModel = new DefaultTableModel(new Object[]{"Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0){
+        tableNowModel = new DefaultTableModel(new Object[]{"Numero do Cadastro","Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 5;
+                return column == 6;
             }
         };
-        tableFutureModel = new DefaultTableModel(new Object[]{"Cliente","Procedimento","Detalhe","Data/Horário","Dentista","Status"}, 0){
+        tableFutureModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 5;
+                return column == 6;
 
             }
         };
@@ -56,11 +56,11 @@ public class scheduling {
         statusEdit();
     }
 
-    public void setupButton(){
+    public void setupButton() {
         btnNovoAgendamento.addActionListener(e -> mainScreen.schedulingModeActivated());
     }
 
-    public void loadSchedule(){
+    public void loadSchedule() {
         try {
             scheduleDB = DataBaseAgendamentos.getSchedule();
             tableNowModel.setRowCount(0);
@@ -68,129 +68,120 @@ public class scheduling {
 
             for (Schedule schedule : scheduleDB) {
                 String dataHora = schedule.getDiaHora();
-                String date = dataHora.substring(0,10);
+                String date = dataHora.substring(0, 10);
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
                 LocalDate dateNow = LocalDate.now();
                 LocalDate parseDate = LocalDate.parse(date, dateFormat);
 
-                if(parseDate.isEqual(dateNow)) {
+                if (parseDate.isEqual(dateNow)) {
                     addNow(schedule);
                 }
-                if(parseDate.isAfter(dateNow)){
+                if (parseDate.isAfter(dateNow)) {
                     addFuture(schedule);
                 }
             }
             tableNow.setModel(tableNowModel);
             tableFuture.setModel(tableFutureModel);
-            if(dateInit.length() == 10 || dateFinal.length() == 10){
+            if (dateInit.length() == 10 || dateFinal.length() == 10) {
                 searchDate();
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(schedulingPane, "Erro ao carregar clientes: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-   }
+    }
 
-   public void setFieldsSchedule(){
+    public void setFieldsSchedule() {
         dateInitField.setText("Data Inicial:");
         dateFinalField.setText("Data Final:");
         dateInitField.addKeyListener(new KeyAdapter() {
-           @Override
-           public void keyPressed(KeyEvent e) {
-               super.keyPressed(e);
-               if (dateInitField.getText().equals("Data Inicial:")){
-                   dateInitField.setText("");
-               }
-           }
-       });
-       dateFinalField.addKeyListener(new KeyAdapter() {
-           @Override
-           public void keyTyped(KeyEvent e) {
-               super.keyTyped(e);
-               if (dateFinalField.getText().equals("Data Final:")){
-                   dateFinalField.setText("");
-               }
-           }
-       });
-   }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (dateInitField.getText().equals("Data Inicial:")) {
+                    dateInitField.setText("");
+                }
+            }
+        });
+        dateFinalField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                if (dateFinalField.getText().equals("Data Final:")) {
+                    dateFinalField.setText("");
+                }
+            }
+        });
+    }
 
-   public void formatDateSchedule(){
-       dateInitField.addKeyListener(new KeyAdapter() {
-           @Override
-           public void keyReleased(KeyEvent e) {
-               super.keyPressed(e);
-               String date = dateInitField.getText().replaceAll("[^0-9]", "");
-               if (date.length() >= 8) {
-                   date = date.substring(0,8);
-               }
+    public void formatDateSchedule() {
+        dateInitField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
+                String date = dateInitField.getText().replaceAll("[^0-9]", "");
+                if (date.length() >= 8) {
+                    date = date.substring(0, 8);
+                }
 
-               StringBuilder formatInit = new StringBuilder();
-               for (int i = 0; i < date.length(); i++) {
-                   if (i == 2) {
-                       formatInit.append('/');
-                   }
-                   if (i == 4){
-                       formatInit.append('/');
-                   }
-                   formatInit.append(date.charAt(i));
-               }
-               dateInitField.setText(formatInit.toString());
-               if(dateInitField.getText().length() == 10) {
-                   searchDate();
-               }
-               if(dateInitField.getText().length() < 10 && dateFinalField.getText().equals("Data Final:")){
-                   loadSchedule();
-               }else if (dateInitField.getText().length() < 10 && dateFinalField.getText().isEmpty()) {
-                   loadSchedule();
-               }
-           }
-       });
+                StringBuilder formatInit = new StringBuilder();
+                for (int i = 0; i < date.length(); i++) {
+                    if (i == 2) {
+                        formatInit.append('/');
+                    }
+                    if (i == 4) {
+                        formatInit.append('/');
+                    }
+                    formatInit.append(date.charAt(i));
+                }
+                dateInitField.setText(formatInit.toString());
+                if (dateInitField.getText().length() == 10) {
+                    searchDate();
+                }
+                if (dateInitField.getText().length() < 10 && dateFinalField.getText().equals("Data Final:")) {
+                    loadSchedule();
+                } else if (dateInitField.getText().length() < 10 && dateFinalField.getText().isEmpty()) {
+                    loadSchedule();
+                }
+            }
+        });
 
-       dateFinalField.addKeyListener(new KeyAdapter() {
-           @Override
-           public void keyReleased(KeyEvent e) {
-               super.keyPressed(e);
-               String date = dateFinalField.getText().replaceAll("[^0-9]", "");
-               if (date.length() >= 8) {
-                   date = date.substring(0,8);
-               }
+        dateFinalField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyPressed(e);
+                String date = dateFinalField.getText().replaceAll("[^0-9]", "");
+                if (date.length() >= 8) {
+                    date = date.substring(0, 8);
+                }
 
-               StringBuilder formatFinal = new StringBuilder();
-               for (int i = 0; i < date.length(); i++) {
-                   if (i == 2) {
-                       formatFinal.append('/');
-                   }
-                   if (i == 4){
-                       formatFinal.append('/');
-                   }
-                   formatFinal.append(date.charAt(i));
-               }
-               dateFinalField.setText(formatFinal.toString());
-               if(dateFinalField.getText().length() == 10) {
-                   searchDate();
-               }
-             if(dateFinalField.getText().length() < 10 && dateInitField.getText().equals("Data Inicial:")){
-                 loadSchedule();
-             }else if (dateFinalField.getText().length() < 10 && dateInitField.getText().isEmpty()) {
-                 loadSchedule();
-             }
+                StringBuilder formatFinal = new StringBuilder();
+                for (int i = 0; i < date.length(); i++) {
+                    if (i == 2) {
+                        formatFinal.append('/');
+                    }
+                    if (i == 4) {
+                        formatFinal.append('/');
+                    }
+                    formatFinal.append(date.charAt(i));
+                }
+                dateFinalField.setText(formatFinal.toString());
+                if (dateFinalField.getText().length() == 10) {
+                    searchDate();
+                }
+                if (dateFinalField.getText().length() < 10 && dateInitField.getText().equals("Data Inicial:")) {
+                    loadSchedule();
+                } else if (dateFinalField.getText().length() < 10 && dateInitField.getText().isEmpty()) {
+                    loadSchedule();
+                }
 
-           }
-       });
-   }
+            }
+        });
+    }
 
     private void addFuture(Schedule s) {
         tableFutureModel.addRow(new Object[]{
-                s.getIdClient(),
-                s.getTypeTreatment(),
-                s.getDetails(),
-                s.getDiaHora(),
-                s.getNameDentist(),
-                s.getStatusTreatment()
-        });
-    }
-    private void addNow(Schedule s) {
-        tableNowModel.addRow(new Object[]{
+                s.getIdSchedule(),
                 s.getIdClient(),
                 s.getTypeTreatment(),
                 s.getDetails(),
@@ -200,34 +191,44 @@ public class scheduling {
         });
     }
 
-    public void searchDate(){
+    private void addNow(Schedule s) {
+        tableNowModel.addRow(new Object[]{
+                s.getIdSchedule(),
+                s.getIdClient(),
+                s.getTypeTreatment(),
+                s.getDetails(),
+                s.getDiaHora(),
+                s.getNameDentist(),
+                s.getStatusTreatment()
+        });
+    }
+
+    public void searchDate() {
         try {
             DateTimeFormatter formatdate = DateTimeFormatter.ofPattern("dd/MM/uuuu");
             LocalDate dateInit = null;
             LocalDate dateFinal = null;
 
-            if(dateInitField.getText().length() == 10){
+            if (dateInitField.getText().length() == 10) {
                 dateInit = LocalDate.parse(dateInitField.getText(), formatdate);
             }
-            if(dateFinalField.getText().length() == 10) {
+            if (dateFinalField.getText().length() == 10) {
                 dateFinal = LocalDate.parse(dateFinalField.getText(), formatdate);
             }
             tableFutureModel.setRowCount(0);
 
             for (Schedule schedule : scheduleDB) {
-                LocalDate dateSchedule = LocalDate.parse(schedule.getDiaHora().substring(0,10), formatdate);
+                LocalDate dateSchedule = LocalDate.parse(schedule.getDiaHora().substring(0, 10), formatdate);
 
                 if (dateInit != null && dateFinal == null && !dateSchedule.isEqual(LocalDate.now())) {
                     if (!dateSchedule.isBefore(dateInit)) {
                         addFuture(schedule);
                     }
-                }
-                else if (dateInit == null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
+                } else if (dateInit == null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
                     if (!dateSchedule.isAfter(dateFinal)) {
                         addFuture(schedule);
                     }
-                }
-                else if (dateInit != null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
+                } else if (dateInit != null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
                     if (!dateSchedule.isBefore(dateInit) && !dateSchedule.isAfter(dateFinal)) {
                         addFuture(schedule);
                     }
@@ -240,28 +241,27 @@ public class scheduling {
     }
 
     public void statusEdit() {
-
+        editStatusScheduling editSchedule = new editStatusScheduling(mainScreen);
         tableFuture.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-
                 int linha = tableFuture.rowAtPoint(e.getPoint());
                 int coluna = tableFuture.columnAtPoint(e.getPoint());
+                StringBuilder idSchedule = new StringBuilder();
 
-                System.out.println(linha + "\n" + coluna);
-
-
+                if(coluna == 6) {
+                    for (int i = 0; i < tableFuture.getColumnCount(); i++) {
+                        if (i == 0) {
+                            Object valor = tableFuture.getValueAt(linha, i);
+                            idSchedule.append(valor);
+                            editSchedule.setStatus(idSchedule);
+                            editSchedule.setVisible(true);
+                            loadSchedule();
+                        }
+                    }
+                }
             }
         });
     }
-
-//    public String olharDB(int linha) throws SQLException {
-//        scheduleDB = DataBaseAgendamentos.getSchedule();
-//        for(Schedule schedule : scheduleDB){
-//            if(linha == schedule.getIdSchedule()){
-//                return schedule.getDiaHora();
-//            }
-//        }
-//    }
 }
 

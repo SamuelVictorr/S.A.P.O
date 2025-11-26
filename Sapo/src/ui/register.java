@@ -107,7 +107,6 @@ public class register{
         String idClinic = "1";
         boolean valid;
 
-        System.out.println(birth);
         //Validação dos dados
         valid = validClient(name,telephone,CPF,birth);
         if (!valid) {
