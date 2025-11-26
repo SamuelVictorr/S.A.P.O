@@ -62,7 +62,7 @@ public class scheduling {
 
     public void loadSchedule() {
         try {
-            scheduleDB = DataBaseAgendamentos.getSchedule();
+            scheduleDB = DataBaseAgendamentos.getSchedules();
             tableNowModel.setRowCount(0);
             tableFutureModel.setRowCount(0);
 
@@ -182,7 +182,7 @@ public class scheduling {
     private void addFuture(Schedule s) {
         tableFutureModel.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getIdClient(),
+                s.getClient().getName(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),
@@ -194,7 +194,7 @@ public class scheduling {
     private void addNow(Schedule s) {
         tableNowModel.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getIdClient(),
+                s.getClient(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),

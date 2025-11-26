@@ -19,26 +19,40 @@ public class DataBaseAgendamentos {
         return null;
     }
 
-    public static List<Schedule> getSchedule() throws SQLException {
+    public static List<Schedule> getSchedules() throws SQLException {
         Connection connection = connect();
 
-        String sql = "SELECT * FROM agendamentos";
+        String sql = "SELECT a.id_agendamento,a.diahora,a.nome_cliente,a.nome_dentista,a.status_tratamento,a.tipo_tratamento,a.detalhes,a.id_clinica,a.id_dentista,c.name,c.id,c.cpf,c.data_nascimento,c.observacao,c.telefone,c.active_state\n" +
+                "FROM agendamentos as a LEFT JOIN clientes as c\n" +
+                "ON a.id_cliente = c.id \n";
         List<Schedule> schedule = new ArrayList<>();
+        //
 
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
+                Client cliente = new Client(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("cpf"),
+                        rs.getString("telefone"),
+                        rs.getString("observacao"),
+                        rs.getString("active_state"),
+                        rs.getString("data_nascimento"),
+                        rs.getString("id_clinica")
+                );
                 Schedule schedules = new Schedule(
                         rs.getInt("id_agendamento"),
                         rs.getString("diahora"),
-                        rs.getString("tipo_tratamento"),
-                        rs.getString("nome_cliente"),
+                        cliente,
                         rs.getString("nome_dentista"),
-                        rs.getString("id_dentista"),
                         rs.getString("status_tratamento"),
-                        rs.getString("detalhes")
+                        rs.getString("tipo_tratamento"),
+                        rs.getString("detalhes"),
+                        rs.getString("id_dentista")
                 );
+                System.out.println(cliente.toString());
                 schedule.add(schedules);
             }
         }
@@ -74,14 +88,14 @@ public class DataBaseAgendamentos {
         stmt.executeUpdate();
     }
 
-    public static void updateSchedule(String diahora, String typeTreatment, String clientId, String dentistId, String status, String details, int idSchedule) throws SQLException {
+    public static void updateSchedule(String diahora, String typeTreatment, int clientId, String dentistId, String status, String details, int idSchedule) throws SQLException {
         Connection connection = connect();
         String sql = "UPDATE agendamentos SET diahora = ?, tipo_tratamento = ?, id_cliente = ?, id_dentista = ?, status_tratamento = ?, detalhes = ? WHERE id_agendamento = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, diahora);
         stmt.setString(2, typeTreatment);
-        stmt.setString(3, clientId);
+        stmt.setString(3, String.valueOf(clientId));
         stmt.setString(4, dentistId);
         stmt.setString(5, status);
         stmt.setString(6, details);
@@ -121,7 +135,7 @@ public class DataBaseAgendamentos {
 
     public static void main(String[] args) {
         try{
-            updateSchedule("12/05/2023 18:30","Ala","5","1","Finalizado","Clareamento dental",1);
+            updateSchedule("12/05/2023 18:30","Ala",5,"1","Finalizado","Clareamento dental",1);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

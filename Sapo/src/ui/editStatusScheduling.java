@@ -35,7 +35,7 @@ public class editStatusScheduling extends JDialog {
 
     public void setStatus(StringBuilder idSchedule){
         try {
-            scheduleDB = DataBaseAgendamentos.getSchedule();
+            scheduleDB = DataBaseAgendamentos.getSchedules();
             String StrIdSchedule = idSchedule.toString();
             int intIdSchedule = Integer.parseInt(StrIdSchedule);
             completedCheckBox.addMouseListener(new MouseAdapter() {
@@ -46,7 +46,7 @@ public class editStatusScheduling extends JDialog {
                     for (Schedule schedule : scheduleDB) {
                         if (intIdSchedule == schedule.getIdSchedule()) {
                             try {
-                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getIdClient(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
+                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getClient().getId(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
                                 dispose();
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
@@ -64,7 +64,7 @@ public class editStatusScheduling extends JDialog {
                     for (Schedule schedule : scheduleDB) {
                         if (intIdSchedule == schedule.getIdSchedule()) {
                             try {
-                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getIdClient(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
+                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getClient().getId(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
                                 dispose();
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
@@ -81,7 +81,7 @@ public class editStatusScheduling extends JDialog {
                     for (Schedule schedule : scheduleDB) {
                         if (intIdSchedule == schedule.getIdSchedule()) {
                             try {
-                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getIdClient(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
+                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getClient().getId(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
                                 dispose();
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
@@ -98,7 +98,7 @@ public class editStatusScheduling extends JDialog {
                     for (Schedule schedule : scheduleDB) {
                         if (intIdSchedule == schedule.getIdSchedule()) {
                             try {
-                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getIdClient(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
+                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getClient().getId(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
                                 dispose();
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);
@@ -115,7 +115,7 @@ public class editStatusScheduling extends JDialog {
                     for (Schedule schedule : scheduleDB) {
                         if (intIdSchedule == schedule.getIdSchedule()) {
                             try {
-                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getIdClient(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
+                                DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getClient().getId(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
                                 dispose();
                             } catch (SQLException ex) {
                                 throw new RuntimeException(ex);

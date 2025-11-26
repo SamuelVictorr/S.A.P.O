@@ -49,7 +49,6 @@ public class registerAppointment extends JDialog {
         agendarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String type = typeField.getText();
                 String dentist = dentistBox.getSelectedItem().toString();
                 String detail = detailField.getText();
@@ -77,11 +76,10 @@ public class registerAppointment extends JDialog {
                 String idClient = String.valueOf(clientScheduling.getId());
 
                 try {
-                    addSchedule(dataTime, detail, status, clinicID, idClient, dentist, type, idDetista);
+                    addSchedule(dataTime, detail, status, dentist, idClient, clinicID, type, idDetista);
                     JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     clearText();
                     dispose();
-
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao cadastrar Agendamento", "ERRO", JOptionPane.INFORMATION_MESSAGE);
                     throw new RuntimeException(ex);
@@ -98,7 +96,6 @@ public class registerAppointment extends JDialog {
     }
 
     public void mask(){
-
         typeField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
