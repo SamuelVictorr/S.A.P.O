@@ -5,15 +5,17 @@ public class Schedule {
     private String diahora;
     private String typeTreatment;
     private String nameDentist;
+    private String idDentista;
     private String nameClient;
     private String statusTreatment;
     private String details;
 
-    public Schedule(int idSchedule, String diaHora, String typeTreatment, String nameDentist, String idClient, String statusTreatment, String details) {
+    public Schedule(int idSchedule, String diaHora, String typeTreatment, String nameDentist, String idDentista ,String idClient, String statusTreatment, String details) {
         this.idSchedule = idSchedule;
         this.diahora = diaHora;
         this.typeTreatment= typeTreatment;
         this.nameDentist = nameDentist;
+        this.idDentista = idDentista;
         this.nameClient = idClient;
         this.statusTreatment = statusTreatment;
         this.details = details;
@@ -28,5 +30,6 @@ public class Schedule {
     public String getIdClient() { return nameClient; }
     public String getStatusTreatment() { return statusTreatment; }
     public String getDetails() { return details; }
+    public String getIdDentista() { return idDentista; }
 
 }

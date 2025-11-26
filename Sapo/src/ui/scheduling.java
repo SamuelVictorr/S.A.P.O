@@ -34,13 +34,26 @@ public class scheduling {
 
     public scheduling(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
-        tableNowModel = new DefaultTableModel(new Object[]{"Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
-        tableFutureModel = new DefaultTableModel(new Object[]{"Cliente","Procedimento","Detalhe","Data/Horário","Dentista","Status"}, 0);
+
+        tableNowModel = new DefaultTableModel(new Object[]{"Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5;
+            }
+        };
+        tableFutureModel = new DefaultTableModel(new Object[]{"Cliente","Procedimento","Detalhe","Data/Horário","Dentista","Status"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5;
+
+            }
+        };
 
         setFieldsSchedule();
         setupButton();
         formatDateSchedule();
         loadSchedule();
+        statusEdit();
     }
 
     public void setupButton(){
@@ -226,5 +239,29 @@ public class scheduling {
         }
     }
 
+    public void statusEdit() {
+
+        tableFuture.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+
+                int linha = tableFuture.rowAtPoint(e.getPoint());
+                int coluna = tableFuture.columnAtPoint(e.getPoint());
+
+                System.out.println(linha + "\n" + coluna);
+
+
+            }
+        });
+    }
+
+//    public String olharDB(int linha) throws SQLException {
+//        scheduleDB = DataBaseAgendamentos.getSchedule();
+//        for(Schedule schedule : scheduleDB){
+//            if(linha == schedule.getIdSchedule()){
+//                return schedule.getDiaHora();
+//            }
+//        }
+//    }
 }
 

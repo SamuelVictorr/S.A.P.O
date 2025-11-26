@@ -2,21 +2,20 @@ package ui;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.ArrayList;
+
 import static api.DataBaseAgendamentos.addSchedule;
 
 public class registerAppointment extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JTextField typeField;
-    private JTextField dentistField;
+    private JComboBox dentistBox;
     private JTextField detailField;
     private JTextField dateField;
     private JButton agendarButton;
@@ -42,22 +41,31 @@ public class registerAppointment extends JDialog {
             public void actionPerformed(ActionEvent e) {
 
                 String type = typeField.getText();
-                String dentist = dentistField.getText();
+                String dentist = dentistBox.getSelectedItem().toString();
                 String detail = detailField.getText();
                 String date = dateField.getText();
                 String time = timeField.getText();
                 String status = "Pendente";
+                String idDetista = "";
 
                 //Validação dos dados
-                valid = verificationInformation(type,dentist,date,time);
+                valid = validSchedule(type,dentist,date,time);
                 if (!valid){
                     return;
                 }
+                if(dentist.equals("Miguel")){
+                    idDetista = "1";
+                } else if (dentist.equals("Samuel")) {
+                    idDetista = "2";
+                } else if(dentist.equals("Davi")){
+                    idDetista = "3";
+                } else if(dentist.equals("Gabriel")){
+                    idDetista = "4";
+                }
                 String dataTime = date + " / " + time;
 
-
                 try {
-                    addSchedule(dataTime,detail,status,dentist,"10","15",type);
+                    addSchedule(dataTime,detail,status,dentist,"10","15",type, idDetista);
                     JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     clearText();
 
@@ -71,7 +79,6 @@ public class registerAppointment extends JDialog {
 
     public void clearText(){
         typeField.setText("");
-        dentistField.setText("");
         detailField.setText("");
         dateField.setText("");
         timeField.setText("");
@@ -84,14 +91,6 @@ public class registerAppointment extends JDialog {
             public void keyPressed(KeyEvent e) {
                 if (typeField.getText().equals("Tipo de Consulta")){
                     typeField.setText("");
-                }
-            }
-        });
-        dentistField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (dentistField.getText().equals("Nome do Dentista")){
-                    dentistField.setText("");
                 }
             }
         });
@@ -165,7 +164,7 @@ public class registerAppointment extends JDialog {
 
     }
 
-    public boolean verificationInformation(String type, String dentist, String date, String time){
+    public boolean validSchedule(String type, String dentist, String date, String time){
         //validação do Tipo
         if(type.isEmpty()){
             JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);

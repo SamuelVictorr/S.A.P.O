@@ -109,7 +109,7 @@ public class register{
 
         System.out.println(birth);
         //Validação dos dados
-        valid = validInformation(name,telephone,CPF,birth);
+        valid = validClient(name,telephone,CPF,birth);
         if (!valid) {
             return;
         }
@@ -126,7 +126,7 @@ public class register{
         }
     }
 
-    public boolean validInformation(String name, String telephone, String CPF, String birth){
+    public boolean validClient(String name, String telephone, String CPF, String birth){
         //validação do Nome
         if(name.isEmpty()){
             JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
