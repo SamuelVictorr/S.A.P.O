@@ -35,7 +35,7 @@ public class DataBaseAgendamentos {
                         rs.getString("tipo_tratamento"),
                         rs.getString("nome_cliente"),
                         rs.getString("nome_dentista"),
-                        rs.getString("id_detista"),
+                        rs.getString("id_dentista"),
                         rs.getString("status_tratamento"),
                         rs.getString("detalhes")
                 );
@@ -122,7 +122,6 @@ public class DataBaseAgendamentos {
     public static void main(String[] args) {
         try{
             updateSchedule("12/05/2023 18:30","Ala","5","1","Finalizado","Clareamento dental",1);
-            updateSchedule("12/05/2023 18:30","Ala","5","1","Finalizado","Clareamento dental",2);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

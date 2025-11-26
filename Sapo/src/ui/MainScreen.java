@@ -25,6 +25,7 @@ public class MainScreen {
     public register contentPaneInstance;
     public scheduling schedulingPanelInstance;
     public customerInformation customerInformationInstance;
+    private boolean schedulingMode = false;
     private CardLayout cardLayout;
 
     public MainScreen() {
@@ -102,6 +103,20 @@ public class MainScreen {
                 System.exit(0);
             }
         });
+    }
+    
+    public void schedulingModeActivated(){
+        this.schedulingMode = true;
+        this.showClientes();
+        JOptionPane.showMessageDialog(mainPanel, "Clique em um cliente para continuar o agendamento.");
+    }
+    
+    public void setSchedulingModeFalse(){
+        this.schedulingMode = false;
+    }
+    
+    public boolean isSchedulingMode(){
+        return schedulingMode;
     }
 
     public void showClientes() {

@@ -83,7 +83,16 @@ public class Clientes {
                     Client clientSelected = searchClientString(clientString);
 
                     if(clientSelected != null){
-                        mainScreen.showCustomerInformation(clientSelected);
+                        if(mainScreen.isSchedulingMode()){
+
+                            mainScreen.setSchedulingModeFalse();
+                            registerAppointment ra = new registerAppointment(clientSelected);
+                            ra.setVisible(true);
+
+                        }
+                        else{
+                            mainScreen.showCustomerInformation(clientSelected);
+                        }
                     }
                 }
                 System.out.println("qiwjweudai");

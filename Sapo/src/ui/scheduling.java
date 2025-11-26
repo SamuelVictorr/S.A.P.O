@@ -57,7 +57,7 @@ public class scheduling {
     }
 
     public void setupButton(){
-        btnNovoAgendamento.addActionListener(e -> mainScreen.showClientes());
+        btnNovoAgendamento.addActionListener(e -> mainScreen.schedulingModeActivated());
     }
 
     public void loadSchedule(){

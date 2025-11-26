@@ -1,5 +1,7 @@
 package ui;
 
+import api.Client;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.sql.SQLException;
@@ -27,15 +29,22 @@ public class registerAppointment extends JDialog {
     private JLabel timeLabel;
     private JButton buttonCancel;
     boolean valid;
+    private Client clientScheduling;
+    private MainScreen mainScreen;
 
 
-    public registerAppointment() {
+    public registerAppointment(Client client) {
+        this.clientScheduling = client;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-        setTitle("Agendamento");
+        setTitle("Agendamento para " + clientScheduling.getName());
+        setSize(500, 400);
+        registerAction();
         mask();
+    }
 
+    private void registerAction(){
         agendarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,30 +56,32 @@ public class registerAppointment extends JDialog {
                 String time = timeField.getText();
                 String status = "Pendente";
                 String idDetista = "";
+                String clinicID = "1";
 
                 //Validação dos dados
-                valid = validSchedule(type,dentist,date,time);
-                if (!valid){
+                valid = validSchedule(type, dentist, date, time);
+                if (!valid) {
                     return;
                 }
-                if(dentist.equals("Miguel")){
+                if (dentist.equals("Miguel")) {
                     idDetista = "1";
                 } else if (dentist.equals("Samuel")) {
                     idDetista = "2";
-                } else if(dentist.equals("Davi")){
+                } else if (dentist.equals("Davi")) {
                     idDetista = "3";
-                } else if(dentist.equals("Gabriel")){
+                } else if (dentist.equals("Gabriel")) {
                     idDetista = "4";
                 }
                 String dataTime = date + " / " + time;
 
                 try {
-                    addSchedule(dataTime,detail,status,dentist,"10","15",type, idDetista);
+                    addSchedule(dataTime, detail, status, clinicID, String.valueOf(clientScheduling.getId()), dentist, type, idDetista);
                     JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     clearText();
+                    dispose();
 
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null,"Erro ao cadastrar Agendamento","ERRO",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Erro ao cadastrar Agendamento", "ERRO", JOptionPane.INFORMATION_MESSAGE);
                     throw new RuntimeException(ex);
                 }
             }
@@ -223,12 +234,5 @@ public class registerAppointment extends JDialog {
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        registerAppointment dialog = new registerAppointment();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 }
