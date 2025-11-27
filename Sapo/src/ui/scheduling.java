@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,31 +31,18 @@ public class scheduling {
     private JScrollPane scrollPanel;
     private DefaultTableModel tableFutureModel;
     private DefaultTableModel tableNowModel;
-    String dateInit = dateInitField.getText();
-    String dateFinal = dateFinalField.getText();
+    String dateInit;
+    String dateFinal;
 
     public scheduling(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
-
-        tableNowModel = new DefaultTableModel(new Object[]{"Numero do Cadastro","Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 6;
-            }
-        };
-        tableFutureModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 6;
-
-            }
-        };
-
+        tableNowModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
+        tableFutureModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
         setFieldsSchedule();
         setupButton();
         formatDateSchedule();
-        loadSchedule();
         statusEdit();
+        loadSchedule();
     }
 
     public void setupButton() {
@@ -62,6 +51,8 @@ public class scheduling {
 
     public void loadSchedule() {
         try {
+            dateInit = dateInitField.getText();
+            dateFinal = dateFinalField.getText();
             scheduleDB = DataBaseAgendamentos.getSchedules();
             tableNowModel.setRowCount(0);
             tableFutureModel.setRowCount(0);
@@ -85,7 +76,6 @@ public class scheduling {
             if (dateInit.length() == 10 || dateFinal.length() == 10) {
                 searchDate();
             }
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(schedulingPane, "Erro ao carregar clientes: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -194,7 +184,7 @@ public class scheduling {
     private void addNow(Schedule s) {
         tableNowModel.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getClient(),
+                s.getClient().getName(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),
@@ -205,7 +195,8 @@ public class scheduling {
 
     public void searchDate() {
         try {
-            DateTimeFormatter formatdate = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+            DateTimeFormatter formatdate = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+            ;
             LocalDate dateInit = null;
             LocalDate dateFinal = null;
 
@@ -241,27 +232,49 @@ public class scheduling {
     }
 
     public void statusEdit() {
-        editStatusScheduling editSchedule = new editStatusScheduling(mainScreen);
         tableFuture.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 int linha = tableFuture.rowAtPoint(e.getPoint());
                 int coluna = tableFuture.columnAtPoint(e.getPoint());
-                StringBuilder idSchedule = new StringBuilder();
 
-                if(coluna == 6) {
-                    for (int i = 0; i < tableFuture.getColumnCount(); i++) {
-                        if (i == 0) {
-                            Object valor = tableFuture.getValueAt(linha, i);
-                            idSchedule.append(valor);
-                            editSchedule.setStatus(idSchedule);
-                            editSchedule.setVisible(true);
-                            loadSchedule();
-                        }
-                    }
+                if (linha < 0 || coluna != 6) {
+                    return;
                 }
+                int idSchedule = Integer.parseInt(tableFuture.getValueAt(linha, 0).toString());
+                editStatusScheduling editSchedule = new editStatusScheduling(mainScreen);
+                editSchedule.setStatus(idSchedule);
+
+                editSchedule.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        loadSchedule();
+                    }
+                });
+                editSchedule.setVisible(true);
+            }
+        });
+        tableNow.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int linha = tableNow.rowAtPoint(e.getPoint());
+                int coluna = tableNow.columnAtPoint(e.getPoint());
+
+                if (linha < 0 || coluna != 6) {
+                    return;
+                }
+                int idSchedule = Integer.parseInt(tableNow.getValueAt(linha, 0).toString());
+                editStatusScheduling editSchedule = new editStatusScheduling(mainScreen);
+                editSchedule.setStatus(idSchedule);
+
+                editSchedule.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        loadSchedule();
+                    }
+                });
+                editSchedule.setVisible(true);
             }
         });
     }
 }
-

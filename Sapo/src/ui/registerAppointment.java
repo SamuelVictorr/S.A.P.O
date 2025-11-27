@@ -6,17 +6,15 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-
 import static api.DataBaseAgendamentos.addSchedule;
-import static api.DataBaseAgendamentos.selectNameClientById;
 
 public class registerAppointment extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
     private JTextField typeField;
     private JComboBox dentistBox;
     private JTextField detailField;
@@ -28,7 +26,6 @@ public class registerAppointment extends JDialog {
     private JLabel detailLabel;
     private JLabel dateLabel;
     private JLabel timeLabel;
-    private JButton buttonCancel;
     boolean valid;
     private Client clientScheduling;
     private MainScreen mainScreen;
@@ -38,9 +35,9 @@ public class registerAppointment extends JDialog {
         this.clientScheduling = client;
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
         setTitle("Agendamento para " + clientScheduling.getName());
         setSize(500, 400);
+        setLocationRelativeTo(null);
         registerAction();
         mask();
     }
@@ -59,7 +56,8 @@ public class registerAppointment extends JDialog {
                 String clinicID = "1";
 
                 //Validação dos dados
-                valid = validSchedule(type, dentist, date, time);
+                String dateTime = date + " / " + time;
+                valid = validSchedule(type, dentist, date, time, dateTime);
                 if (!valid) {
                     return;
                 }
@@ -72,17 +70,15 @@ public class registerAppointment extends JDialog {
                 } else if (dentist.equals("Gabriel")) {
                     idDetista = "4";
                 }
-                String dataTime = date + " / " + time;
                 String idClient = String.valueOf(clientScheduling.getId());
 
                 try {
-                    addSchedule(dataTime, detail, status, dentist, idClient, clinicID, type, idDetista);
+                    addSchedule(dateTime, detail, status, dentist, idClient, clinicID, type, idDetista);
                     JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     clearText();
                     dispose();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro ao cadastrar Agendamento", "ERRO", JOptionPane.INFORMATION_MESSAGE);
-                    throw new RuntimeException(ex);
                 }
             }
         });
@@ -124,7 +120,7 @@ public class registerAppointment extends JDialog {
         dateField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                super.keyPressed(e);
+                super.keyReleased(e);
                 String date = dateField.getText().replaceAll("[^0-9]", "");
                 if (date.length() >= 8) {
                     date = date.substring(0,8);
@@ -155,7 +151,7 @@ public class registerAppointment extends JDialog {
         timeField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                super.keyPressed(e);
+                super.keyReleased(e);
                 String time = timeField.getText().replaceAll("[^0-9]", "");
                 if (time.length() >= 4) {
                     time = time.substring(0, 4);
@@ -174,9 +170,9 @@ public class registerAppointment extends JDialog {
 
     }
 
-    public boolean validSchedule(String type, String dentist, String date, String time){
+    public boolean validSchedule(String type, String dentist, String date, String time, String dateTime){
         //validação do Tipo
-        if(type.isEmpty()){
+        if(type.trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(type.equals("Tipo de Consulta")){
@@ -185,7 +181,7 @@ public class registerAppointment extends JDialog {
         }
 
         //validação do dentista
-        if(dentist.isEmpty()){
+        if(dentist.trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(dentist.equals("Nome do Dentista")){
@@ -196,39 +192,34 @@ public class registerAppointment extends JDialog {
         //validação da data
         if (date.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }else if(dentist.equals("XX/XX/XXXX")){
             JOptionPane.showMessageDialog(null, "Data é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
-        }
-        else if (date.length() == 10){
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
-            try {
-                LocalDate parseDate = LocalDate.parse(date, dateFormat);
-                LocalDate dateNow = LocalDate.now();
-
-                if (parseDate.isBefore(dateNow)) {
-                    JOptionPane.showMessageDialog(null, "A Data não pode ser anterior a hoje!", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(null, "Data está inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
         }
 
         //validação da horario
         if (time.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Horário é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }else if(time.equals("XX:XX")){
             JOptionPane.showMessageDialog(null, "Horário é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
-        }else if(time.length() == 5){
-            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
+        }
+
+        //Validação de Data/Horário
+        if(dateTime.length() == 18){
+            DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu / HH:mm").withResolverStyle(ResolverStyle.STRICT);
             try{
-                LocalTime.parse(time, timeFormat);
-                return true;
-            }catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(null, "Horário está inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                LocalDateTime testeDateTime = LocalDateTime.parse(dateTime,dateTimeFormat);
+                LocalDateTime DateTimeNow = LocalDateTime.now();
+
+                if(testeDateTime.isBefore(DateTimeNow)){
+                    JOptionPane.showMessageDialog(null, "Data ou Horário não pode ser anterior ao tempo atual", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }catch (DateTimeParseException e){
+                JOptionPane.showMessageDialog(null, "Data ou Horário está inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         }

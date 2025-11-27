@@ -95,8 +95,6 @@ public class Clientes {
                         }
                     }
                 }
-                System.out.println("qiwjweudai");
-                System.out.println(clientIndex);
             }
         });
     }

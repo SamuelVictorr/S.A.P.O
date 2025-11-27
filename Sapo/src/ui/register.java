@@ -25,7 +25,6 @@ public class register{
     private JLabel birthLabel;
     private JTextField FieldObser;
     private JLabel JLabelObser;
-    private JComboBox statusBox;
     private MainScreen mainScreen;
 
     public register(MainScreen mainScreen) {
@@ -103,7 +102,7 @@ public class register{
         String telephone = telephoneField.getText();
         String observation = FieldObser.getText();
         String birth = birthField.getText();
-        String status = statusBox.getSelectedItem().toString();
+        String status = "Ativo";
         String idClinic = "1";
         boolean valid;
 
@@ -111,6 +110,9 @@ public class register{
         valid = validClient(name,telephone,CPF,birth);
         if (!valid) {
             return;
+        }
+        if(observation.equals("Observações sobre o cliente")){
+            observation = "";
         }
 
         try {
@@ -183,7 +185,7 @@ public class register{
         CPFfield.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                super.keyPressed(e);
+                super.keyReleased(e);
                 String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
                 if (cpf.length() >= 11) {
                     cpf = cpf.substring(0,11);
@@ -235,7 +237,7 @@ public class register{
         birthField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                super.keyPressed(e);
+                super.keyReleased(e);
                 String birth = birthField.getText().replaceAll("[^0-9]", "");
                 if (birth.length() >= 8) {
                     birth = birth.substring(0,8);

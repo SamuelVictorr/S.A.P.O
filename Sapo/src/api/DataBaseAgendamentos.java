@@ -52,7 +52,6 @@ public class DataBaseAgendamentos {
                         rs.getString("detalhes"),
                         rs.getString("id_dentista")
                 );
-                System.out.println(cliente.toString());
                 schedule.add(schedules);
             }
         }
