@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ui.scheduling">
-  <grid id="27dc6" binding="schedulingPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="schedulingPane" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="682" height="400"/>
+      <xy x="20" y="20" width="1422" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="d63c7" layout-manager="GridLayoutManager" row-count="4" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="d63c7" binding="agendamentoHojePanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
           <component id="31399" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="375" height="17"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="231" height="17"/>
               </grid>
             </constraints>
             <properties>
@@ -31,24 +31,22 @@
               <text value="Agendamentos de Hoje"/>
             </properties>
           </component>
-          <component id="a885b" class="javax.swing.JList" binding="atualList">
+          <scrollpane id="f2d57">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="6" vsize-policy="6" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="375" height="50"/>
-              </grid>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <alignmentY value="1.0"/>
-              <fixedCellHeight value="-1"/>
-              <fixedCellWidth value="-1"/>
-              <model>
-                <item value="Clientes Agendados Para Hoje"/>
-              </model>
-            </properties>
-          </component>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="4c20d" class="javax.swing.JTable" binding="tableNow">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
           <component id="c77a1" class="javax.swing.JButton" binding="btnNovoAgendamento" default-binding="true">
             <constraints>
-              <grid row="0" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-8719960"/>
@@ -57,157 +55,71 @@
               <text value="Novo Agendamento"/>
             </properties>
           </component>
-          <component id="b181b" class="javax.swing.JLabel" binding="clientCurrent">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-2360088"/>
-              <text value="Cliente"/>
-            </properties>
-          </component>
-          <component id="95c80" class="javax.swing.JLabel" binding="procedureCurrent">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-2360088"/>
-              <text value="Procedimento"/>
-            </properties>
-          </component>
-          <component id="4d3f7" class="javax.swing.JLabel" binding="detailCurrent">
-            <constraints>
-              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Detelhe"/>
-            </properties>
-          </component>
-          <component id="ad921" class="javax.swing.JLabel" binding="timeCurrent">
-            <constraints>
-              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Horário"/>
-            </properties>
-          </component>
-          <component id="f18e7" class="javax.swing.JLabel" binding="dentistCurrent">
-            <constraints>
-              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Dentista"/>
-            </properties>
-          </component>
-          <component id="4aef7" class="javax.swing.JLabel" binding="statuCurrent">
-            <constraints>
-              <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Status"/>
-            </properties>
-          </component>
-          <vspacer id="f32bc">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <minimum-size width="15" height="15"/>
-                <preferred-size width="15" height="15"/>
-                <maximum-size width="15" height="15"/>
-              </grid>
-            </constraints>
-          </vspacer>
         </children>
       </grid>
-      <grid id="d79ea" layout-manager="GridLayoutManager" row-count="4" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="d79ea" binding="agendamentoFuturoPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="f5a30" class="javax.swing.JLabel">
+          <scrollpane id="60798">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="375" height="17"/>
-              </grid>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <font size="16"/>
-              <text value="Agendamentos Futuros"/>
-            </properties>
-          </component>
-          <component id="e7fce" class="javax.swing.JList" binding="futuroList">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="6" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="375" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <model>
-                <item value="Clientes Com Agendamentos Futuro"/>
-              </model>
-            </properties>
-          </component>
-          <component id="a1e33" class="javax.swing.JLabel" binding="clientFuture">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Cliente"/>
-            </properties>
-          </component>
-          <component id="2e346" class="javax.swing.JLabel" binding="procedureFuture">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Procedimento"/>
-            </properties>
-          </component>
-          <component id="7d889" class="javax.swing.JLabel" binding="detailFuture">
-            <constraints>
-              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Detelhe"/>
-            </properties>
-          </component>
-          <component id="53a82" class="javax.swing.JLabel" binding="timeFuture">
-            <constraints>
-              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Horário"/>
-            </properties>
-          </component>
-          <component id="411e2" class="javax.swing.JLabel" binding="dentistFuture">
-            <constraints>
-              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Dentista"/>
-            </properties>
-          </component>
-          <component id="385ec" class="javax.swing.JLabel" binding="statuFuture">
-            <constraints>
-              <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Status"/>
-            </properties>
-          </component>
-          <vspacer id="e54c8">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <minimum-size width="15" height="15"/>
-                <preferred-size width="15" height="15"/>
-                <maximum-size width="15" height="15"/>
-              </grid>
-            </constraints>
-          </vspacer>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="48dc7" class="javax.swing.JTable" binding="tableFuture">
+                <constraints/>
+                <properties>
+                  <autoCreateColumnsFromModel value="true"/>
+                </properties>
+                <clientProperties>
+                  <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
+                </clientProperties>
+              </component>
+            </children>
+          </scrollpane>
         </children>
       </grid>
+      <component id="f9f14" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="231" height="17"/>
+          </grid>
+        </constraints>
+        <properties>
+          <alignmentX value="1.0"/>
+          <alignmentY value="1.0"/>
+          <autoscrolls value="false"/>
+          <font size="16"/>
+          <iconTextGap value="4"/>
+          <text value="Agendamentos Futuros"/>
+        </properties>
+      </component>
+      <component id="c9a19" class="javax.swing.JTextField" binding="dateFinalField">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Data Final:"/>
+        </properties>
+      </component>
+      <component id="8dc1d" class="javax.swing.JTextField" binding="dateInitField">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Data Inicial:"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

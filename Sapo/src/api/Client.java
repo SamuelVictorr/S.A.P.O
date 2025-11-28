@@ -19,7 +19,6 @@ public class Client {
         this.activeStatus = activeStatus;
         this.birthDate = birthDate;
         this.clinicId = clinicId;
-
     }
 
     // Getters

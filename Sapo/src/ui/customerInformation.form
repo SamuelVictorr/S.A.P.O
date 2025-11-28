@@ -13,7 +13,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <grid id="20f8f" binding="customerInformationPane" layout-manager="GridLayoutManager" row-count="3" column-count="5" same-size-horizontally="false" same-size-vertically="true" hgap="0" vgap="0">
+      <grid id="20f8f" binding="customerInformationPane" layout-manager="GridLayoutManager" row-count="3" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
         <margin top="0" left="20" bottom="0" right="30"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -92,7 +92,7 @@
           </component>
         </children>
       </grid>
-      <grid id="6ecb6" binding="nextAppointmentPane" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="6ecb6" binding="nextAppointmentPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="20" bottom="0" right="30"/>
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -104,72 +104,30 @@
         <children>
           <component id="eb6c5" class="javax.swing.JLabel" binding="nextAppointmentLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="16"/>
               <text value="Próxima Consulta"/>
             </properties>
           </component>
-          <component id="d6710" class="javax.swing.JLabel" binding="dateLabel">
+          <scrollpane id="d0023">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Data"/>
-            </properties>
-          </component>
-          <component id="35335" class="javax.swing.JLabel" binding="timeLabel">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Horário"/>
-            </properties>
-          </component>
-          <component id="6eab3" class="javax.swing.JLabel" binding="procedureLabel">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Procedimento"/>
-            </properties>
-          </component>
-          <component id="6a97a" class="javax.swing.JLabel" binding="detailLabel">
-            <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Detalhes"/>
-            </properties>
-          </component>
-          <component id="482c8" class="javax.swing.JLabel" binding="dentistLabel">
-            <constraints>
-              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Dentista"/>
-            </properties>
-          </component>
-          <component id="15645" class="javax.swing.JLabel" binding="statusLabel">
-            <constraints>
-              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Status"/>
-            </properties>
-          </component>
-          <component id="f32f2" class="javax.swing.JList" binding="nextAppointmentList">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="6" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1"/>
-              <model/>
             </properties>
-          </component>
+            <border type="none"/>
+            <children>
+              <component id="3ccf4" class="javax.swing.JTable" binding="tableNext">
+                <constraints/>
+                <properties>
+                  <background color="-1"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
         </children>
       </grid>
       <grid id="cffbe" binding="consultationHistoryPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -191,16 +149,23 @@
               <text value="Histórico de Consultas"/>
             </properties>
           </component>
-          <component id="6a861" class="javax.swing.JList" binding="consultationHistoryList">
+          <scrollpane id="ebe97">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-1"/>
             </properties>
-          </component>
+            <border type="none"/>
+            <children>
+              <component id="e3aa8" class="javax.swing.JTable" binding="tableHistory">
+                <constraints/>
+                <properties>
+                  <background color="-1"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
         </children>
       </grid>
       <grid id="4775a" binding="buttonPane" layout-manager="BorderLayout" hgap="0" vgap="0">
