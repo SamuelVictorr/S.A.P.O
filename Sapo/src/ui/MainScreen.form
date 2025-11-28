@@ -159,6 +159,9 @@
               <borderPainted value="false"/>
               <focusPainted value="false"/>
               <foreground color="-16777216"/>
+              <maximumSize width="84" height="34"/>
+              <minimumSize width="84" height="34"/>
+              <preferredSize width="94" height="34"/>
               <text value="Agendamento"/>
             </properties>
           </component>
