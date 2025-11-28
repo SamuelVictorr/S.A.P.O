@@ -1,12 +1,21 @@
 package ui;
 
 import api.Client;
+import api.DataBaseAgendamentos;
+import api.Schedule;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.util.List;
 
 public class customerInformation {
     private JLabel customerInformationLabel;
-    private JList consultationHistoryList;
     private JLabel nmcLabel;
     private JLabel nameLabel;
     private JLabel fixedTeleLabel;
@@ -14,12 +23,6 @@ public class customerInformation {
     private JLabel ageLabel;
     private JLabel telephoneLabel;
     private JLabel nextAppointmentLabel;
-    private JLabel dateLabel;
-    private JLabel procedureLabel;
-    private JLabel detailLabel;
-    private JLabel dentistLabel;
-    private JLabel statusLabel;
-    private JList nextAppointmentList;
     private JLabel consultationHistoryLabel;
     private JButton returnButton;
     private JButton editButton;
@@ -28,10 +31,18 @@ public class customerInformation {
     private JPanel nextAppointmentPane;
     private JPanel consultationHistoryPane;
     public JPanel infoClientsPanel;
+    private JTable tableNext;
+    private JTable tableHistory;
+    private List<Schedule> scheduleDB;
+    private DefaultTableModel tableNextModel;
+    private DefaultTableModel tableHistoryModel;
+
     private MainScreen mainScreen;
 
     public customerInformation(MainScreen mainScreen){
         this.mainScreen = mainScreen;
+        tableNextModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
+        tableHistoryModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
         setupButtons(mainScreen);
     }
     public void setupButtons(MainScreen mainScreen){
@@ -56,4 +67,57 @@ public class customerInformation {
 
     }
 
+    public void loadScheduleClient(Client client){
+        try{
+            scheduleDB = DataBaseAgendamentos.getSchedules();
+            tableNextModel.setRowCount(0);
+            tableHistoryModel.setRowCount(0);
+
+            for(Schedule schedule : scheduleDB){
+                String dataHora = schedule.getDiaHora();
+                DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu / HH:mm").withResolverStyle(ResolverStyle.STRICT);
+                LocalDateTime dateNow = LocalDateTime.now();
+                LocalDateTime parseDate = LocalDateTime.parse(dataHora, dateTimeFormat);
+
+                if(schedule.getNameClient().equals(client.getName())){
+                    if (parseDate.isEqual(dateNow) || parseDate.isAfter(dateNow)){
+                        addNext(schedule);
+                    }
+                    addHistory(schedule);
+                }
+
+            }
+
+            tableNext.setModel(tableNextModel);
+            tableHistory.setModel(tableHistoryModel);
+        }
+        catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Erro ao carregar clientes: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    private void addNext(Schedule s) {
+        tableNextModel.addRow(new Object[]{
+                s.getIdSchedule(),
+                s.getClient().getName(),
+                s.getTypeTreatment(),
+                s.getDetails(),
+                s.getDiaHora(),
+                s.getNameDentist(),
+                s.getStatusTreatment()
+        });
+    }
+
+    private void addHistory(Schedule s) {
+        tableHistoryModel.addRow(new Object[]{
+                s.getIdSchedule(),
+                s.getClient().getName(),
+                s.getTypeTreatment(),
+                s.getDetails(),
+                s.getDiaHora(),
+                s.getNameDentist(),
+                s.getStatusTreatment()
+        });
+    }
 }

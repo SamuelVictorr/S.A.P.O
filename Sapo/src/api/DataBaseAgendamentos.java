@@ -50,7 +50,8 @@ public class DataBaseAgendamentos {
                         rs.getString("status_tratamento"),
                         rs.getString("tipo_tratamento"),
                         rs.getString("detalhes"),
-                        rs.getString("id_dentista")
+                        rs.getString("id_dentista"),
+                        rs.getString("nome_cliente")
                 );
                 schedule.add(schedules);
             }
@@ -58,9 +59,9 @@ public class DataBaseAgendamentos {
         return schedule;
     }
 
-    public static void addSchedule(String diaHora, String details, String statusTreatment, String nameDentist, String idClient, String clinicId, String treatmentType, String idDentista) throws SQLException {
+    public static void addSchedule(String diaHora, String details, String statusTreatment, String nameDentist, String idClient, String clinicId, String treatmentType, String idDentista, String nameClient) throws SQLException {
         Connection connection = connect();
-        String sql = "INSERT INTO agendamentos (diahora,detalhes, status_tratamento, id_clinica, id_cliente, nome_dentista, tipo_tratamento, id_dentista) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO agendamentos (diahora,detalhes, status_tratamento, id_clinica, id_cliente, nome_dentista, tipo_tratamento, id_dentista, nome_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
         stmt.setString(1, diaHora);
@@ -71,6 +72,7 @@ public class DataBaseAgendamentos {
         stmt.setString(6, nameDentist);
         stmt.setString(7, treatmentType);
         stmt.setString(8, idDentista);
+        stmt.setString(9, nameClient);
 
         stmt.executeUpdate();
     }
@@ -109,12 +111,21 @@ public class DataBaseAgendamentos {
                 "SET\n" +
                 "    nome_cliente = (SELECT c.name\n" +
                 "                   FROM clientes AS c\n" +
-                "                   WHERE c.id = a.id_cliente),\n" +
+                "                   WHERE c.id = a.id_cliente)\n" +
                 "WHERE EXISTS (SELECT 1 \n" +
                 "              FROM clientes AS c \n" +
                 "              WHERE c.id = a.id_cliente);";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
+        stmt.executeUpdate();
+    }
+    public static void selectTesteBla(String nameClient, String id_agendamento) throws SQLException {
+        Connection connection = connect();
+        String sql = "UPDATE agendamentos SET diahora = ? WHERE id_agendamento = ?";
+        assert connection != null;
+        var stmt = connection.prepareStatement(sql);
+        stmt.setString(1, nameClient);
+        stmt.setString(2, id_agendamento);
         stmt.executeUpdate();
     }
     public static void selectNameDentistById() throws SQLException {
@@ -134,8 +145,9 @@ public class DataBaseAgendamentos {
 
     public static void main(String[] args) {
         try{
-            updateSchedule("12/05/2023 18:30","Ala",5,"1","Finalizado","Clareamento dental",1);
-
+//            updateSchedule("12/05/2023 18:30","Ala",5,"1","Finalizado","Clareamento dental",1);
+              selectTesteBla("14/12/2026 / 10:00", "1");
+              selectTesteBla("14/12/2026 / 10:00", "2");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

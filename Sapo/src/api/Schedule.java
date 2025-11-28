@@ -9,8 +9,9 @@ public class Schedule {
     private Client client;
     private String statusTreatment;
     private String details;
+    private String nameClient;
 
-    public Schedule(int idSchedule, String diaHora, Client client, String nameDentist, String statusTreatment, String treatmentType, String details, String idDentista) {
+    public Schedule(int idSchedule, String diaHora, Client client, String nameDentist, String statusTreatment, String treatmentType, String details, String idDentista, String nameClient) {
         this.idSchedule = idSchedule;
         this.diahora = diaHora;
         this.client = client;
@@ -19,6 +20,7 @@ public class Schedule {
         this.typeTreatment= treatmentType;
         this.details = details;
         this.idDentista = idDentista;
+        this.nameClient = nameClient;
     }
 
     // Getters
@@ -30,5 +32,6 @@ public class Schedule {
     public String getStatusTreatment() { return statusTreatment; }
     public String getDetails() { return details; }
     public String getIdDentista() { return idDentista; }
+    public String getNameClient() { return  nameClient; }
 
 }

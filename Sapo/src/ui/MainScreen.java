@@ -1,6 +1,7 @@
 package ui;
 
 import api.Client;
+import api.Schedule;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,7 @@ public class MainScreen {
     public register contentPaneInstance;
     public scheduling schedulingPanelInstance;
     public customerInformation customerInformationInstance;
+    private Schedule schedule;
     private boolean schedulingMode = false;
     private CardLayout cardLayout;
 
@@ -108,7 +110,7 @@ public class MainScreen {
     public void schedulingModeActivated(){
         this.schedulingMode = true;
         this.showClientes();
-        JOptionPane.showMessageDialog(mainPanel, "Clique em um cliente para continuar o agendamento.");
+        JOptionPane.showMessageDialog(mainPanel, "Clique em um cliente para continuar o agendamento.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void setSchedulingModeFalse(){
@@ -145,6 +147,7 @@ public class MainScreen {
     }
     public void showCustomerInformation(Client clientSelected){
         customerInformationInstance.loadCustomersInformations(clientSelected);
+        customerInformationInstance.loadScheduleClient(clientSelected);
         cardLayout.show(cardsPanel, "customerInformationCard");
     }
     public void showMenuPrincipal(){
