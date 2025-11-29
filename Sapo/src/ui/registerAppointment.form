@@ -5,7 +5,9 @@
     <constraints>
       <xy x="48" y="54" width="514" height="297"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-1"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="94766" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -13,7 +15,9 @@
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-1"/>
+        </properties>
         <border type="none"/>
         <children>
           <grid id="9538f" layout-manager="GridLayoutManager" row-count="5" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -21,7 +25,9 @@
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-1"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="abb54" class="javax.swing.JTextField" binding="typeField">
@@ -31,6 +37,7 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <background color="-1"/>
                   <text value="Tipo de Consulta"/>
                 </properties>
               </component>
@@ -41,6 +48,7 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <background color="-1"/>
                   <model>
                     <item value="Miguel"/>
                     <item value="Samuel"/>
@@ -56,6 +64,7 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <background color="-1"/>
                   <text value="Detalhe sobra a consulta"/>
                 </properties>
               </component>
@@ -66,15 +75,8 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <background color="-1"/>
                   <text value="XX/XX/XXXX"/>
-                </properties>
-              </component>
-              <component id="5ae84" class="javax.swing.JButton" binding="agendarButton" default-binding="true">
-                <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Agendar"/>
                 </properties>
               </component>
               <component id="4f1e6" class="javax.swing.JLabel" binding="typeLabel">
@@ -82,6 +84,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <background color="-13947600"/>
                   <text value="Tipo de Consulta"/>
                 </properties>
               </component>
@@ -124,7 +127,20 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <background color="-1"/>
                   <text value="XX:XX"/>
+                </properties>
+              </component>
+              <component id="5ae84" class="javax.swing.JButton" binding="agendarButton" default-binding="true">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <background color="-8719960"/>
+                  <borderPainted value="false"/>
+                  <contentAreaFilled value="true"/>
+                  <focusPainted value="false"/>
+                  <text value="Agendar"/>
                 </properties>
               </component>
             </children>

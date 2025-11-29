@@ -146,8 +146,8 @@ public class DataBaseAgendamentos {
     public static void main(String[] args) {
         try{
 //            updateSchedule("12/05/2023 18:30","Ala",5,"1","Finalizado","Clareamento dental",1);
-              selectTesteBla("14/12/2026 / 10:00", "1");
-              selectTesteBla("14/12/2026 / 10:00", "2");
+            selectTesteBla("14/12/2026 / 10:00", "1");
+            selectTesteBla("14/12/2026 / 10:00", "2");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

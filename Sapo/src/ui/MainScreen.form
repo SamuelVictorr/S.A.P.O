@@ -74,6 +74,7 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="true"/>
               <focusPainted value="false"/>
+              <font name="Roboto Light" size="14" style="1"/>
               <foreground color="-16777216"/>
               <maximumSize width="84" height="34"/>
               <minimumSize width="84" height="34"/>
@@ -89,8 +90,10 @@
             </constraints>
             <properties>
               <alignmentX value="1.0"/>
-              <font size="28"/>
+              <font name="Roboto Light" size="28" style="1"/>
               <foreground color="-16777216"/>
+              <horizontalAlignment value="0"/>
+              <inheritsPopupMenu value="false"/>
               <maximumSize width="34" height="17"/>
               <minimumSize width="34" height="17"/>
               <preferredSize width="34" height="17"/>
@@ -116,6 +119,7 @@
                 </constraints>
                 <properties>
                   <alignmentX value="0.0"/>
+                  <font name="Roboto Light" size="13" style="1"/>
                   <foreground color="-16777216"/>
                   <text value="Olá, usuário!"/>
                 </properties>
@@ -128,6 +132,7 @@
                   <background color="-2949107"/>
                   <borderPainted value="false"/>
                   <focusPainted value="false"/>
+                  <font name="Roboto Light" size="13" style="1"/>
                   <text value="Sair"/>
                 </properties>
               </component>
@@ -143,6 +148,7 @@
               <borderPainted value="false"/>
               <contentAreaFilled value="true"/>
               <focusPainted value="false"/>
+              <font name="Roboto Light" size="14" style="1"/>
               <foreground color="-16777216"/>
               <horizontalAlignment value="0"/>
               <preferredSize width="94" height="34"/>
@@ -158,6 +164,7 @@
               <background color="-2360088"/>
               <borderPainted value="false"/>
               <focusPainted value="false"/>
+              <font name="Roboto Light" size="14" style="1"/>
               <foreground color="-16777216"/>
               <maximumSize width="84" height="34"/>
               <minimumSize width="84" height="34"/>

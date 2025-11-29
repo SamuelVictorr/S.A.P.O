@@ -33,6 +33,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return id + " | " + name + " | " + cpf + " | " + telefone + " | " + observacao;
+        return name;
     }
 }

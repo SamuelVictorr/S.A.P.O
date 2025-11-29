@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import static ui.register.validInformation;
 
 public class editClient extends JDialog {
     public JPanel contentPane;
@@ -25,6 +24,7 @@ public class editClient extends JDialog {
     private MainScreen mainScreen;
     private Client client;
     private customerInformation customerInfo;
+    private register register;
 
     public editClient(MainScreen mainScreen, Client client, customerInformation customerInfo) {
         this.mainScreen = mainScreen;
@@ -54,23 +54,23 @@ public class editClient extends JDialog {
 
     }
     public void removeClient() {
-            int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover o cliente?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION
-            );
+        int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover o cliente?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION
+        );
 
-            if (confirm == JOptionPane.YES_OPTION) {
-                try {
-                    DataBase.removeClient(String.valueOf(client.getId()));
-                    JOptionPane.showMessageDialog(this, "Cliente removido com sucesso!");
-                    mainScreen.refreshClientList();
-                    dispose();
-                    mainScreen.showClientes();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(this, "Erro ao remover cliente: " + ex.getMessage());
-                }
-            }
-            else{
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                DataBase.removeClient(String.valueOf(client.getId()));
+                JOptionPane.showMessageDialog(this, "Cliente removido com sucesso!");
+                mainScreen.refreshClientList();
                 dispose();
+                mainScreen.showClientes();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao remover cliente: " + ex.getMessage());
             }
+        }
+        else{
+            dispose();
+        }
     }
 
     public void saveInformations(){
@@ -78,7 +78,8 @@ public class editClient extends JDialog {
         String CPF = cpfField.getText();
         String telephone = telephoneField.getText();
         String birth = birthField.getText();
-        if (!validInformation(name, telephone, CPF, birth)) {
+        var valid = mainScreen.contentPaneInstance.validClient(name, telephone, CPF, birth);
+        if (!valid) {
             return;
         }
 
@@ -186,4 +187,3 @@ public class editClient extends JDialog {
         });
     }
 }
-

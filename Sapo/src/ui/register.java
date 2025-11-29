@@ -1,144 +1,246 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
-import static api.DataBase.addClient;
 import static api.DataBase.verifyCPF;
+import static api.DataBase.addClient;
 
-public class register extends JDialog {
-    private JPanel contentPane;
-
-    // Jbutton to activate method addclient
+public class register{
+    public JPanel contentPane;
     private JButton register;
-
-    // JTextField that receives customer date
-    private JTextField namefield;
-    private JTextField telephonefield;
+    private JTextField nameField;
+    private JLabel nameLabel;
+    private JTextField telephoneField;
+    private JLabel telephoneLabel;
     private JTextField CPFfield;
-    private JTextField birthfield;
-    private JTextField Fieldobser;
-
-    // JLabels that receives customer date
-    private JLabel namelabel;
-    private JLabel telephonelabel;
     private JLabel CPFlabel;
-    private JLabel birthlabel;
-    private JLabel JLabelobser;
+    private JTextField birthField;
+    private JLabel birthLabel;
+    private JTextField FieldObser;
+    private JLabel JLabelObser;
+    private MainScreen mainScreen;
 
-    public register() {
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(register);
-        setTitle("Cadastro");
+    public register(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
+        setupListeners();
+        setupMasks();
+        initializeComponents();
+    }
 
-        register.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String name = namefield.getText();
-                String CPF = CPFfield.getText();
-                String telephone = telephonefield.getText();
-                String obser = Fieldobser.getText();
-                String birth = birthfield.getText();
+    public void initializeComponents(){
+        nameField.setText("Nome do cliente");
+        telephoneField.setText("(XX)XXXXX-XXXX");
+        CPFfield.setText("XXX.XXX.XXX-XX");
+        birthField.setText("XX/XX/XXXX");
+        FieldObser.setText("Observações sobre o cliente");
 
-                //method call verify CPF top DataBase,to verify if the CFP is valid.
-                if(!verifyCPF(CPF)){
-                    JOptionPane.showMessageDialog(null, "CPF Inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                if(CPF.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "CPF Inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+    }
 
-                try {
-                    System.out.println(birth);
-                    addClient(name,CPF,telephone,obser);
+    private void setupListeners() {
+        register.addActionListener(e -> saveClients());
 
-                    //Clear the TextFields after adding a client.
-                    namefield.setText("");
-                    CPFfield.setText("");
-                    telephonefield.setText("");
-                    Fieldobser.setText("");
-                    birthfield.setText("");
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+        nameField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (nameField.getText().equals("Nome do cliente")){
+                    nameField.setText("");
                 }
             }
         });
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
+        telephoneField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (telephoneField.getText().equals("(XX)X XXXX-XXXX")){
+                    telephoneField.setText("");
+                }
             }
         });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
         CPFfield.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                    String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
-
-                    if (cpf.length() > 11) {
-                        cpf = cpf.substring(0, 10);
-                    }
-
-                    StringBuilder formatCPF = new StringBuilder();
-                    for (int i = 0; i < cpf.length(); i++) {
-                        if (i == 3 || i == 6) {
-                            formatCPF.append('.');
-                        }
-                        if (i == 9) {
-                            formatCPF.append('.');
-                        }
-                        formatCPF.append(cpf.charAt(i));
-                    }
-                    CPFfield.setText(formatCPF.toString());
+                if (CPFfield.getText().equals("XXX.XXX.XXX-XX")){
+                    CPFfield.setText("");
+                }
             }
         });
-        telephonefield.addKeyListener(new KeyAdapter() {
+        birthField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
+                if (birthField.getText().equals("XX/XX/XXXX")){
+                    birthField.setText("");
+                }
+            }
+        });
+        FieldObser.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (FieldObser.getText().equals("Observações sobre o cliente")){
+                    FieldObser.setText("");
+                }
+            }
+        });
+    }
 
-                String telephone = telephonefield.getText().replaceAll("[^0-9]", "");
-                if (telephone.length() > 11) {
-                    telephone = telephone.substring(0, 10);
+    public void clearClientsField() {
+        nameField.setText("");
+        telephoneField.setText("");
+        CPFfield.setText("");
+        birthField.setText("");
+        FieldObser.setText("");
+    }
+
+    private void saveClients() {
+        String name = nameField.getText();
+        String CPF = CPFfield.getText();
+        String telephone = telephoneField.getText();
+        String observation = FieldObser.getText();
+        String birth = birthField.getText();
+        String status = "Ativo";
+        String idClinic = "1";
+        boolean valid;
+
+        //Validação dos dados
+        valid = validClient(name,telephone,CPF,birth);
+        if (!valid) {
+            return;
+        }
+        if(observation.equals("Observações sobre o cliente")){
+            observation = "";
+        }
+
+        try {
+            addClient(name, CPF, telephone, observation, status, birth, idClinic);
+
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            clearClientsField();
+            mainScreen.refreshClientList();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public boolean validClient(String name, String telephone, String CPF, String birth){
+        //validação do Nome
+        if(name.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(name.equals("Nome do cliente")){
+            JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //validação do Telefone
+        if(telephone.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }  else if(telephone.equals("(XX)XXXXX-XXXX")) {
+            JOptionPane.showMessageDialog(null, "Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (telephone.length() < 11){
+            JOptionPane.showMessageDialog(null, "Telefone é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //validação de CPF
+        if(CPF.isEmpty()){
+            JOptionPane.showMessageDialog(null, "CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(CPF.equals("XXX.XXX.XXX-XX")){
+            JOptionPane.showMessageDialog(null, "CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(!verifyCPF(CPF)){
+            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //validação da data de nascimento
+        if(birth.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(birth.equals("XX/XX/XXXX")) {
+            JOptionPane.showMessageDialog(null, "Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(birth.length() == 10){
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+            try {
+                LocalDate.parse(birth, dateFormat);
+                return true;
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(null, "O campo Data de Nascimento está inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void setupMasks() {
+        CPFfield.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                String cpf = CPFfield.getText().replaceAll("[^0-9]", "");
+                if (cpf.length() >= 11) {
+                    cpf = cpf.substring(0,11);
                 }
 
+                StringBuilder formatCPF = new StringBuilder();
+                for (int i = 0; i < cpf.length(); i++) {
+                    if (i == 3 || i == 6) {
+                        formatCPF.append('.');
+                    }
+                    if (i == 9) {
+                        formatCPF.append('-');
+                    }
+                    formatCPF.append(cpf.charAt(i));
+                }
+                CPFfield.setText(formatCPF.toString());
+            }
+        });
+
+        telephoneField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                String telephone = telephoneField.getText().replaceAll("[^0-9]", "");
+                if (telephone.length() > 11) {
+                    telephone = telephone.substring(0,11);
+                }
+                if (telephone.length() == 10 && telephone.charAt(2) != '9') {
+                    telephone = telephone.substring(0, 2) + "9" + telephone.substring(2);
+                } else if (telephone.length() == 10 && telephone.charAt(3) != '9'){
+                    telephone = telephone.substring(0, 2) + "9" + telephone.substring(2);
+                }
                 StringBuilder formatTele = new StringBuilder();
                 for (int i = 0; i < telephone.length(); i++) {
                     if (i == 0) {
-                        formatTele.append('(');
+                        formatTele.append("(");
                     }
-                    if (i == 2){
-                        formatTele.append(')');
+                    if (i == 2) {
+                        formatTele.append(")");
                     }
-                    if (i == 3 || i == 7) {
-                        formatTele.append(' ');
+                    if (i == 7) {
+                        formatTele.append("-");
                     }
                     formatTele.append(telephone.charAt(i));
                 }
-                telephonefield.setText(formatTele.toString());
+                telephoneField.setText(formatTele.toString());
             }
         });
-        birthfield.addKeyListener(new KeyAdapter() {
+        birthField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-
-                String birth = birthfield.getText().replaceAll("[^0-9]", "");
-                if (birth.length() > 8) {
-                    birth = birth.substring(0, 7);
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                String birth = birthField.getText().replaceAll("[^0-9]", "");
+                if (birth.length() >= 8) {
+                    birth = birth.substring(0,8);
                 }
 
                 StringBuilder formatBirth = new StringBuilder();
@@ -151,26 +253,9 @@ public class register extends JDialog {
                     }
                     formatBirth.append(birth.charAt(i));
                 }
-                birthfield.setText(formatBirth.toString());
+                birthField.setText(formatBirth.toString());
 
             }
         });
-    }
-
-    private void onOK() {
-        // add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-        // add your code here if necessary
-        dispose();
-    }
-
-    public static void main(String[] args) {
-        register dialog = new register();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 }
