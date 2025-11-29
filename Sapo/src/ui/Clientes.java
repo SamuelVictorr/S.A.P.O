@@ -24,6 +24,7 @@ public class Clientes {
         listModel = new DefaultListModel<>();
         initializeComponents();
         setupListeners();
+        clientList.setFixedCellHeight(45);
     }
     private void initializeComponents() {
         clientList.setModel(listModel);
@@ -60,17 +61,36 @@ public class Clientes {
         });
         clientList.setCellRenderer(new DefaultListCellRenderer() {
             @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                          boolean isSelected, boolean cellHasFocus) {
                 JLabel boxClient = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                boxClient.setFont(new Font("Segoe UI", Font.BOLD, 14));
+                boxClient.setOpaque(true);
+
                 if (!isSelected) {
-                    boxClient.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
-                }
-                else {
-                    boxClient.setBorder(BorderFactory.createLineBorder(new Color(100, 150, 255), 2));
+                    // Fundo zebrado suave
+                    Color bgColor = index % 2 == 0 ? new Color(252, 252, 252) : new Color(248, 250, 252);
+                    boxClient.setBackground(bgColor);
+                    boxClient.setForeground(new Color(70, 70, 70));
+
+                    // Borda sutil com cantos arredondados
+                    boxClient.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
+                            BorderFactory.createEmptyBorder(10, 15, 10, 15)
+                    ));
+                } else {
+                    // Seleção estilo FlatLaf
+                    boxClient.setBackground(new Color(79, 156, 255));
+                    boxClient.setForeground(Color.WHITE);
+
+                    // Borda de seleção mais destacada
+                    boxClient.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createLineBorder(new Color(59, 136, 235), 2),
+                            BorderFactory.createEmptyBorder(10, 15, 10, 15)
+                    ));
                 }
 
-                boxClient.setOpaque(false);
-                boxClient.setBackground(Color.WHITE);
                 return boxClient;
             }
         });

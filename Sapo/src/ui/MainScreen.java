@@ -39,6 +39,7 @@ public class MainScreen {
         clientesPanelInstance.loadAllClients();
         showMenuPrincipal();
         setupImageCard();
+        applyNimbusToNavigationButtons();
     }
 
     private void initializePanels() {
@@ -137,41 +138,58 @@ public class MainScreen {
         button.setText(text);
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        button.setBackground(new Color(255, 255, 255));
+        button.setBackground(new Color(219, 252,231));
         button.setForeground(Color.BLACK);
-        button.setBorder(BorderFactory.createEmptyBorder(12, 20, 12, 20));
         button.setFocusPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                button.setBackground(new Color(180, 180, 180));
+                button.setBackground(new Color(122, 241, 168));
                 button.setForeground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 if (button == btnClientes && getCurrentCard().equals("clientesCard")) {
-                    button.setBackground(new Color(255, 255, 255));
+                    button.setBackground(new Color(219, 252,231));
                 } else if (button == btnCadastro && getCurrentCard().equals("cadastroCard")) {
-                    button.setBackground(new Color(255, 255, 255));
+                    button.setBackground(new Color(219, 252,231));
                 } else if (button == btnAgendamento && getCurrentCard().equals("agendamentoCard")) {
-                    button.setBackground(new Color(255, 255, 255));
+                    button.setBackground(new Color(219, 252,231));
                 } else {
-                    button.setBackground(new Color(255, 255, 255));
+                    button.setBackground(new Color(219, 252,231));
                 }
                 button.setForeground(Color.BLACK);
             }
         });
     }
+    private void applyNimbusToNavigationButtons() {
+        try {
+            LookAndFeel currentLAF = UIManager.getLookAndFeel();
+
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+
+            SwingUtilities.updateComponentTreeUI(btnClientes);
+            SwingUtilities.updateComponentTreeUI(btnCadastro);
+            SwingUtilities.updateComponentTreeUI(btnAgendamento);
+            SwingUtilities.updateComponentTreeUI(btnSair);
+            SwingUtilities.updateComponentTreeUI(navegationPanel);
+
+            UIManager.setLookAndFeel(currentLAF);
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
 
     private void updateButtonStates(JButton activeButton) {
-        btnClientes.setBackground(new Color(255, 255, 255));
-        btnCadastro.setBackground(new Color(255, 255, 255));
-        btnAgendamento.setBackground(new Color(255, 255, 255));
+        btnClientes.setBackground(new Color(219, 252,231));
+        btnCadastro.setBackground(new Color(219, 252,231));
+        btnAgendamento.setBackground(new Color(219, 252,231));
 
-        activeButton.setBackground(new Color(180, 180, 180));
+        activeButton.setBackground(new Color(122, 241, 168));
     }
 
     public void schedulingModeActivated(){
@@ -204,9 +222,6 @@ public class MainScreen {
 
     public void showClientes() {
         cardLayout.show(cardsPanel, "clientesCard");
-        btnClientes.setBackground(new Color(122, 241,168));
-        btnCadastro.setBackground(new Color(219, 252,231));
-        btnAgendamento.setBackground(new Color(219,252,232));
         updateButtonStates(btnClientes);
     }
 
@@ -215,9 +230,6 @@ public class MainScreen {
         contentPaneInstance.clearClientsField();
         contentPaneInstance.initializeComponents();
         cardLayout.show(cardsPanel, "cadastroCard");
-        btnClientes.setBackground(new Color(219, 252,231));
-        btnCadastro.setBackground(new Color(122, 241,168));
-        btnAgendamento.setBackground(new Color(219, 252, 232));
         updateButtonStates(btnCadastro);
     }
 
@@ -226,9 +238,6 @@ public class MainScreen {
         schedulingPanelInstance.setFieldsSchedule();
         schedulingPanelInstance.loadSchedule();
         cardLayout.show(cardsPanel, "agendamentoCard");
-        btnClientes.setBackground(new Color(219, 252,231));
-        btnCadastro.setBackground(new Color(219, 252,232));
-        btnAgendamento.setBackground(new Color(122, 241, 168));
         updateButtonStates(btnAgendamento);
     }
     public void showCustomerInformation(Client clientSelected){

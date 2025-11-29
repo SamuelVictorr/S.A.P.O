@@ -16,5 +16,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="formdev.flatlaf" level="project" />
   </component>
 </module>
