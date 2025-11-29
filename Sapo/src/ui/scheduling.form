@@ -30,7 +30,7 @@
               <alignmentX value="1.0"/>
               <alignmentY value="1.0"/>
               <autoscrolls value="false"/>
-              <font size="16"/>
+              <font name="Segoe UI" size="16" style="1"/>
               <iconTextGap value="4"/>
               <text value="Agendamentos de Hoje"/>
             </properties>
@@ -41,6 +41,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
+              <font name="Segoe UI" style="1"/>
             </properties>
             <border type="none"/>
             <children>
@@ -48,6 +49,7 @@
                 <constraints/>
                 <properties>
                   <background color="-1"/>
+                  <font name="Segoe UI" style="1"/>
                 </properties>
               </component>
             </children>
@@ -60,6 +62,8 @@
               <background color="-8719960"/>
               <borderPainted value="false"/>
               <focusPainted value="false"/>
+              <font name="Segoe UI" style="1"/>
+              <rolloverEnabled value="false"/>
               <text value="Novo Agendamento"/>
             </properties>
           </component>
@@ -72,6 +76,7 @@
         </constraints>
         <properties>
           <background color="-1"/>
+          <font name="Segoe UI" style="1"/>
         </properties>
         <border type="none"/>
         <children>
@@ -81,6 +86,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
+              <font name="Segoe UI" style="1"/>
             </properties>
             <border type="none"/>
             <children>
@@ -89,6 +95,7 @@
                 <properties>
                   <autoCreateColumnsFromModel value="true"/>
                   <background color="-1"/>
+                  <font name="Segoe UI" style="1"/>
                 </properties>
                 <clientProperties>
                   <JTable.autoStartsEdit class="java.lang.Boolean" value="false"/>
@@ -108,7 +115,7 @@
           <alignmentX value="1.0"/>
           <alignmentY value="1.0"/>
           <autoscrolls value="false"/>
-          <font size="16"/>
+          <font name="Segoe UI" size="16" style="1"/>
           <iconTextGap value="4"/>
           <text value="Agendamentos Geral"/>
         </properties>
@@ -121,6 +128,7 @@
         </constraints>
         <properties>
           <background color="-8719960"/>
+          <font name="Segoe UI" style="1"/>
           <text value="Data Final:"/>
         </properties>
       </component>
@@ -132,6 +140,7 @@
         </constraints>
         <properties>
           <background color="-8719960"/>
+          <font name="Segoe UI" style="1"/>
           <text value="Data Inicial:"/>
         </properties>
       </component>

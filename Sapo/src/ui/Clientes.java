@@ -53,7 +53,7 @@ public class Clientes {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (searchField.getText().equals("🔍 Digite o nome do cliente:")) {
+                if (searchField.getText().equals("🔍 Digite o nome do cliente:") || searchField.getText().equals("MODO AGENDAMENTO - CLIQUE EM UM CLIENTE PARA FAZER UMA CONSULTA:")) {
                     searchField.setText("");
                 }
             }

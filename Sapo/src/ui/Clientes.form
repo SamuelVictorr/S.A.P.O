@@ -82,7 +82,9 @@
               <focusPainted value="false"/>
               <font name="Segoe UI" size="13" style="1"/>
               <horizontalTextPosition value="11"/>
+              <rolloverEnabled value="false"/>
               <text value="Novo Cliente"/>
+              <verifyInputWhenFocusTarget value="true"/>
             </properties>
           </component>
         </children>

@@ -5,6 +5,8 @@ import api.Schedule;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainScreen {
     public JPanel mainPanel;
@@ -104,6 +106,10 @@ public class MainScreen {
     }
 
     private void setupNavigation() {
+        styleNavigationButton(btnClientes, "Clientes");
+        styleNavigationButton(btnCadastro, "Cadastrar");
+        styleNavigationButton(btnAgendamento, "Agendamento");
+
         btnClientes.addActionListener(e -> showClientes());
         btnCadastro.addActionListener(e -> showCadastro());
         btnAgendamento.addActionListener( e -> showAgendamento());
@@ -114,14 +120,73 @@ public class MainScreen {
             }
         });
     }
+    private String getCurrentCard() {
+        CardLayout layout = (CardLayout) cardsPanel.getLayout();
+
+        if (btnClientes.getBackground().equals(new Color(122, 241, 168))) {
+            return "clientesCard";
+        } else if (btnCadastro.getBackground().equals(new Color(122, 241, 168))) {
+            return "cadastroCard";
+        } else if (btnAgendamento.getBackground().equals(new Color(122, 241, 168))) {
+            return "agendamentoCard";
+        }
+        return "imagemCard";
+    }
+
+    private void styleNavigationButton(JButton button, String text) {
+        button.setText(text);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        button.setBackground(new Color(255, 255, 255));
+        button.setForeground(Color.BLACK);
+        button.setBorder(BorderFactory.createEmptyBorder(12, 20, 12, 20));
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(new Color(180, 180, 180));
+                button.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (button == btnClientes && getCurrentCard().equals("clientesCard")) {
+                    button.setBackground(new Color(255, 255, 255));
+                } else if (button == btnCadastro && getCurrentCard().equals("cadastroCard")) {
+                    button.setBackground(new Color(255, 255, 255));
+                } else if (button == btnAgendamento && getCurrentCard().equals("agendamentoCard")) {
+                    button.setBackground(new Color(255, 255, 255));
+                } else {
+                    button.setBackground(new Color(255, 255, 255));
+                }
+                button.setForeground(Color.BLACK);
+            }
+        });
+    }
+
+    private void updateButtonStates(JButton activeButton) {
+        btnClientes.setBackground(new Color(255, 255, 255));
+        btnCadastro.setBackground(new Color(255, 255, 255));
+        btnAgendamento.setBackground(new Color(255, 255, 255));
+
+        activeButton.setBackground(new Color(180, 180, 180));
+    }
 
     public void schedulingModeActivated(){
         this.schedulingMode = true;
         this.showClientes();
+
+        clientesPanelInstance.searchField.setText("MODO AGENDAMENTO - CLIQUE EM UM CLIENTE PARA FAZER UMA CONSULTA:");
+        clientesPanelInstance.searchField.setBackground(Color.YELLOW);
+
         JOptionPane.showMessageDialog(mainPanel, "Clique em um cliente para continuar o agendamento.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void setSchedulingModeFalse(){
+        clientesPanelInstance.searchField.setBackground(Color.WHITE);
+        clientesPanelInstance.searchField.setText("🔍 Digite o nome do cliente:");
         this.schedulingMode = false;
     }
 
@@ -142,24 +207,29 @@ public class MainScreen {
         btnClientes.setBackground(new Color(122, 241,168));
         btnCadastro.setBackground(new Color(219, 252,231));
         btnAgendamento.setBackground(new Color(219,252,232));
+        updateButtonStates(btnClientes);
     }
 
     public void showCadastro() {
+        setSchedulingModeFalse();
         contentPaneInstance.clearClientsField();
         contentPaneInstance.initializeComponents();
         cardLayout.show(cardsPanel, "cadastroCard");
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(122, 241,168));
         btnAgendamento.setBackground(new Color(219, 252, 232));
+        updateButtonStates(btnCadastro);
     }
 
     public void showAgendamento(){
+        setSchedulingModeFalse();
         schedulingPanelInstance.setFieldsSchedule();
         schedulingPanelInstance.loadSchedule();
         cardLayout.show(cardsPanel, "agendamentoCard");
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(219, 252,232));
         btnAgendamento.setBackground(new Color(122, 241, 168));
+        updateButtonStates(btnAgendamento);
     }
     public void showCustomerInformation(Client clientSelected){
         this.storeClient = clientSelected;

@@ -30,6 +30,8 @@
               <background color="-8719960"/>
               <borderPainted value="false"/>
               <focusPainted value="false"/>
+              <font name="Segoe UI" style="1"/>
+              <rolloverEnabled value="false"/>
               <text value="Cadastrar"/>
             </properties>
           </component>
@@ -45,21 +47,15 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="51730" class="javax.swing.JTextField" binding="nameField">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
           <component id="ea9eb" class="javax.swing.JLabel" binding="nameLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font size="18"/>
-              <text value="Nome"/>
+              <font name="Segoe UI" size="18" style="1"/>
+              <horizontalAlignment value="10"/>
+              <requestFocusEnabled value="true"/>
+              <text value="Nome:"/>
             </properties>
           </component>
           <component id="b0c36" class="javax.swing.JTextField" binding="telephoneField">
@@ -68,15 +64,17 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Segoe UI" style="1"/>
+            </properties>
           </component>
           <component id="853da" class="javax.swing.JLabel" binding="telephoneLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font size="18"/>
-              <text value="Telefone"/>
+              <font name="Segoe UI" size="18" style="1"/>
+              <text value="Telefone:"/>
             </properties>
           </component>
           <component id="2b012" class="javax.swing.JTextField" binding="CPFfield">
@@ -86,16 +84,17 @@
               </grid>
             </constraints>
             <properties>
+              <font name="Segoe UI" style="1"/>
               <text value=""/>
             </properties>
           </component>
           <component id="ed1b0" class="javax.swing.JLabel" binding="CPFlabel">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font size="18"/>
-              <text value="CPF"/>
+              <font name="Segoe UI" size="18" style="1"/>
+              <text value="CPF:"/>
             </properties>
           </component>
           <component id="79d3d" class="javax.swing.JLabel" binding="birthLabel">
@@ -103,8 +102,8 @@
               <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font size="18"/>
-              <text value="Data de Nascimento"/>
+              <font name="Segoe UI" size="18" style="1"/>
+              <text value="Data de Nascimento:"/>
             </properties>
           </component>
           <component id="ab313" class="javax.swing.JLabel" binding="JLabelObser">
@@ -112,8 +111,8 @@
               <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font size="18"/>
-              <text value="Observação"/>
+              <font name="Segoe UI" size="18" style="1"/>
+              <text value="Observação:"/>
             </properties>
           </component>
           <component id="479da" class="javax.swing.JTextField" binding="birthField">
@@ -122,7 +121,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Segoe UI" style="1"/>
+            </properties>
           </component>
           <component id="c159d" class="javax.swing.JTextField" binding="FieldObser">
             <constraints>
@@ -130,7 +131,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Segoe UI" style="1"/>
+            </properties>
           </component>
           <component id="9f181" class="javax.swing.JLabel">
             <constraints>
@@ -138,8 +141,18 @@
             </constraints>
             <properties>
               <background color="-2"/>
-              <font size="22"/>
+              <font name="Segoe UI" size="22" style="1"/>
               <text value="Adicionar novo cliente:"/>
+            </properties>
+          </component>
+          <component id="51730" class="javax.swing.JTextField" binding="nameField">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font name="Segoe UI" style="1"/>
             </properties>
           </component>
         </children>
