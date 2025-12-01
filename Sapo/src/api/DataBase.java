@@ -25,7 +25,7 @@ public class DataBase {
     public static List<Client> getClients() throws SQLException {
         Connection connection = connect();
 
-        String sql = "SELECT * FROM clientes";
+        String sql = "SELECT * FROM clientes ORDER BY name";
         List<Client> clients = new ArrayList<>();
 
         assert connection != null;
