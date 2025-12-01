@@ -19,7 +19,7 @@ public class editStatusScheduling extends JDialog {
         setContentPane(editStatusPane);
         setModal(true);
         setTitle("Editar Status");
-        setSize(500,200);
+        setSize(600,200);
         setLocationRelativeTo(mainScreen.mainPanel);
         setResizable(false);
 
