@@ -42,10 +42,23 @@ public class customerInformation {
 
     public customerInformation(MainScreen mainScreen){
         this.mainScreen = mainScreen;
-        tableNextModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
-        tableHistoryModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
+        tableNextModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) { // don`t let any cell be changed
+                return false; //
+            }
+        };
+        tableHistoryModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // nenhuma célula pode ser editada
+            }
+        };
         setupButtons(mainScreen);
     }
+
+
+
     public void setupButtons(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
@@ -110,7 +123,7 @@ public class customerInformation {
     private void addNext(Schedule s) {
         tableNextModel.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getClient().getName(),
+                s.getNameClient(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),
@@ -122,7 +135,7 @@ public class customerInformation {
     private void addHistory(Schedule s) {
         tableHistoryModel.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getClient().getName(),
+                s.getNameClient(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),

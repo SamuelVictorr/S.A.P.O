@@ -36,8 +36,18 @@ public class scheduling {
 
     public scheduling(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
-        tableNowModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
-        tableGeneralModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
+        tableNowModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tableGeneralModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         setFieldsSchedule();
         setupButton();
         formatDateSchedule();
@@ -71,7 +81,7 @@ public class scheduling {
             }
             tableNow.setModel(tableNowModel);
             tableGeneral.setModel(tableGeneralModel);
-            if (dateInit.length() == 10 || dateFinal.length() == 10) {
+            if (dateInit.length() == 10 && dateFinal.length() == 10) {
                 searchDate();
             }
         } catch (SQLException e) {
@@ -102,6 +112,7 @@ public class scheduling {
         });
     }
 
+    //set date format to search
     public void formatDateSchedule() {
         dateInitField.addKeyListener(new KeyAdapter() {
             @Override
@@ -167,10 +178,11 @@ public class scheduling {
         });
     }
 
+    //Add any appointment that`s already done/to do
     private void addGeneral(Schedule s) {
         tableGeneralModel.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getClient().getName(),
+                s.getNameClient(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),
@@ -179,10 +191,11 @@ public class scheduling {
         });
     }
 
+    // Add in-day appointments ( all appointments registered with the local date)
     private void addNow(Schedule s) {
         tableNowModel.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getClient().getName(),
+                s.getNameClient(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),
@@ -207,22 +220,25 @@ public class scheduling {
             tableGeneralModel.setRowCount(0);
 
             for (Schedule schedule : scheduleDB) {
-                LocalDate dateSchedule = LocalDate.parse(schedule.getDiaHora().substring(0, 10), formatdate);
 
-                if (dateInit != null && dateFinal == null && !dateSchedule.isEqual(LocalDate.now())) {
-                    if (!dateSchedule.isBefore(dateInit)) {
-                        addGeneral(schedule);
+                if (!schedule.getStatusTreatment().equals("Realizado")) {
+                    LocalDate dateSchedule = LocalDate.parse(schedule.getDiaHora().substring(0, 10), formatdate);
+
+                    if (dateInit != null && dateFinal == null && !dateSchedule.isEqual(LocalDate.now())) {
+                        if (!dateSchedule.isBefore(dateInit)) {
+                            addGeneral(schedule);
+                        }
+                    } else if (dateInit == null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
+                        if (!dateSchedule.isAfter(dateFinal)) {
+                            addGeneral(schedule);
+                        }
+                    } else if (dateInit != null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
+                        if (!dateSchedule.isBefore(dateInit) && !dateSchedule.isAfter(dateFinal)) {
+                            addGeneral(schedule);
+                        }
                     }
-                } else if (dateInit == null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
-                    if (!dateSchedule.isAfter(dateFinal)) {
-                        addGeneral(schedule);
-                    }
-                } else if (dateInit != null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
-                    if (!dateSchedule.isBefore(dateInit) && !dateSchedule.isAfter(dateFinal)) {
-                        addGeneral(schedule);
-                    }
+                    tableGeneral.setModel(tableGeneralModel);
                 }
-                tableGeneral.setModel(tableGeneralModel);
             }
         } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(schedulingPane, "Formato de data inválido!", "Erro", JOptionPane.ERROR_MESSAGE);

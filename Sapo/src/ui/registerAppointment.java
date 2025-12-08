@@ -71,10 +71,9 @@ public class registerAppointment extends JDialog {
                     idDetista = "4";
                 }
                 String idClient = String.valueOf(clientScheduling.getId());
-                String nameClient = String.valueOf(clientScheduling.getName());
 
                 try {
-                    addSchedule(dateTime, detail, status, dentist, idClient, clinicID, type, idDetista, nameClient);
+                    addSchedule(dateTime, detail, status, dentist, idClient, clinicID, type, idDetista);
                     JOptionPane.showMessageDialog(null, "Agendamento cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     clearText();
                     dispose();

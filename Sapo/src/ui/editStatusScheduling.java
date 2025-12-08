@@ -41,9 +41,10 @@ public class editStatusScheduling extends JDialog {
     private void updateStatus(String status, int idSchedule) {
         try {
             scheduleDB = DataBaseAgendamentos.getSchedules();
+
             for (Schedule schedule : scheduleDB) {
                 if (idSchedule == schedule.getIdSchedule()) {
-                    DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getClient().getId(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
+                    DataBaseAgendamentos.updateScheduleStatus(status, idSchedule);
                     dispose();
                 }
             }

@@ -6,15 +6,14 @@ public class Schedule {
     private String typeTreatment;
     private String nameDentist;
     private String idDentista;
-    private Client client;
     private String statusTreatment;
     private String details;
     private String nameClient;
+    private String idClient;
 
-    public Schedule(int idSchedule, String diaHora, Client client, String nameDentist, String statusTreatment, String treatmentType, String details, String idDentista, String nameClient) {
+    public Schedule(int idSchedule, String diaHora, String nameDentist, String statusTreatment, String treatmentType, String details, String idDentista, String nameClient) {
         this.idSchedule = idSchedule;
         this.diahora = diaHora;
-        this.client = client;
         this.nameDentist = nameDentist;
         this.statusTreatment = statusTreatment;
         this.typeTreatment= treatmentType;
@@ -28,7 +27,6 @@ public class Schedule {
     public String getDiaHora() { return diahora; }
     public String getTypeTreatment() { return typeTreatment; }
     public String getNameDentist() { return nameDentist; }
-    public Client getClient() { return client; }
     public String getStatusTreatment() { return statusTreatment; }
     public String getDetails() { return details; }
     public String getIdDentista() { return idDentista; }

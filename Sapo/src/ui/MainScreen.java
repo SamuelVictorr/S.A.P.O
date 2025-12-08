@@ -28,7 +28,6 @@ public class MainScreen {
     public register contentPaneInstance;
     public scheduling schedulingPanelInstance;
     public customerInformation customerInformationInstance;
-    private Schedule schedule;
     private boolean schedulingMode = false;
     private CardLayout cardLayout;
     private Client storeClient;
