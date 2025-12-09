@@ -37,9 +37,11 @@ public class customerInformation {
     private DefaultTableModel tableNextModel;
     private DefaultTableModel tableHistoryModel;
 
+    //Classes used to put information on the screen
     private MainScreen mainScreen;
     private Client client;
 
+    //constructor for the CustomerInformation form
     public customerInformation(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         tableNextModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
@@ -58,7 +60,7 @@ public class customerInformation {
     }
 
 
-
+    //Set paths for all the buttons used on the forms
     public void setupButtons(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
@@ -71,6 +73,8 @@ public class customerInformation {
             }
         });
     }
+
+    //Pull all client information to customerInformation form
     public void loadCustomersInformations(Client client) {
         this.client = client;
         if (client != null) {
@@ -81,6 +85,7 @@ public class customerInformation {
         }
     }
 
+    //Adjust age label to get the exact amount of years the client is old
     public String birthValueConversion(Client client){
         String birthYear = client.getBirthDate().substring(6,10);
         int birthYearConversion = Integer.parseInt(birthYear);
@@ -90,6 +95,7 @@ public class customerInformation {
 
     }
 
+    // Pull all appointments related to an especific client
     public void loadScheduleClient(Client client){
         try{
             scheduleDB = DataBaseAgendamentos.getSchedules();
@@ -104,9 +110,9 @@ public class customerInformation {
 
                 if(schedule.getNameClient().equals(client.getName())){
                     if (parseDate.isEqual(dateNow) || parseDate.isAfter(dateNow)){
-                        addNext(schedule);
+                        scheduling.addGeneral(schedule, tableNextModel);
                     }
-                    addHistory(schedule);
+                    scheduling.addGeneral(schedule, tableHistoryModel);
                 }
 
             }
@@ -120,27 +126,5 @@ public class customerInformation {
 
     }
 
-    private void addNext(Schedule s) {
-        tableNextModel.addRow(new Object[]{
-                s.getIdSchedule(),
-                s.getNameClient(),
-                s.getTypeTreatment(),
-                s.getDetails(),
-                s.getDiaHora(),
-                s.getNameDentist(),
-                s.getStatusTreatment()
-        });
-    }
 
-    private void addHistory(Schedule s) {
-        tableHistoryModel.addRow(new Object[]{
-                s.getIdSchedule(),
-                s.getNameClient(),
-                s.getTypeTreatment(),
-                s.getDetails(),
-                s.getDiaHora(),
-                s.getNameDentist(),
-                s.getStatusTreatment()
-        });
-    }
 }

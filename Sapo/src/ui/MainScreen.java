@@ -1,7 +1,6 @@
 package ui;
 
 import api.Client;
-import api.Schedule;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +31,7 @@ public class MainScreen {
     private CardLayout cardLayout;
     private Client storeClient;
 
+    //Constructor for the ManScreen class
     public MainScreen() {
         initializePanels();
         setupNavigation();
@@ -41,6 +41,7 @@ public class MainScreen {
         applyNimbusToNavigationButtons();
     }
 
+    //Initiate Panels and set them all "null" (without info on them)
     private void initializePanels() {
         cardLayout = (CardLayout) cardsPanel.getLayout();
 
@@ -82,6 +83,8 @@ public class MainScreen {
         customerInformationCard.repaint();
 
     }
+
+    //Set default frog image which is shown when le program is started
     private void setupImageCard() {
         try {
             ImageIcon menuImage = new ImageIcon("Sapo/src/api/imagem/menuImagem.png");
@@ -105,14 +108,15 @@ public class MainScreen {
         }
     }
 
+    //Set navigation to work
     private void setupNavigation() {
         styleNavigationButton(btnClientes, "Clientes");
         styleNavigationButton(btnCadastro, "Cadastrar");
         styleNavigationButton(btnAgendamento, "Agendamento");
 
         btnClientes.addActionListener(e -> showClientes());
-        btnCadastro.addActionListener(e -> showCadastro());
-        btnAgendamento.addActionListener( e -> showAgendamento());
+        btnCadastro.addActionListener(e -> showRegister());
+        btnAgendamento.addActionListener( e -> showSchedule());
         btnSair.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(mainPanel, "Tem certeza que deseja sair?", "Confirmar Saída", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
@@ -120,9 +124,9 @@ public class MainScreen {
             }
         });
     }
-    private String getCurrentCard() {
-        CardLayout layout = (CardLayout) cardsPanel.getLayout();
 
+    //Path to access any card created
+    private String getCurrentCard() {
         if (btnClientes.getBackground().equals(new Color(122, 241, 168))) {
             return "clientesCard";
         } else if (btnCadastro.getBackground().equals(new Color(122, 241, 168))) {
@@ -133,6 +137,7 @@ public class MainScreen {
         return "imagemCard";
     }
 
+    //Front-end effects
     private void styleNavigationButton(JButton button, String text) {
         button.setText(text);
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -164,6 +169,8 @@ public class MainScreen {
             }
         });
     }
+
+    //Front-end effects 2
     private void applyNimbusToNavigationButtons() {
         try {
             LookAndFeel currentLAF = UIManager.getLookAndFeel();
@@ -183,6 +190,7 @@ public class MainScreen {
         }
     }
 
+    //Visual effect to change how the button looks like
     private void updateButtonStates(JButton activeButton) {
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(219, 252,231));
@@ -191,6 +199,7 @@ public class MainScreen {
         activeButton.setBackground(new Color(122, 241, 168));
     }
 
+    //Set schedulingMode On/Activated
     public void schedulingModeActivated(){
         this.schedulingMode = true;
         this.showClientes();
@@ -199,32 +208,39 @@ public class MainScreen {
         clientesPanelInstance.searchField.setBackground(Color.YELLOW);
 
         JOptionPane.showMessageDialog(mainPanel, "Clique em um cliente para continuar o agendamento.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
+    //Set schedulingMode off/false as you want to call
     public void setSchedulingModeFalse(){
         clientesPanelInstance.searchField.setBackground(Color.WHITE);
         clientesPanelInstance.searchField.setText("🔍 Digite o nome do cliente:");
         this.schedulingMode = false;
     }
 
+    //Return schedulingMode status (if it's false/true)
     public boolean isSchedulingMode(){
         return schedulingMode;
     }
 
+    // How it works??
     public Client getStoreClient() {
         return this.storeClient;
     }
 
+    // Set client selected or the client which got his info's changed updated in main screen
     public void setStoreClient(Client client){
         this.storeClient = client;
     }
 
+    //Shows all clients
     public void showClientes() {
         cardLayout.show(cardsPanel, "clientesCard");
         updateButtonStates(btnClientes);
     }
 
-    public void showCadastro() {
+    //Shows register form to add clients in DB
+    public void showRegister() {
         setSchedulingModeFalse();
         contentPaneInstance.clearClientsField();
         contentPaneInstance.initializeComponents();
@@ -232,22 +248,28 @@ public class MainScreen {
         updateButtonStates(btnCadastro);
     }
 
-    public void showAgendamento(){
+    //Shows any attendance registered in DB
+    public void showSchedule(){
         setSchedulingModeFalse();
         schedulingPanelInstance.setFieldsSchedule();
         schedulingPanelInstance.loadSchedule();
         cardLayout.show(cardsPanel, "agendamentoCard");
         updateButtonStates(btnAgendamento);
     }
+
+    //Shows Customer Info about the client selected 
     public void showCustomerInformation(Client clientSelected){
         this.storeClient = clientSelected;
         customerInformationInstance.loadCustomersInformations(clientSelected);
         customerInformationInstance.loadScheduleClient(clientSelected);
         cardLayout.show(cardsPanel, "customerInformationCard");
     }
+
+    //Show Default Menu
     public void showMenuPrincipal(){
         cardLayout.show(cardsPanel, "imagemCard");
     }
+
     public void refreshClientList() {
         clientesPanelInstance.loadAllClients();
     }

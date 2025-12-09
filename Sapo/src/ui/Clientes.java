@@ -33,7 +33,7 @@ public class Clientes {
     }
     private void setupButtons(){
         btnNovoCadastro.addActionListener(e -> {
-            mainScreen.showCadastro();
+            mainScreen.showRegister();
         });
     }
     private void setupListeners() {

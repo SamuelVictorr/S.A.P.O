@@ -34,6 +34,7 @@ public class scheduling {
     String dateInit;
     String dateFinal;
 
+    //Constructor to push scheduling system
     public scheduling(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         tableNowModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0) {
@@ -55,10 +56,12 @@ public class scheduling {
         loadSchedule();
     }
 
+    //Set new appointment buton in screen
     public void setupButton() {
         btnNovoAgendamento.addActionListener(e -> mainScreen.schedulingModeActivated());
     }
 
+    //Load all appointments registered in DB
     public void loadSchedule() {
         try {
             dateInit = dateInitField.getText();
@@ -75,9 +78,9 @@ public class scheduling {
                 LocalDate parseDate = LocalDate.parse(date, dateFormat);
 
                 if (parseDate.isEqual(dateNow)) {
-                    addNow(schedule);
+                    addGeneral(schedule, tableNowModel);;
                 }
-                addGeneral(schedule);
+                addGeneral(schedule, tableGeneralModel);
             }
             tableNow.setModel(tableNowModel);
             tableGeneral.setModel(tableGeneralModel);
@@ -179,8 +182,8 @@ public class scheduling {
     }
 
     //Add any appointment that`s already done/to do
-    private void addGeneral(Schedule s) {
-        tableGeneralModel.addRow(new Object[]{
+    public static void addGeneral(Schedule s, DefaultTableModel tableModelToInputInfo) {
+        tableModelToInputInfo.addRow(new Object[]{
                 s.getIdSchedule(),
                 s.getNameClient(),
                 s.getTypeTreatment(),
@@ -191,19 +194,7 @@ public class scheduling {
         });
     }
 
-    // Add in-day appointments ( all appointments registered with the local date)
-    private void addNow(Schedule s) {
-        tableNowModel.addRow(new Object[]{
-                s.getIdSchedule(),
-                s.getNameClient(),
-                s.getTypeTreatment(),
-                s.getDetails(),
-                s.getDiaHora(),
-                s.getNameDentist(),
-                s.getStatusTreatment()
-        });
-    }
-
+    //Search any appointment between 2 dates that is already in DB
     public void searchDate() {
         try {
             DateTimeFormatter formatdate = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
@@ -226,15 +217,15 @@ public class scheduling {
 
                     if (dateInit != null && dateFinal == null && !dateSchedule.isEqual(LocalDate.now())) {
                         if (!dateSchedule.isBefore(dateInit)) {
-                            addGeneral(schedule);
+                            addGeneral(schedule, tableGeneralModel);
                         }
                     } else if (dateInit == null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
                         if (!dateSchedule.isAfter(dateFinal)) {
-                            addGeneral(schedule);
+                            addGeneral(schedule, tableGeneralModel);
                         }
                     } else if (dateInit != null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
                         if (!dateSchedule.isBefore(dateInit) && !dateSchedule.isAfter(dateFinal)) {
-                            addGeneral(schedule);
+                            addGeneral(schedule, tableGeneralModel);
                         }
                     }
                     tableGeneral.setModel(tableGeneralModel);
@@ -245,6 +236,7 @@ public class scheduling {
         }
     }
 
+    // Edit Status by clicking in it column in general Schedules table
     public void statusEdit() {
         tableGeneral.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
