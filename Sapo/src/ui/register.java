@@ -27,6 +27,7 @@ public class register{
     private JLabel JLabelObser;
     private MainScreen mainScreen;
 
+    //Constructor of the class, it makes all the functions appear on screen
     public register(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         setupListeners();
@@ -34,6 +35,7 @@ public class register{
         initializeComponents();
     }
 
+    //Set text Fields as it default values
     public void initializeComponents(){
         nameField.setText("Nome do cliente");
         telephoneField.setText("(XX)XXXXX-XXXX");
@@ -43,8 +45,9 @@ public class register{
 
     }
 
+    // Set listener on the text fields to put all as empty string
     private void setupListeners() {
-        register.addActionListener(e -> saveClients());
+        register.addActionListener(e -> saveClientInfo());
 
         nameField.addKeyListener(new KeyAdapter() {
             @Override
@@ -88,6 +91,7 @@ public class register{
         });
     }
 
+    //Set Register fields on it default value
     public void clearClientsField() {
         nameField.setText("");
         telephoneField.setText("");
@@ -96,7 +100,8 @@ public class register{
         FieldObser.setText("");
     }
 
-    private void saveClients() {
+    //Make button register works (it connect to jdbc and add new client to DB)
+    private void saveClientInfo() {
         String name = nameField.getText();
         String CPF = CPFfield.getText();
         String telephone = telephoneField.getText();
@@ -106,7 +111,7 @@ public class register{
         String idClinic = "1";
         boolean valid;
 
-        //Validação dos dados
+        //Data validate
         valid = validClient(name,telephone,CPF,birth);
         if (!valid) {
             return;
@@ -127,8 +132,9 @@ public class register{
         }
     }
 
+    //Validate all CLient info wrote on dialog's fields
     public boolean validClient(String name, String telephone, String CPF, String birth){
-        //validação do Nome
+        //Client's name validate
         if(name.isEmpty()){
             JOptionPane.showMessageDialog(null, "Nome é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -137,7 +143,7 @@ public class register{
             return false;
         }
 
-        //validação do Telefone
+        //Client's telephone validate
         if(telephone.isEmpty()){
             JOptionPane.showMessageDialog(null, "Telefone é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -149,7 +155,7 @@ public class register{
             return false;
         }
 
-        //validação de CPF
+        //Client's CPF validate
         if(CPF.isEmpty()){
             JOptionPane.showMessageDialog(null, "CPF é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -161,7 +167,7 @@ public class register{
             return false;
         }
 
-        //validação da data de nascimento
+        //Client's BirthDate validate
         if(birth.isEmpty()){
             JOptionPane.showMessageDialog(null, "Data de Nascimento é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;

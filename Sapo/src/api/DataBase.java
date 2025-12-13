@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DataBase {
+
+    // Function to connect the jdbc on DB
     public static Connection connect() {
         // connection string
         var url = "jdbc:sqlite:Sapo/src/api/mydb.db";
@@ -22,6 +24,7 @@ public class DataBase {
         return null;
     }
 
+    //List to pull all client registered on DB
     public static List<Client> getClients() throws SQLException {
         Connection connection = connect();
 
@@ -49,6 +52,7 @@ public class DataBase {
         return clients;
     }
 
+    //Input a new client on DB
     public static void addClient(String name, String cpf, String telefone, String observacao, String activeState, String birthDate, String clinicId) throws SQLException {
 
         Connection connection = connect();
@@ -65,6 +69,7 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
+    //Change client status_active to it don't show on screen
     public static void removeClient(String clientId) throws SQLException{
         Connection connection = connect();
         String newState = "Desativado";
@@ -76,6 +81,7 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
+    // Update client info on DB, logically it's a specific client. That's identify
     public static void updateClient(String name, String cpf, String telefone, String observacao, String activeState, String birthDate, String clinicId, String clientId) throws SQLException{
         Connection connection = connect();
         String sql = "UPDATE clientes SET name = ? ,cpf = ?,telefone = ?,observacao = ?, active_state = ?, data_nascimento = ?, id_clinica = ? WHERE id = ?";
@@ -92,7 +98,7 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
-    //Teste p/ ver se dá para verificar dentro do próprio DB
+    //Verify Cpf input on code
     public static boolean verifyCPF(String cpf) {
         boolean resultado;
         int[] lista = new int[11];
@@ -120,7 +126,10 @@ public class DataBase {
         System.out.println(Arrays.toString(lista));
 
         //Calculation to verify the 10th element of the CPF
-        int calculo = (lista[0] * 10) + (lista[1] * 9) + (lista[2] * 8) + (lista[3] * 7) + ( 6 * lista[4]) + (5 * lista[5]) + ( 4 * lista[6]) + ( lista[7] * 3)+ (lista[8] * 2);
+        int calculo = 0;
+        for(int i = 10; i < 1; i-- ){
+            calculo += lista[i] * i;
+        }
         int divisaoVerificador1 = (calculo % 11);
         if(divisaoVerificador1 > -1 && divisaoVerificador1 < 2){
             digitoVerificador1 = 0;
@@ -129,7 +138,10 @@ public class DataBase {
         }
 
         //Calculation to verify the 11th element of the CPF
-        int calculo2 = (lista[0] * 11) + (lista[1] * 10) + (lista[2] * 9) + (lista[3] * 8) + ( 7 * lista[4]) + (6 * lista[5]) + ( 5 * lista[6]) + ( lista[7] * 4)+ (lista[8] * 3) + (digitoVerificador1 * 2);
+        int calculo2 = digitoVerificador1 * 2;
+        for( int j = 11; j < 2; j-- ){
+            calculo2 += lista[j] * j;
+        }
         int divisaoVerificador2 = (calculo2 % 11);
         if(divisaoVerificador2 > -1 && divisaoVerificador2 < 2){
             digitoVerificador2 = 0;
@@ -141,12 +153,4 @@ public class DataBase {
         return resultado;
     }
 
-    //Para teste
-    public static void main(String[] args) {
-        try {
-            removeClient("2");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

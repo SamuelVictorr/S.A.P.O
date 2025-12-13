@@ -15,6 +15,7 @@ public class editStatusScheduling extends JDialog {
     private JRadioButton pendingCheckBox;
     private List<Schedule> scheduleDB;
 
+    //constructor for the dialog shows option for change the treatmentStatus column
     public editStatusScheduling(MainScreen mainScreen) {
         setContentPane(editStatusPane);
         setModal(true);
@@ -24,6 +25,8 @@ public class editStatusScheduling extends JDialog {
         setResizable(false);
 
     }
+
+    //Set status on treatmentSchedule column after chose on Dialog
     public void setStatus(int idSchedule){
         ButtonGroup validCheckBox = new ButtonGroup();
         validCheckBox.add(completedCheckBox);
@@ -38,12 +41,14 @@ public class editStatusScheduling extends JDialog {
         rescheduledCheckBox.addActionListener(e -> updateStatus("Reagendado",idSchedule));
         pendingCheckBox.addActionListener(e -> updateStatus("Pendente",idSchedule));
     }
+
+    //Change treatmentStatus column on scheduling screen and DB
     private void updateStatus(String status, int idSchedule) {
         try {
             scheduleDB = DataBaseAgendamentos.getSchedules();
             for (Schedule schedule : scheduleDB) {
                 if (idSchedule == schedule.getIdSchedule()) {
-                    DataBaseAgendamentos.updateSchedule(schedule.getDiaHora(), schedule.getTypeTreatment(), schedule.getClient().getId(), schedule.getIdDentista(), status, schedule.getDetails(), schedule.getIdSchedule());
+                    DataBaseAgendamentos.updateStatusSchedule(status, idSchedule);
                     dispose();
                 }
             }

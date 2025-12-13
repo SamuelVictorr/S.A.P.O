@@ -10,6 +10,7 @@ public class Client {
     private String birthDate;
     private String clinicId;
 
+    //Constructor for client class
     public Client(int id, String name, String cpf, String telefone, String observacao , String activeStatus,  String birthDate, String clinicId ) {
         this.id = id;
         this.name = name;

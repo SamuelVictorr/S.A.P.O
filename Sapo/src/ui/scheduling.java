@@ -34,6 +34,7 @@ public class scheduling {
     String dateInit;
     String dateFinal;
 
+    //Constructor for scheduling class, it's just to call and get all appointments registered on DB
     public scheduling(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         tableNowModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
@@ -45,10 +46,12 @@ public class scheduling {
         loadSchedule();
     }
 
+    //Set buttons on screen to work
     public void setupButton() {
         btnNovoAgendamento.addActionListener(e -> mainScreen.schedulingModeActivated());
     }
 
+    //Load all schedules on DB
     public void loadSchedule() {
         try {
             dateInit = dateInitField.getText();
@@ -65,9 +68,9 @@ public class scheduling {
                 LocalDate parseDate = LocalDate.parse(date, dateFormat);
 
                 if (parseDate.isEqual(dateNow)) {
-                    addNow(schedule);
+                    getScheduleOnScreen(schedule, tableNowModel);
                 }
-                addGeneral(schedule);
+                getScheduleOnScreen(schedule, tableGeneralModel);
             }
             tableNow.setModel(tableNowModel);
             tableGeneral.setModel(tableGeneralModel);
@@ -79,6 +82,7 @@ public class scheduling {
         }
     }
 
+    //Set the fields on Screen where can search appointments by date
     public void setFieldsSchedule() {
         dateInitField.setText("Data Inicial:");
         dateFinalField.setText("Data Final:");
@@ -102,6 +106,7 @@ public class scheduling {
         });
     }
 
+    //Formater for dateSearch
     public void formatDateSchedule() {
         dateInitField.addKeyListener(new KeyAdapter() {
             @Override
@@ -167,10 +172,11 @@ public class scheduling {
         });
     }
 
-    private void addGeneral(Schedule s) {
-        tableGeneralModel.addRow(new Object[]{
+    //Setter for pull schedule from DB
+    private static void setScheduleOnScreen(Schedule s, DefaultTableModel schedulingTableShowed) {
+        schedulingTableShowed.addRow(new Object[]{
                 s.getIdSchedule(),
-                s.getClient().getName(),
+                s.getNameClient(),
                 s.getTypeTreatment(),
                 s.getDetails(),
                 s.getDiaHora(),
@@ -179,18 +185,12 @@ public class scheduling {
         });
     }
 
-    private void addNow(Schedule s) {
-        tableNowModel.addRow(new Object[]{
-                s.getIdSchedule(),
-                s.getClient().getName(),
-                s.getTypeTreatment(),
-                s.getDetails(),
-                s.getDiaHora(),
-                s.getNameDentist(),
-                s.getStatusTreatment()
-        });
+    //getter for schedule on specific table
+    public static void getScheduleOnScreen(Schedule scheduleInfo, DefaultTableModel tablePush) {
+        setScheduleOnScreen(scheduleInfo, tablePush);
     }
 
+    //Function to filter appointments registered in a certain period
     public void searchDate() {
         try {
             DateTimeFormatter formatdate = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
@@ -211,15 +211,15 @@ public class scheduling {
 
                 if (dateInit != null && dateFinal == null && !dateSchedule.isEqual(LocalDate.now())) {
                     if (!dateSchedule.isBefore(dateInit)) {
-                        addGeneral(schedule);
+                        getScheduleOnScreen(schedule, tableGeneralModel);
                     }
                 } else if (dateInit == null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
                     if (!dateSchedule.isAfter(dateFinal)) {
-                        addGeneral(schedule);
+                        getScheduleOnScreen(schedule, tableGeneralModel);
                     }
                 } else if (dateInit != null && dateFinal != null && !dateSchedule.isEqual(LocalDate.now())) {
                     if (!dateSchedule.isBefore(dateInit) && !dateSchedule.isAfter(dateFinal)) {
-                        addGeneral(schedule);
+                        getScheduleOnScreen(schedule, tableGeneralModel);
                     }
                 }
                 tableGeneral.setModel(tableGeneralModel);
@@ -229,6 +229,7 @@ public class scheduling {
         }
     }
 
+    //Function to edit status using mouse, this set the newStatus of an appointment by clicking in a radioButton
     public void statusEdit() {
         tableGeneral.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override

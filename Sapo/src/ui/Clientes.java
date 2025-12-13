@@ -19,6 +19,7 @@ public class Clientes {
     private List<Client> clientsDB;
     private MainScreen mainScreen;
 
+    //Constructor of the class
     public Clientes(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
         listModel = new DefaultListModel<>();
@@ -26,16 +27,22 @@ public class Clientes {
         setupListeners();
         clientList.setFixedCellHeight(45);
     }
+
+    //Initiate Components
     private void initializeComponents() {
         clientList.setModel(listModel);
         searchField.setText("🔍 Digite o nome do cliente:");
         setupButtons();
     }
+
+    //Set buttons on screen
     private void setupButtons(){
         btnNovoCadastro.addActionListener(e -> {
             mainScreen.showCadastro();
         });
     }
+
+    //Set paths to use all private and public methods on this class
     private void setupListeners() {
         searchField.addKeyListener(new KeyAdapter() {
             @Override
@@ -119,6 +126,7 @@ public class Clientes {
         });
     }
 
+    // Get the client name by select it clicking on it's object on table
     private Client searchClientString(String clientString) {
         if (clientsDB != null) {
             for (Client client : clientsDB) {
@@ -130,6 +138,7 @@ public class Clientes {
         return null;
     }
 
+    //Load all Clients registered on DB
     public void loadAllClients() {
         try {
             clientsDB = DataBase.getClients();
@@ -145,6 +154,7 @@ public class Clientes {
         }
     }
 
+    //Func to search a Client by name or CPF
     private void searchClients(String searchText) {
         listModel.clear();
         if (clientsDB != null) {

@@ -30,7 +30,7 @@ public class registerAppointment extends JDialog {
     private Client clientScheduling;
     private MainScreen mainScreen;
 
-
+    //
     public registerAppointment(Client client) {
         this.clientScheduling = client;
         setContentPane(contentPane);
@@ -42,6 +42,7 @@ public class registerAppointment extends JDialog {
         mask();
     }
 
+    //Make Register appointment button works
     private void registerAction(){
         agendarButton.addActionListener(new ActionListener() {
             @Override
@@ -85,6 +86,7 @@ public class registerAppointment extends JDialog {
         });
     }
 
+    //Let all fields without any text write on'em
     public void clearText(){
         typeField.setText("");
         detailField.setText("");
@@ -92,6 +94,7 @@ public class registerAppointment extends JDialog {
         timeField.setText("");
     }
 
+    //Set fields on dialog
     public void mask(){
         typeField.addKeyListener(new KeyAdapter() {
             @Override
@@ -171,8 +174,9 @@ public class registerAppointment extends JDialog {
 
     }
 
+    // validate all info write on fields
     public boolean validSchedule(String type, String dentist, String date, String time, String dateTime){
-        //validação do Tipo
+        //Validate appointmentType/treatmentType
         if(type.trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -181,16 +185,16 @@ public class registerAppointment extends JDialog {
             return false;
         }
 
-        //validação do dentista
+        //Dentist name validate
         if(dentist.trim().isEmpty()){
             JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(dentist.equals("Nome do Dentista")){
-            JOptionPane.showMessageDialog(null, "Tipo de Consulta é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nome do dentista é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
-        //validação da data
+        //Date validate
         if (date.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -199,7 +203,7 @@ public class registerAppointment extends JDialog {
             return false;
         }
 
-        //validação da horario
+        //Time validate
         if (time.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Horário é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -208,7 +212,7 @@ public class registerAppointment extends JDialog {
             return false;
         }
 
-        //Validação de Data/Horário
+        //Date Time validate
         if(dateTime.length() == 18){
             DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu / HH:mm").withResolverStyle(ResolverStyle.STRICT);
             try{

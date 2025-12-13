@@ -37,15 +37,19 @@ public class customerInformation {
     private DefaultTableModel tableNextModel;
     private DefaultTableModel tableHistoryModel;
 
+    //Classes pulled to set/get information on screen
     private MainScreen mainScreen;
     private Client client;
 
+    //Constructor of the class
     public customerInformation(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         tableNextModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
         tableHistoryModel = new DefaultTableModel(new Object[]{"Numero do Cadastro", "Cliente", "Procedimento", "Detalhe", "Data/Horário", "Dentista", "Status"}, 0);
         setupButtons(mainScreen);
     }
+
+    //Button setter to show all of them on screen
     public void setupButtons(MainScreen mainScreen){
         this.mainScreen = mainScreen;
         returnButton.addActionListener(event -> mainScreen.showClientes());
@@ -58,6 +62,8 @@ public class customerInformation {
             }
         });
     }
+
+    //Set info on screen to it respectively label
     public void loadCustomersInformations(Client client) {
         this.client = client;
         if (client != null) {
@@ -68,6 +74,7 @@ public class customerInformation {
         }
     }
 
+    // Birth Converter to exactly client year agr
     public String birthValueConversion(Client client){
         String birthYear = client.getBirthDate().substring(6,10);
         int birthYearConversion = Integer.parseInt(birthYear);
@@ -77,6 +84,7 @@ public class customerInformation {
 
     }
 
+    //Pull all clientSchedule by client's name
     public void loadScheduleClient(Client client){
         try{
             scheduleDB = DataBaseAgendamentos.getSchedules();
@@ -91,9 +99,9 @@ public class customerInformation {
 
                 if(schedule.getNameClient().equals(client.getName())){
                     if (parseDate.isEqual(dateNow) || parseDate.isAfter(dateNow)){
-                        addNext(schedule);
+                        scheduling.getScheduleOnScreen(schedule, tableNextModel);
                     }
-                    addHistory(schedule);
+                    scheduling.getScheduleOnScreen(schedule, tableHistoryModel);
                 }
 
             }
@@ -105,29 +113,5 @@ public class customerInformation {
             JOptionPane.showMessageDialog(null,"Erro ao carregar clientes: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
-
-    private void addNext(Schedule s) {
-        tableNextModel.addRow(new Object[]{
-                s.getIdSchedule(),
-                s.getClient().getName(),
-                s.getTypeTreatment(),
-                s.getDetails(),
-                s.getDiaHora(),
-                s.getNameDentist(),
-                s.getStatusTreatment()
-        });
-    }
-
-    private void addHistory(Schedule s) {
-        tableHistoryModel.addRow(new Object[]{
-                s.getIdSchedule(),
-                s.getClient().getName(),
-                s.getTypeTreatment(),
-                s.getDetails(),
-                s.getDiaHora(),
-                s.getNameDentist(),
-                s.getStatusTreatment()
-        });
     }
 }

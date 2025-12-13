@@ -26,6 +26,7 @@ public class editClient extends JDialog {
     private customerInformation customerInfo;
     private register register;
 
+    //Constructor for the editClient Dialog
     public editClient(MainScreen mainScreen, Client client, customerInformation customerInfo) {
         this.mainScreen = mainScreen;
         this.client = client;
@@ -41,11 +42,15 @@ public class editClient extends JDialog {
         setupButtons();
         setupMasksEdit();
     }
+
+    //Shows save and removeClient button on screen
     public void setupButtons() {
         btnRemove.addActionListener(e -> removeClient());
-        btnSave.addActionListener(e -> saveInformations());
+        btnSave.addActionListener(e -> saveClientInformations());
 
     }
+
+    //Pull all info of a specific client selected
     public void loadCustomersInformationsEdit(Client client){
         nameField.setText(client.getName());
         cpfField.setText(client.getCpf());
@@ -53,6 +58,8 @@ public class editClient extends JDialog {
         birthField.setText(client.getBirthDate());
 
     }
+
+    //Pull the removeClient function from DB
     public void removeClient() {
         int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover o cliente?", "Confirmar Remoção", JOptionPane.YES_NO_OPTION
         );
@@ -73,7 +80,8 @@ public class editClient extends JDialog {
         }
     }
 
-    public void saveInformations(){
+    //Function to saveButton works, this pulls the update client function
+    public void saveClientInformations(){
         String name = nameField.getText();
         String CPF = cpfField.getText();
         String telephone = telephoneField.getText();
@@ -109,6 +117,8 @@ public class editClient extends JDialog {
             JOptionPane.showMessageDialog(this, "Erro ao atualizar cliente: " + ex.getMessage());
         }
     }
+
+    //Set Fields to work on EditPanel
     public void setupMasksEdit() {
         cpfField.addKeyListener(new KeyAdapter() {
             @Override

@@ -33,6 +33,7 @@ public class MainScreen {
     private CardLayout cardLayout;
     private Client storeClient;
 
+    //Constructor to pull all the functions of the class itself
     public MainScreen() {
         initializePanels();
         setupNavigation();
@@ -42,6 +43,7 @@ public class MainScreen {
         applyNimbusToNavigationButtons();
     }
 
+    // Initiate all panels, set all them with nothing wrote on them
     private void initializePanels() {
         cardLayout = (CardLayout) cardsPanel.getLayout();
 
@@ -83,6 +85,8 @@ public class MainScreen {
         customerInformationCard.repaint();
 
     }
+
+    //Set the initial image that appears when the program initialize
     private void setupImageCard() {
         try {
             ImageIcon menuImage = new ImageIcon("Sapo/src/api/imagem/menuImagem.png");
@@ -106,6 +110,7 @@ public class MainScreen {
         }
     }
 
+    //Set all the buttons to navigate between registerClient, showClient and schedules
     private void setupNavigation() {
         styleNavigationButton(btnClientes, "Clientes");
         styleNavigationButton(btnCadastro, "Cadastrar");
@@ -113,7 +118,7 @@ public class MainScreen {
 
         btnClientes.addActionListener(e -> showClientes());
         btnCadastro.addActionListener(e -> showCadastro());
-        btnAgendamento.addActionListener( e -> showAgendamento());
+        btnAgendamento.addActionListener( e -> showSchedules());
         btnSair.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(mainPanel, "Tem certeza que deseja sair?", "Confirmar Saída", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
@@ -121,6 +126,8 @@ public class MainScreen {
             }
         });
     }
+
+    // Pull the class that references to the current function
     private String getCurrentCard() {
         CardLayout layout = (CardLayout) cardsPanel.getLayout();
 
@@ -134,6 +141,7 @@ public class MainScreen {
         return "imagemCard";
     }
 
+    //Front End effects
     private void styleNavigationButton(JButton button, String text) {
         button.setText(text);
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -165,6 +173,8 @@ public class MainScreen {
             }
         });
     }
+
+    //Front End effects 2
     private void applyNimbusToNavigationButtons() {
         try {
             LookAndFeel currentLAF = UIManager.getLookAndFeel();
@@ -184,6 +194,7 @@ public class MainScreen {
         }
     }
 
+    //Set all the buttons background as White
     private void updateButtonStates(JButton activeButton) {
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(219, 252,231));
@@ -192,6 +203,7 @@ public class MainScreen {
         activeButton.setBackground(new Color(122, 241, 168));
     }
 
+    //Pull the clients list to input the name and set customerInformation off
     public void schedulingModeActivated(){
         this.schedulingMode = true;
         this.showClientes();
@@ -202,12 +214,14 @@ public class MainScreen {
         JOptionPane.showMessageDialog(mainPanel, "Clique em um cliente para continuar o agendamento.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void setSchedulingModeFalse(){
+//    Set schedulingMode unactivated
+    public void setSchedulingModeFalse() {
         clientesPanelInstance.searchField.setBackground(Color.WHITE);
         clientesPanelInstance.searchField.setText("🔍 Digite o nome do cliente:");
         this.schedulingMode = false;
     }
 
+    //Return schedulingMode to not set customerInformation class always off
     public boolean isSchedulingMode(){
         return schedulingMode;
     }
@@ -220,11 +234,13 @@ public class MainScreen {
         this.storeClient = client;
     }
 
+    //Put clients info on the screen
     public void showClientes() {
         cardLayout.show(cardsPanel, "clientesCard");
         updateButtonStates(btnClientes);
     }
 
+    // Shows create client card
     public void showCadastro() {
         setSchedulingModeFalse();
         contentPaneInstance.clearClientsField();
@@ -233,22 +249,29 @@ public class MainScreen {
         updateButtonStates(btnCadastro);
     }
 
-    public void showAgendamento(){
+    //Shows schedules table
+    public void showSchedules(){
         setSchedulingModeFalse();
         schedulingPanelInstance.setFieldsSchedule();
         schedulingPanelInstance.loadSchedule();
         cardLayout.show(cardsPanel, "agendamentoCard");
         updateButtonStates(btnAgendamento);
     }
+
+    //load client info on customerInformationCard
     public void showCustomerInformation(Client clientSelected){
         this.storeClient = clientSelected;
         customerInformationInstance.loadCustomersInformations(clientSelected);
         customerInformationInstance.loadScheduleClient(clientSelected);
         cardLayout.show(cardsPanel, "customerInformationCard");
     }
+
+    //Shows Default menu that load the logo image (The frog image that appears when the system initialize)
     public void showMenuPrincipal(){
         cardLayout.show(cardsPanel, "imagemCard");
     }
+
+    //Reload ClientList when change any client info
     public void refreshClientList() {
         clientesPanelInstance.loadAllClients();
     }
