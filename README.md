@@ -41,7 +41,7 @@ Sistema completo para gestão de clínicas odontológicas de pequeno porte desen
 ##  **Arquitetura**
 
 ### **Padrão CardLayout**
-```java
+```bash
 MainScreen (Container Principal)
 ├── Clientes (Listagem dos pacientes)
 ├── Cadastro (Formulário de cadastro)
