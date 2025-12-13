@@ -9,12 +9,12 @@ Sistema completo para gestão de clínicas odontológicas de pequeno porte desen
 
 ##  **Sumário**
 
-- [ Funcionalidades](#-funcionalidades)
-- [ Arquitetura](#️-arquitetura)
-- [ Interface Gráfica](#️-interface-gráfica)
-- [ Instalação](#️-instalação)
-- [ Como Usar](#-como-usar)
-- [ Estrutura do Projeto](#️-estrutura-do-projeto)
+- [ Funcionalidades](#funcionalidades)
+- [ Arquitetura](#️arquitetura)
+- [ Interface Gráfica](#️interface-gráfica)
+- [ Instalação](#️instalação)
+- [ Como Usar](#como-usar)
+- [ Estrutura do Projeto](#️estrutura-do-projeto)
 
 ##  **Funcionalidades**
 
