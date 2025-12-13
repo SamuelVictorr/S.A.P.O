@@ -3,18 +3,18 @@
 ![Java](https://img.shields.io/badge/Java-24-blue)
 ![Swing](https://img.shields.io/badge/Swing-UI_Designer-orange)
 ![SQLite](https://img.shields.io/badge/SQLite-Database-green)
-![Status](https://img.shields.io/badge/Status-Completo-g)
+![Status](https://img.shields.io/badge/Status-Completo-green)
 
 Sistema completo para gestão de clínicas odontológicas de pequeno porte desenvolvido em Java Swing com interface moderna e funcionalidades completas para administração de pacientes, agendamentos e consultas.
 
-##  **Sumário**
+## **Sumário**
 
-- [ Funcionalidades](#funcionalidades)
-- [ Arquitetura](#️arquitetura)
-- [ Interface Gráfica](#️interface-gráfica)
-- [ Instalação](#️instalação)
-- [ Como Usar](#como-usar)
-- [ Estrutura do Projeto](#️estrutura-do-projeto)
+- [Funcionalidades](#funcionalidades)
+- [Arquitetura](#arquitetura)
+- [Interface Gráfica](#interface-gráfica)
+- [Instalação](#instalação)
+- [Como Usar](#como-usar)
+- [Estrutura do Projeto](#estrutura-do-projeto)
 
 ##  **Funcionalidades**
 
@@ -41,7 +41,7 @@ Sistema completo para gestão de clínicas odontológicas de pequeno porte desen
 ##  **Arquitetura**
 
 ### **Padrão CardLayout**
-```bash
+```
 MainScreen (Container Principal)
 ├── Clientes (Listagem dos pacientes)
 ├── Cadastro (Formulário de cadastro)
@@ -81,30 +81,29 @@ MainScreen (Container Principal)
 
 ### **Passo a Passo**
 
-- SQLite JDBC
+#### **SQLite JDBC**
 ```bash
-# 1. baixe o arquivo .jar em: https://github.com/xerial/sqlite-jdbc/releases/download/3.50.3.0/sqlite-jdbc-3.50.3.0.jar
+# 1. Baixe o arquivo .jar em: https://github.com/xerial/sqlite-jdbc/releases/download/3.50.3.0/sqlite-jdbc-3.50.3.0.jar
 
-# 2. Ir em settings -> Build, Execution, Deployment -> Build Tools -> Maven -> Arquetype Catalogs
-# 3. Clicar em adicionar(sinal de +)
-# 4. Adicionar o arquivo .jar do sqlite-jdbc em que voce baixou
+# 2. Ir em settings -> Build, Execution, Deployment -> Build Tools -> Maven -> Archetype Catalogs
+# 3. Clicar em adicionar (sinal de +)
+# 4. Adicionar o arquivo .jar do sqlite-jdbc que você baixou
 # 5. Clicar em Add e Apply
 ```
-- FlatLaf
+
+#### **FlatLaf**
 ```bash
 # 1. Ir em Project Structure -> Libraries -> New Project Library -> From Maven
 # 2. Copiar e colar esse código: 
-
 <dependency>
     <groupId>com.formdev</groupId>
     <artifactId>flatlaf</artifactId>
     <version>3.7</version>
 </dependency>
-
 # 3. Clicar em OK e Apply
 ```
 
-- Executar o SAPO
+#### **Executar o SAPO**
 ```bash
 # 1. Clone o repositório
 git clone https://github.com/seu-usuario/sapo.git
@@ -120,7 +119,7 @@ O sistema usa SQLite com banco de dados embutido:
 src/api/mydb.db
 ```
 
-## **Como Usar**
+##  **Como Usar**
 
 ### **Cadastrando um Cliente**
 1. Acesse **Clientes** → **Novo Cliente**
@@ -158,17 +157,13 @@ SAPO/
 │       ├── register.java (.form)
 │       ├── customerInformation.java (.form)
 │       ├── editClient.java (.form)
-|       ├── editStatusScheduling.java (.form)
+│       ├── editStatusScheduling.java (.form)
 │       ├── scheduling.java (.form)
 │       └── registerAppointment.java (.form)
 ├── README.md
 └── .gitignore
 ```
 
-
-
 ---
 
 **Desenvolvido por equipe SAPO**
-
-
