@@ -76,6 +76,7 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
+    //Update data clients function
     public static void updateClient(String name, String cpf, String telefone, String observacao, String activeState, String birthDate, String clinicId, String clientId) throws SQLException{
         Connection connection = connect();
         String sql = "UPDATE clientes SET name = ? ,cpf = ?,telefone = ?,observacao = ?, active_state = ?, data_nascimento = ?, id_clinica = ? WHERE id = ?";
@@ -92,7 +93,7 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
-    //Teste p/ ver se dá para verificar dentro do próprio DB
+    //Verify CPF Function
     public static boolean verifyCPF(String cpf) {
         boolean resultado;
         int[] lista = new int[11];
@@ -141,7 +142,7 @@ public class DataBase {
         return resultado;
     }
 
-    //Para teste
+    //Test psvm
     public static void main(String[] args) {
         try {
             removeClient("2");
