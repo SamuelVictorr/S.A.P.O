@@ -28,7 +28,7 @@ public class DataBase {
     public static List<Client> getClients() throws SQLException {
         Connection connection = connect();
 
-        String sql = "SELECT * FROM clientes";
+        String sql = "SELECT * FROM clientes ORDER BY name";
         List<Client> clients = new ArrayList<>();
 
         assert connection != null;
@@ -98,7 +98,7 @@ public class DataBase {
         stmt.executeUpdate();
     }
 
-    //Verify Cpf input on code
+    //Verify CPF Function
     public static boolean verifyCPF(String cpf) {
         boolean resultado;
         int[] lista = new int[11];

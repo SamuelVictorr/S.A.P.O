@@ -127,7 +127,7 @@ public class MainScreen {
         });
     }
 
-    // Pull the class that references to the current function
+    //Auxiliar function for styleNavigationButton
     private String getCurrentCard() {
         CardLayout layout = (CardLayout) cardsPanel.getLayout();
 
@@ -151,6 +151,7 @@ public class MainScreen {
         button.setFocusPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        //Hover effect
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -194,7 +195,7 @@ public class MainScreen {
         }
     }
 
-    //Set all the buttons background as White
+    //Set all the buttons background as White when mouse not in button
     private void updateButtonStates(JButton activeButton) {
         btnClientes.setBackground(new Color(219, 252,231));
         btnCadastro.setBackground(new Color(219, 252,231));
@@ -203,6 +204,7 @@ public class MainScreen {
         activeButton.setBackground(new Color(122, 241, 168));
     }
 
+    //Set schedulingMode On/Activated
     //Pull the clients list to input the name and set customerInformation off
     public void schedulingModeActivated(){
         this.schedulingMode = true;
@@ -221,7 +223,7 @@ public class MainScreen {
         this.schedulingMode = false;
     }
 
-    //Return schedulingMode to not set customerInformation class always off
+    //Return schedulingMode status (if it's false/true)
     public boolean isSchedulingMode(){
         return schedulingMode;
     }
@@ -230,6 +232,7 @@ public class MainScreen {
         return this.storeClient;
     }
 
+    // Set client selected or the client which got his info's changed updated in main screen
     public void setStoreClient(Client client){
         this.storeClient = client;
     }
@@ -240,7 +243,7 @@ public class MainScreen {
         updateButtonStates(btnClientes);
     }
 
-    // Shows create client card
+    //Shows register form to add clients in DB
     public void showCadastro() {
         setSchedulingModeFalse();
         contentPaneInstance.clearClientsField();
@@ -257,8 +260,6 @@ public class MainScreen {
         cardLayout.show(cardsPanel, "agendamentoCard");
         updateButtonStates(btnAgendamento);
     }
-
-    //load client info on customerInformationCard
     public void showCustomerInformation(Client clientSelected){
         this.storeClient = clientSelected;
         customerInformationInstance.loadCustomersInformations(clientSelected);
@@ -266,7 +267,7 @@ public class MainScreen {
         cardLayout.show(cardsPanel, "customerInformationCard");
     }
 
-    //Shows Default menu that load the logo image (The frog image that appears when the system initialize)
+    //Show Image Menu
     public void showMenuPrincipal(){
         cardLayout.show(cardsPanel, "imagemCard");
     }
