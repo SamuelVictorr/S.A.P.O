@@ -3,18 +3,19 @@
 ![Java](https://img.shields.io/badge/Java-24-blue)
 ![Swing](https://img.shields.io/badge/Swing-UI_Designer-orange)
 ![SQLite](https://img.shields.io/badge/SQLite-Database-green)
-![Status](https://img.shields.io/badge/Status-Completo-green)
+![Status](https://img.shields.io/badge/Status-Completo-g)
 
-Sistema completo para gestão de clínicas odontológicas de pequeno porte desenvolvido em Java Swing com interface moderna e funcionalidades completas para administração de pacientes, agendamentos e consultas.
+Sistema completo para gestão de clínicas odontológicas de pequeno porte, desenvolvido em Java Swing com interface moderna e funcionalidades completas para administração de pacientes, agendamentos e consultas.
 
-## **Sumário**
+##  **Sumário**
 
-- [Funcionalidades](#funcionalidades)
-- [Arquitetura](#arquitetura)
-- [Interface Gráfica](#interface-gráfica)
-- [Instalação](#instalação)
-- [Como Usar](#como-usar)
-- [Estrutura do Projeto](#estrutura-do-projeto)
+- [ Funcionalidades](#funcionalidades)
+- [ Arquitetura](#arquitetura)
+- [ Interface Gráfica](#interface-gráfica)
+- [ Instalação](#instalação)
+- [ Como Usar](#como-usar)
+- [ Estrutura do Projeto](#estrutura-do-projeto)
+- [ Equipe de Desenvolvimento](#equipe-de-desenvolvimento)
 
 ##  **Funcionalidades**
 
@@ -75,38 +76,39 @@ MainScreen (Container Principal)
 ### **Pré-requisitos/Tecnologias**
 - Java JDK 17 ou superior
 - IntelliJ IDEA (recomendado) ou Eclipse
-- SQLite JDBC Driver
-- FlatLaf
+- SQLite JDBC Driver (sqlite-jdbc-3.50.3.0)
+- FlatLaf (v. 3.7)
 - Swing UI Designer (para visualizar arquivos .form)
 
 ### **Passo a Passo**
 
-#### **SQLite JDBC**
+- SQLite JDBC
 ```bash
-# 1. Baixe o arquivo .jar em: https://github.com/xerial/sqlite-jdbc/releases/download/3.50.3.0/sqlite-jdbc-3.50.3.0.jar
+# 1. baixe o arquivo .jar em: https://github.com/xerial/sqlite-jdbc/releases/download/3.50.3.0/sqlite-jdbc-3.50.3.0.jar
 
-# 2. Ir em settings -> Build, Execution, Deployment -> Build Tools -> Maven -> Archetype Catalogs
-# 3. Clicar em adicionar (sinal de +)
-# 4. Adicionar o arquivo .jar do sqlite-jdbc que você baixou
+# 2. Ir em settings -> Build, Execution, Deployment -> Build Tools -> Maven -> Arquetype Catalogs
+# 3. Clicar em adicionar(sinal de +)
+# 4. Adicionar o arquivo .jar do sqlite-jdbc em que voce baixou
 # 5. Clicar em Add e Apply
 ```
-
-#### **FlatLaf**
+- FlatLaf
 ```bash
 # 1. Ir em Project Structure -> Libraries -> New Project Library -> From Maven
 # 2. Copiar e colar esse código: 
+
 <dependency>
     <groupId>com.formdev</groupId>
     <artifactId>flatlaf</artifactId>
     <version>3.7</version>
 </dependency>
+
 # 3. Clicar em OK e Apply
 ```
 
-#### **Executar o SAPO**
+- Executar o SAPO
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/seu-usuario/sapo.git
+git clone https://github.com/SamuelVictorr/S.A.P.O.git
 
 # 2. Abra no IntelliJ IDEA
 # 3. Configure o JDK 17
@@ -119,7 +121,7 @@ O sistema usa SQLite com banco de dados embutido:
 src/api/mydb.db
 ```
 
-##  **Como Usar**
+## **Como Usar**
 
 ### **Cadastrando um Cliente**
 1. Acesse **Clientes** → **Novo Cliente**
@@ -127,7 +129,7 @@ src/api/mydb.db
 3. Observe as máscaras aplicando automaticamente
 4. Clique em **Cadastrar** para salvar
 
-### **Editando/Removendo um Cliente**
+### **Editando e Removendo um Cliente**
 1. Clique em qualquer cliente na lista
 2. Na tela de informações, clique em **Editar**
 3. Faça as alterações necessárias
@@ -137,7 +139,7 @@ src/api/mydb.db
 1. Acesse **Agendamentos** → **Novo Agendamento**
 2. Selecione cliente, dentista e procedimento
 3. Defina data e horário
-4. Adicione observações se necessário
+4. Adicione observações, se necessário
 
 ##  **Estrutura do Projeto**
 
@@ -157,7 +159,7 @@ SAPO/
 │       ├── register.java (.form)
 │       ├── customerInformation.java (.form)
 │       ├── editClient.java (.form)
-│       ├── editStatusScheduling.java (.form)
+|       ├── editStatusScheduling.java (.form)
 │       ├── scheduling.java (.form)
 │       └── registerAppointment.java (.form)
 ├── README.md
@@ -166,4 +168,35 @@ SAPO/
 
 ---
 
-**Desenvolvido por equipe SAPO**
+## **Equipe de Desenvolvimento**
+
+- **Camila Moura**
+    * LinkedIn [/camilacelestino](https://www.linkedin.com/in/camilacelestino)
+    * GitHub [/ccelesti](https://github.com/ccelesti)
+<br>
+
+- **Davi Wanderley**
+    * LinkedIn [/odaviespecifico](https://www.linkedin.com/in/davi-wanderley-9512042a8/)
+    * GitHub [/Odaviespecifico](https://github.com/Odaviespecifico)
+<br>
+
+- **Gabriel Lucas**
+    * LinkedIn [/gabriel-lucas](https://www.linkedin.com/in/gabriel-lucas-de-oliveira-xavier-507564358/)
+    * GitHub [/Ggeasy1574](https://github.com/Ggeasy1574)
+<br>
+
+- **José Miguel**
+    * LinkedIn [/miguel-leao](https://www.linkedin.com/in/miguel-leao-157aa5368/)
+    * GitHub [/JM8778](https://github.com/JM8778)
+<br>
+
+- **Leonardo Rafael**
+    * LinkedIn [/leonardorafael1604](https://www.linkedin.com/in/leonardorafael1604/)
+    * GitHub [/LeonardoRDA1604](https://github.com/LeonardoRDA1604)
+<br>
+
+- **Samuel Victor**
+    * LinkedIn [/samuel-victor](https://www.linkedin.com/in/samuel-victor-3426b3368/)
+    * GitHub [/samuel-victorr](https://github.com/SamuelVictorr)
+
+---
