@@ -85,7 +85,6 @@ MainScreen (Container Principal)
 - SQLite JDBC
 ```bash
 # 1. baixe o arquivo .jar em: https://github.com/xerial/sqlite-jdbc/releases/download/3.50.3.0/sqlite-jdbc-3.50.3.0.jar
-
 # 2. Ir em settings -> Build, Execution, Deployment -> Build Tools -> Maven -> Arquetype Catalogs
 # 3. Clicar em adicionar(sinal de +)
 # 4. Adicionar o arquivo .jar do sqlite-jdbc em que voce baixou
@@ -104,7 +103,13 @@ MainScreen (Container Principal)
 
 # 3. Clicar em OK e Apply
 ```
-
+- Swing UI Designer(caso você esteja usando o IntelliJ IDEA)
+```bash
+# 1. Abra a aba de plugins do IntelliJ
+# 2. Procure por "Swing UI Designer"
+# 3. Clique em Install
+# 4. Feche e abra o IntelliJ para o plugin funcionar nos arquivos .form
+```
 - Executar o SAPO
 ```bash
 # 1. Clone o repositório
