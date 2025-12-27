@@ -24,10 +24,10 @@ public class DataBaseAgendamentos {
     public static List<Schedule> getSchedules() throws SQLException {
         Connection connection = connect();
 
-        String sql = "SELECT a.diahora, a.tipo_tratamento, a.detalhes , ct.name, f.name_funcionario, c.nome_fantasia\n" +
+        String sql = "SELECT a.*, ct.name, f.name_funcionario, c.nome_fantasia\n" +
                 "FROM agendamentos as a \n" +
                 "LEFT JOIN clientes as ct, funcionarios as f, clinicas as c \n" +
-                "ON a.id_cliente = ct.id ";
+                "ON a.id_cliente = ct.id AND f.tipo_funcionario = 'Dentista' ";
         List<Schedule> schedule = new ArrayList<>();
 
         try (Statement stmt = connection.createStatement();
