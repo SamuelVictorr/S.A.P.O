@@ -4,25 +4,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseAgendamentos {
-    // Connection to database
-    public static Connection connect() {
-        // connection string
-        var url = "jdbc:sqlite:Sapo/src/api/mydb.db";
 
-        try {
-            var conn = DriverManager.getConnection(url);
-            System.out.println("Connection to SQLite has been established.");
-            return conn;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
+public class DataBaseAgendamentos {
 
     //Pull appointment info from DB
     public static List<Schedule> getSchedules() throws SQLException {
-        Connection connection = connect();
+        Connection connection = DataBase.connect();
 
         String sql = "SELECT a.*, ct.name, f.name_funcionario, c.nome_fantasia\n" +
                 "FROM agendamentos as a \n" +
@@ -51,7 +38,7 @@ public class DataBaseAgendamentos {
 
     //Register a new appointment in DB
     public static void addSchedule(String diaHora, String details, String statusTreatment, String nameDentist, String idClient, String clinicId, String treatmentType, String idDentista, String nameClient) throws SQLException {
-        Connection connection = connect();
+        Connection connection = DataBase.connect();
         String sql = "INSERT INTO agendamentos (diahora,detalhes, status_tratamento, id_clinica, id_cliente, nome_dentista, tipo_tratamento, id_dentista, nome_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
@@ -70,7 +57,7 @@ public class DataBaseAgendamentos {
 
     //Update treatmentStatus to "Finalized"
     public static void removeSchedule(int idSchedule) throws SQLException {
-        Connection connection = connect();
+        Connection connection = DataBase.connect();
         String novoEstado = "Finalzado";
         String sql = "UPDATE agendamentos SET status_tratamento = ? WHERE id_agendamento = ?";
         assert connection != null;
@@ -83,7 +70,7 @@ public class DataBaseAgendamentos {
 
     //Update all info related to a specific appointment on DB
     public static void updateSchedule(String diahora, String typeTreatment, int clientId, String dentistId, String status, String details, int idSchedule) throws SQLException {
-        Connection connection = connect();
+        Connection connection = DataBase.connect();
         String sql = "UPDATE agendamentos SET diahora = ?, tipo_tratamento = ?, id_cliente = ?, id_dentista = ?, status_tratamento = ?, detalhes = ? WHERE id_agendamento = ?";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
@@ -99,7 +86,7 @@ public class DataBaseAgendamentos {
 
     //Update treatmentStatus of a specific appointment
     public static void updateStatusSchedule(String newTreatmentStatus, int idSchedule) throws SQLException {
-        Connection connection = connect();
+        Connection connection = DataBase.connect();
         String sql = "UPDATE agendamentos SET status_tratamento = ? WHERE id_agendamento = ? ";
         assert connection != null;
         var stmt = connection.prepareStatement(sql);
